@@ -72,7 +72,7 @@
             alert('送信しました。')
           })
         }else if(this.sentence && this.getMode === 'answer') {
-          this.postTweet(this.sentence, '', 'tweet', 'answer')        
+          this.postTweet(this.sentence, this.getContentId, 'tweet', 'answer')        
         }else if(this.sentence && this.getMode === 'reply') {
           await this.$axios.$post(
             'https://q-box.microcms.io/api/v1/q_box_replies/', 
