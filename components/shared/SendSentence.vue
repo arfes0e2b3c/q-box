@@ -137,7 +137,7 @@
         let data = []
         if(mode === 'tweet') {
           data = {
-            text: slicedAnswer[0] + '\nhttps://teratail.com/questions/343834'
+            text: slicedAnswer[0] + '\nhttps://immense-sea-94037.herokuapp.com/' + id
           }
         }else if(mode === 'reply'){
           data = {

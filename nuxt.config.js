@@ -16,7 +16,7 @@ export default {
       { hid: 'description', name: 'description', content: 'お手伝いサークルの質問箱です' },
       { hid: 'og:site_name', property: 'og:site_name', content: '質問箱' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:url', property: 'og:url', content: 'http://localhost:3000/' },
+      { hid: 'og:url', property: 'og:url', content: 'https://immense-sea-94037.herokuapp.com' },
       { hid: 'og:title', property: 'og:title', content: '質問や過去の回答はこちらから！' },
       { hid: 'og:description', property: 'og:description', content: 'お手伝いサークルの質問箱です' },
       { hid: 'og:image', property: 'og:image', content: 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png' },
@@ -62,7 +62,7 @@ export default {
   fontawesome: {
     component: 'fa'
   },
-  
+
   proxy: {
     '/api/': {
       target: 'https://api.twitter.com',
