@@ -66,7 +66,7 @@
         url: "",
         image: ""
       },
-      base: "http://localhost:3000",
+      base: "https://immense-sea-94037.herokuapp.com",
       MICROCMS_KEY: '',
       posts: [],
       modeQuestion: 'question',
