@@ -87,13 +87,13 @@
       headers: { 'X-MICROCMS-API-KEY': this.MICROCMS_KEY}
     }).then((response) => {
       // this.meta.image = this.item.ImgixImageUrl + this.item.ImgixTextUrl + base64url(response.contents[0].question)
-      this.meta.image = 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center'
+      this.meta.image = 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png'
       this.meta.title = response.contents[0].question
     })
     this.meta.description = this.item.explanation
     this.meta.type = "article"
     this.meta.url = this.base + path
-    console.log(this.meta.url)
+    console.log(this.meta.image)
 
     // ここから先でmetaタグを書いていく
     return {
