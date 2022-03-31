@@ -1,0 +1,17 @@
+{
+  "AnswerWaitPost": {
+    "description": "Auto imported from components/AnswerWaitPost.vue"
+  },
+  "AnswerWaitReply": {
+    "description": "Auto imported from components/AnswerWaitReply.vue"
+  },
+  "FilteredPost": {
+    "description": "Auto imported from components/FilteredPost.vue"
+  },
+  "NewPost": {
+    "description": "Auto imported from components/NewPost.vue"
+  },
+  "SharedSendSentence": {
+    "description": "Auto imported from components/shared/SendSentence.vue"
+  }
+}

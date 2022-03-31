@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/lqyh5xgd2", {data:[{payload:"峰沢国際交流会館って友達や恋人を部屋に泊めることはできますか？外泊などルールがあったら知りたいです。"}],fetch:{},mutations:void 0});

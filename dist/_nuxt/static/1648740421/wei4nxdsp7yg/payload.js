@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/wei4nxdsp7yg", {data:[{payload:"ネイティブが担当している二外で落単することはありますか？(出席は足りてます)"}],fetch:{},mutations:void 0});
