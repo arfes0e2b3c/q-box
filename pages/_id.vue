@@ -76,26 +76,21 @@
       showFilteredPost: false
     };
   },
+  asyncData({ payload }) {
+    if (payload) {
+      return { payload }
+    }
+  },
   head() {
 
     // 相対パスを取得。例えば'/item/1'とか
     const path = this.$route.path
-    console.log('path' + path)
     // ここでmetaの中身を更新
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY
-    this.$axios.$get('https://q-box.microcms.io/api/v1/q_box_posts?filters=id[equals]' + path.slice(1), {
-      headers: { 'X-MICROCMS-API-KEY': this.MICROCMS_KEY}
-    }).then((response) => {
-      console.log('response' + response.contents[0].id)
-      // this.meta.image = this.item.ImgixImageUrl + this.item.ImgixTextUrl + base64url(response.contents[0].question)
-      this.meta.image = 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png'
-      this.meta.title = response.contents[0].question
-    })
     this.meta.description = this.item.explanation
     this.meta.type = "article"
     this.meta.url = this.base + path
-    console.log('image' + this.meta.image)
-
+    this.meta.image = this.meta.image = this.item.ImgixImageUrl + this.item.ImgixTextUrl + base64url(this.payload)
+    this.meta.title = this.payload
     // ここから先でmetaタグを書いていく
     return {
       title: this.meta.title,
@@ -106,7 +101,7 @@
         { hid: "og:type", property: "og:type", content: this.meta.type },
         { hid: "og:url", property: "og:url", content: this.meta.url },
         { hid: "og:image", property: "og:image", content: this.meta.image },
-        { name: "twitter:title", content: this.meta.title },
+        { name: "twitter:title", content: this.payload },
         // { name: "twitter:title", content: '質問や過去の回答はこちらから' },
         { name: "twitter:card", content: "summary_large_image" }
       ]

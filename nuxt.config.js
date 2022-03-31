@@ -2,6 +2,7 @@ require('dotenv').config();
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
+  target: 'static',
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -20,7 +21,8 @@ export default {
       { hid: 'og:title', property: 'og:title', content: '質問や過去の回答はこちらから！' },
       { hid: 'og:description', property: 'og:description', content: 'お手伝いサークルの質問箱です' },
       { hid: 'og:image', property: 'og:image', content: 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png' },
-      { name: "twitter:card", content: "summary_large_image" }
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: 'twitter:site', content: '@qBoxDevelopMan' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -82,5 +84,22 @@ export default {
     CONSUMER_KEY_SECRET: process.env.CONSUMER_KEY_SECRET || '',
     ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY || '',
     ACCESS_TOKEN_KEY_SECRET: process.env.ACCESS_TOKEN_KEY_SECRET || '',
+  },
+  generate: {
+    async routes() {
+      const axios = require('axios').default;
+      // ここでmetaの中身を更新
+      const MICROCMS_KEY = process.env.MICROCMS_Q_BOX_KEY
+      return axios.get('https://q-box.microcms.io/api/v1/q_box_posts?fields=question,id&answer[exists]', {
+        headers: { 'X-MICROCMS-API-KEY': MICROCMS_KEY}
+      }).then((response) => {
+        return response.data.contents.map(post => {
+          return {
+            route: '/' + post.id,
+            payload: post.question
+          } 
+        })
+      })
+    }
   }
 }
