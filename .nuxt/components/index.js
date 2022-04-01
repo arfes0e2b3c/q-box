@@ -1,8 +1,8 @@
-export const AnswerWaitPost = () => import('../../components/AnswerWaitPost.vue' /* webpackChunkName: "components/answer-wait-post" */).then(c => wrapFunctional(c.default || c))
-export const AnswerWaitReply = () => import('../../components/AnswerWaitReply.vue' /* webpackChunkName: "components/answer-wait-reply" */).then(c => wrapFunctional(c.default || c))
-export const FilteredPost = () => import('../../components/FilteredPost.vue' /* webpackChunkName: "components/filtered-post" */).then(c => wrapFunctional(c.default || c))
-export const NewPost = () => import('../../components/NewPost.vue' /* webpackChunkName: "components/new-post" */).then(c => wrapFunctional(c.default || c))
-export const SharedSendSentence = () => import('../../components/shared/SendSentence.vue' /* webpackChunkName: "components/shared-send-sentence" */).then(c => wrapFunctional(c.default || c))
+export { default as AnswerWaitPost } from '../../components/AnswerWaitPost.vue'
+export { default as AnswerWaitReply } from '../../components/AnswerWaitReply.vue'
+export { default as FilteredPost } from '../../components/FilteredPost.vue'
+export { default as NewPost } from '../../components/NewPost.vue'
+export { default as SharedSendSentence } from '../../components/shared/SendSentence.vue'
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

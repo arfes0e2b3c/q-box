@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/7wnn04955", {data:[{payload:"TOEFLは何かしら勉強した結果点数が上がったのですか？特に何もしていませんか？"}],fetch:{},mutations:void 0});

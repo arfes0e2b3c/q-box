@@ -9,6 +9,8 @@
   </transition>
 </template>>
 <script>
+  import OAuth from 'oauth-1.0a'
+  import crypto from 'crypto'
   export default{
     props:{
       mode: '',
@@ -109,8 +111,8 @@
             slicedAnswer.push(answer.slice(i,i + TWEET_LIMIT_CHARS))
           }
         }
-        const OAuth = require('oauth-1.0a')
-        const crypto = require('crypto')
+        // const OAuth = require('oauth-1.0a')
+        // const crypto = require('crypto')
         const oauth = OAuth({
           consumer: {
             key: this.CONSUMER_KEY,
@@ -134,7 +136,7 @@
         }
         let config = oauth.toHeader(oauth.authorize(request, token)).Authorization
 
-        let data = []
+        let data = {}
         if(mode === 'tweet') {
           data = {
             text: slicedAnswer[0] + '\nhttps://immense-sea-94037.herokuapp.com/' + id
@@ -149,14 +151,16 @@
         }else{
           console.log('not fit!')
         }
-
+        console.log(this.$axios.$post())
         this.$axios.$post(
           "/api/tweets", data, {
             headers: {
+              "Content-Type": "application/json",
               authorization: config
             },
         })
         .then((response) => {
+          console.log('一応できとるよ',response)
           if(slicedAnswer.length > 1){
             this.postTweet(slicedAnswer.slice(1), response.data.id, 'reply')
           }
@@ -167,7 +171,7 @@
             this.setReplyTweetId(response.data.id)
           }
         }).catch((error) => {
-          alert('通信に失敗しました。：' + error)
+          alert('ツイートする際の通信に失敗しました。：' + error)
           console.log(error)
         })
       },
