@@ -101,7 +101,6 @@ export default {
         }
       )
       .then((response) => {
-        console.log(response.data);
         this.payload = response.data;
       });
   },
@@ -111,8 +110,7 @@ export default {
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
     this.meta.url = this.base + "/" + id;
-    console.log(this.payload);
-    this.meta.image = this.meta.image =
+    this.meta.image =
       this.item.ImgixImageUrl +
       this.item.ImgixTextUrl +
       base64url(this.payload.question);
