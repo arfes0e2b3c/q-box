@@ -6,16 +6,16 @@
     </div>
     <p v-show="!posts[0]">質問はありません</p>
     <transition-group name="flip-list">
-      <li v-for="post in posts" :key="post.id" :class="{held: post.held}" 
-
-      >
+      <li v-for="post in posts" :key="post.id" :class="{ held: post.held }">
         <div class="box">
           <div>
             <button @click="deletePost(post.id)">削除</button>
             <button @click="holdPost(post.id, post.held)">保留</button>
           </div>
           <h3>{{ post.question }}</h3>
-          <button @click="showSendSentence(post.id)" class="toggle-button">開閉</button>
+          <button @click="showSendSentence(post.id)" class="toggle-button">
+            開閉
+          </button>
         </div>
         <SendSentence
           class="send-sentence"
@@ -36,165 +36,172 @@
   </ul>
 </template>
 <script>
-import Common from '~/plugins/common.js'
-import SendSentence from '~/components/shared/SendSentence.vue'
-export default{
-  components:{
-    SendSentence
+import Common from "~/plugins/common.js";
+import SendSentence from "~/components/shared/SendSentence.vue";
+export default {
+  components: {
+    SendSentence,
   },
-  data(){
-    return{
-      posts:[],
-      modeAnswer: 'answer',
+  data() {
+    return {
+      posts: [],
+      modeAnswer: "answer",
       heldOnly: false,
-    }
+    };
   },
-  methods:{
+  methods: {
     showSendSentence(id) {
-      this.$refs[id][0].toggle()
+      this.$refs[id][0].toggle();
     },
     async getPosts() {
-      await this.$axios.$get('https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt', {
-        headers: { 'X-MICROCMS-API-KEY': this.$config.MICROCMS_KEY}
-      }).then((response) => {
-        this.$set(this, 'posts', response.contents)
-      }).catch((error) => {
-        alert('通信に失敗しました。：' + error)
-        console.log(error)
-      })
+      await this.$axios
+        .$get(
+          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt",
+          {
+            headers: { "X-MICROCMS-API-KEY": this.$config.MICROCMS_KEY },
+          }
+        )
+        .then((response) => {
+          this.$set(this, "posts", response.contents);
+        })
+        .catch((error) => {
+          alert("通信に失敗しました。：" + error);
+          console.log(error);
+        });
     },
     deletePost(id) {
-      Common.deletePost(this, id, 'q_box_posts', this.$config.MICROCMS_KEY)
+      Common.deletePost(this, id, "q_box_posts", this.$config.MICROCMS_KEY);
     },
     holdPost(id, held) {
-      Common.holdPost(this, id, 'q_box_posts', this.$config.MICROCMS_KEY, held)
+      Common.holdPost(this, id, "q_box_posts", this.$config.MICROCMS_KEY, held);
     },
     held() {
-      if(!this.heldOnly) {
+      if (!this.heldOnly) {
         this.posts.sort((first, second) => {
-          return (first.held === second.held) ? 0 : first.held ? -1 : 1
-        })
-      }else{
+          return first.held === second.held ? 0 : first.held ? -1 : 1;
+        });
+      } else {
         this.posts.sort((first, second) => {
-          return (first.createdAt > second.createdAt) ? 0 : -1
-        })
+          return first.createdAt > second.createdAt ? 0 : -1;
+        });
       }
-      this.heldOnly = !this.heldOnly
-    }
+      this.heldOnly = !this.heldOnly;
+    },
   },
-  async mounted(){
-    this.getPosts()
-  }
-}
+  async mounted() {
+    this.getPosts();
+  },
+};
 </script>
 <style scoped lang="scss">
-  header{
-    width: 100%;
-    height: 70px;
+header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ul {
+  width: 80%;
+  margin: 0 auto;
+  > div {
     display: flex;
-    justify-content: center; 
+    margin: 10px 0;
+  }
+  h2 {
+    font-size: 2.2em;
+  }
+  li {
+    display: flex;
     align-items: center;
-  }
-  ul{
-    width: 80%;
-    margin: 0 auto;
-    >div{
+    flex-direction: column;
+    list-style: none;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    overflow-wrap: break-word;
+    .box {
+      width: 100%;
       display: flex;
-      margin: 10px 0;
-    }
-    h2{
-      font-size: 2.2em;
-    }
-    li{
-      display: flex;
+      justify-content: space-between;
       align-items: center;
-      flex-direction: column;
-      list-style: none;
-      box-shadow:0 0 5px 5px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin: 20px 0;
-      overflow-wrap: break-word;
-      .box{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        h3{
-          width: 70%;
-          text-align: center;
-          white-space: pre-wrap;
+      h3 {
+        width: 70%;
+        text-align: center;
+        white-space: pre-wrap;
+      }
+      div button,
+      button {
+        width: 50px;
+        height: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        background: none;
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover {
+          background-color: #d77;
+          border: 1px solid rgba(200, 0, 0, 1);
+          color: white;
         }
-        div button, button{
-          width: 50px;
-          height: 30px;
-          border: 1px solid rgba(0,0,0,0.3);
-          border-radius: 5px;
-          background: none;
-          transition: .5s;
-          cursor: pointer;
-          &:hover{
-            background-color: #d77;
-            border: 1px solid rgba(200,0,0,1);
-            color: white;
-          }
-        }
-        .toggle-button{
-          width: 100px;
-          &:hover{
-            background-color: rgb(48, 48, 48);
-            border-color: rgb(48,48,48);
-          }
+      }
+      .toggle-button {
+        width: 100px;
+        &:hover {
+          background-color: rgb(48, 48, 48);
+          border-color: rgb(48, 48, 48);
         }
       }
     }
-    .held{
-      background-color: #333;
+  }
+  .held {
+    background-color: #333;
+    color: white;
+    .box div button {
       color: white;
-      .box div button{
-        color: white;
-        border: 1px solid rgba(255,255,255,1);
-      }
-      div .toggle-button{
-        color: white;
-        border: 1px solid rgba(255,255,255,1);
-        &:hover{
-          background-color: rgb(255,255,255);
-          border: 1px solid rgba(255,255,255,1);
-          color: rgb(48,48,48);
-        }
+      border: 1px solid rgba(255, 255, 255, 1);
+    }
+    div .toggle-button {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 1);
+      &:hover {
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgba(255, 255, 255, 1);
+        color: rgb(48, 48, 48);
       }
     }
   }
-  .flip-list-move{
-    transition: transform .5s;
-  }
-  @media (max-width: 520px) {
-  ul{
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+@media (max-width: 520px) {
+  ul {
     width: 100%;
-    div h2{
+    div h2 {
       font-size: 1.6em;
       margin-left: 10px;
     }
-    li{
+    li {
       padding: 10px;
       margin: 10px 0;
       .box {
-        h3{
+        h3 {
           width: auto;
           font-size: 1em;
           max-width: calc(100% - 120px);
         }
-        div{
+        div {
           width: 50px;
-          button{
+          button {
             margin: 5px 0;
           }
-        } 
-        .toggle-button{
+        }
+        .toggle-button {
           width: 50px;
           height: 70px;
         }
-      }    
+      }
     }
   }
 }
