@@ -1,8 +1,8 @@
 require('dotenv').config();
+import axios from 'axios'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: true,
-  target: 'static',
+  ssr: false,
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -54,6 +54,16 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+    baseURL: '/',
+    proxy: true,
+  },
+
+  fontawesome: {
+    component: 'fa'
+  },
+
   proxy: {
     '/api/': {
       target: 'https://api.twitter.com',
@@ -62,20 +72,17 @@ export default {
       }
     }
   },
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
-    // proxy: true,
-  },
-
-  fontawesome: {
-    component: 'fa'
-  },
-
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     
+  },
+  publicRuntimeConfig: {
+    MICROCMS_KEY: process.env.MICROCMS_Q_BOX_KEY || '',
+    CONSUMER_KEY: process.env.CONSUMER_KEY || '',
+    CONSUMER_KEY_SECRET: process.env.CONSUMER_KEY_SECRET || '',
+    ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY || '',
+    ACCESS_TOKEN_KEY_SECRET: process.env.ACCESS_TOKEN_KEY_SECRET || '',
   },
   env: {
     MICROCMS_KEY: process.env.MICROCMS_Q_BOX_KEY || '',
@@ -83,28 +90,5 @@ export default {
     CONSUMER_KEY_SECRET: process.env.CONSUMER_KEY_SECRET || '',
     ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY || '',
     ACCESS_TOKEN_KEY_SECRET: process.env.ACCESS_TOKEN_KEY_SECRET || '',
-  },
-  generate: {
-    async routes() {
-      const axios = require('axios').default;
-      // ここでmetaの中身を更新
-      const MICROCMS_KEY = process.env.MICROCMS_Q_BOX_KEY
-      return axios.get('https://q-box.microcms.io/api/v1/q_box_posts?fields=question,id&answer[exists]', {
-        headers: { 'X-MICROCMS-API-KEY': MICROCMS_KEY}
-      }).then((response) => {
-        return response.data.contents.map(post => {
-          return {
-            route: '/' + post.id,
-            payload: post.question
-          } 
-        })
-      })
-    },
-    home() {
-      return {route: '/'}
-    },
-    answer() {
-      return {route: '/answer'}
-    }
   }
 }

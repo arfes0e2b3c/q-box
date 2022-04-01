@@ -4,7 +4,7 @@
       <h3 v-show="getMode === 'question'">お手伝いサークルに質問する</h3>
       <textarea :placeholder="this.textareaWord[mode]" v-model="sentence" autocomplete="off"></textarea>
       <p v-show="getMode === 'answer' || getMode === 'replyForReply'">{{ this.sentence.length }}</p>
-      <button @click="sendSentence" class="button">{{this.buttonWord[mode]}}</button>
+      <button @click="sendSentence()" class="button">{{this.buttonWord[mode]}}</button>
     </div>
   </transition>
 </template>>
@@ -101,6 +101,7 @@
         }
       },
       async postTweet(answer, id, mode, sendSentenceMode) {
+        console.log('posttweet',answer,id)
         const TWEET_LIMIT_CHARS_INCLUDE_URL = 110
         const TWEET_LIMIT_CHARS = 140
         let slicedAnswer = [...answer]
@@ -151,27 +152,26 @@
         }else{
           console.log('not fit!')
         }
-        console.log(this.$axios.$post())
+        console.log('config',config)
         this.$axios.$post(
           "/api/tweets", data, {
             headers: {
-              "Content-Type": "application/json",
               authorization: config
             },
         })
         .then((response) => {
-          console.log('一応できとるよ',response)
+          console.log(response)
           if(slicedAnswer.length > 1){
             this.postTweet(slicedAnswer.slice(1), response.data.id, 'reply')
           }
           if(sendSentenceMode === 'answer'){
-            this.sendSentenceModeAnswer(response.data.id)
+            this.sendSentenceModeAnswer("嗚呼嗚呼")
           }else if(sendSentenceMode === 'replyForReply') {
             this.sendSentenceModeReplyForReply(response.data.id)
             this.setReplyTweetId(response.data.id)
           }
         }).catch((error) => {
-          alert('ツイートする際の通信に失敗しました。：' + error)
+          alert('通信に失敗しました。：' + error)
           console.log(error)
         })
       },

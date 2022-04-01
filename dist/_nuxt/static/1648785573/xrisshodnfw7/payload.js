@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/xrisshodnfw7", {data:[{payload:"lms上のテストは時間切れになった時、最後にページを切り替えたときの情報が送信されました。\n自分に起きただけなので、確定ではないかもしれませんが。"}],fetch:{},mutations:void 0});

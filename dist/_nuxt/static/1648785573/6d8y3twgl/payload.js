@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/6d8y3twgl", {data:[{payload:"横国経営って偏差値換算で比率は共テ：2次=2：1ですし、共テリサーチでAでてたら2次相当転けない限り大丈夫ですか、、？"}],fetch:{},mutations:void 0});

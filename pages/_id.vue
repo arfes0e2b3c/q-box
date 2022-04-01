@@ -51,6 +51,7 @@
   },
   data() {
     return {
+      payload: {question: '',id: ''},
       modeQuestion: 'question',
       imgixId: '',
       item: {
@@ -76,20 +77,25 @@
       showFilteredPost: false
     };
   },
-  asyncData({ payload }) {
-    if (payload) {
-      return { payload }
-    }
+  async created() {
+    const MICROCMS_KEY = process.env.MICROCMS_KEY
+    const id = this.$route.params.id
+    await this.$axios.get('https://q-box.microcms.io/api/v1/q_box_posts/' + id + '?fields=question,id&answer[exists]', {
+      headers: { 'X-MICROCMS-API-KEY': MICROCMS_KEY}
+    }).then((response) => {
+      console.log(response.data)
+      this.payload = response.data
+      this.meta.description = this.item.explanation
+      this.meta.type = "article"
+      this.meta.url = this.base + '/' + id
+      console.log(this.payload)
+      this.meta.image = this.meta.image = this.item.ImgixImageUrl + this.item.ImgixTextUrl + base64url(this.payload.question)
+      this.meta.title = this.payload.question
+    })
   },
   head() {
-
     // 相対パスを取得。例えば'/item/1'とか
-    const path = this.$route.path
-    this.meta.description = this.item.explanation
-    this.meta.type = "article"
-    this.meta.url = this.base + path
-    this.meta.image = this.meta.image = this.item.ImgixImageUrl + this.item.ImgixTextUrl + base64url(this.payload)
-    this.meta.title = this.payload
+
 
     // ここから先でmetaタグを書いていく
     return {

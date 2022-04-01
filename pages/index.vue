@@ -52,24 +52,17 @@
         }"
       >
         <fa :icon="faChevronUp" />
-        <!-- <fa :icon="faTwitter" /> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import NewPost from '~/components/NewPost.vue'
-  import FilteredPost from '~/components/FilteredPost.vue'
   import {faChevronUp} from '@fortawesome/free-solid-svg-icons'
-  import { faTwitter } from '@fortawesome/free-brands-svg-icons'
   export default {
-    components:{
-      NewPost,
-      FilteredPost
-    },
     data() {
       return {
+        faChevronUp,
         showNewPost: true,
         showFilteredPost: false,
         qWord: '',
@@ -80,22 +73,7 @@
           '般教',
           '一般教養１',
           'バイト',
-          1,
-          2,
-          3,
-          4,
-          5,
-          'アイウエオかきくけこさしすせそたちつてとなにぬねの'
-
         ]
-      }
-    },
-    computed: {
-      faChevronUp() {
-        return faChevronUp
-      },
-      faTwitter () {
-      return faTwitter
       }
     },
     methods:{
@@ -116,6 +94,9 @@
         this.searchPost(word)
         this.toggleSearchWord(false)
       }
+    },
+    mounted() {
+      console.log(this.$refs.FilteredPost)
     }
   }
 </script>
