@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/ue3qik66lij6", {data:[{payload:"オンライン試験上で、リーディングとかはどんな風にひょうじされますか？"}],fetch:{},mutations:void 0});

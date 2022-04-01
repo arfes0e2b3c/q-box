@@ -116,6 +116,7 @@ export default {
             this.$set(post, 'replies', response.contents)
             Common.modifyUrlInPost(post.replies, 'replyAnswer')
           }).catch((error) => {
+            // alert('通信に失敗しました。：' + error)
             console.log(error)
           })
         }

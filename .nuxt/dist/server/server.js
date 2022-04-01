@@ -2750,9 +2750,6 @@ async function createApp(ssrContext, config = {}) {
       }, {
         "name": "twitter:card",
         "content": "summary_large_image"
-      }, {
-        "name": "twitter:site",
-        "content": "@qBoxDevelopMan"
       }],
       "link": [{
         "rel": "icon",

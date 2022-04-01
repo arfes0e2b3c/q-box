@@ -1,10 +1,7 @@
-import { hasOwnMetadata } from 'core-js/fn/reflect';
-
 require('dotenv').config();
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
-  target: 'static',
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -23,8 +20,7 @@ export default {
       { hid: 'og:title', property: 'og:title', content: '質問や過去の回答はこちらから！' },
       { hid: 'og:description', property: 'og:description', content: 'お手伝いサークルの質問箱です' },
       { hid: 'og:image', property: 'og:image', content: 'https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png' },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: 'twitter:site', content: '@qBoxDevelopMan' },
+      { name: "twitter:card", content: "summary_large_image" }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

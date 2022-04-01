@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/8twkigarrae", {data:[{payload:"教育学部の人は2年生から実習が始まると忙しくてバイトをたくさんするのは難しいでしょうか？"}],fetch:{},mutations:void 0});
