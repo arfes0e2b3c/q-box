@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     const MICROCMS_KEY = process.env.MICROCMS_KEY;
-    const id = this.$route.path;
+    const id = this.$route.path.slice(1);
     await this.$axios
       .get(
         "https://q-box.microcms.io/api/v1/q_box_posts/" +
