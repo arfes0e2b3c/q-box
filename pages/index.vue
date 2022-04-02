@@ -88,9 +88,6 @@ export default {
       this.toggleSearchWord(false);
     },
   },
-  mounted() {
-    console.log(this.$refs.FilteredPost);
-  },
 };
 </script>
 
