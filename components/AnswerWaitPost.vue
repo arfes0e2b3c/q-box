@@ -58,7 +58,7 @@ export default {
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt",
           {
-            headers: { "X-MICROCMS-API-KEY": this.$config.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.MICROCMS_Q_BOX_KEY },
           }
         )
         .then((response) => {
