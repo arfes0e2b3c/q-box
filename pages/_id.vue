@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     const MICROCMS_KEY = process.env.MICROCMS_KEY;
-    const id = this.$route.path.id;
+    const id = this.$route.path;
     await this.$axios
       .get(
         "https://q-box.microcms.io/api/v1/q_box_posts/" +
@@ -102,10 +102,10 @@ export default {
   },
   head() {
     // 相対パスを取得。例えば'/item/1'とか
-    const id = this.$route.path.id;
+    const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
-    this.meta.url = this.base + "/" + id;
+    this.meta.url = this.base + id;
     this.meta.image =
       this.item.ImgixImageUrl +
       this.item.ImgixTextUrl +
