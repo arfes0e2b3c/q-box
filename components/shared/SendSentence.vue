@@ -197,7 +197,7 @@ export default {
             this.postTweet(slicedAnswer.slice(1), response.data.id, "reply");
           }
           if (sendSentenceMode === "answer") {
-            this.sendSentenceModeAnswer("嗚呼嗚呼");
+            this.sendSentenceModeAnswer(response.data.id);
           } else if (sendSentenceMode === "replyForReply") {
             this.sendSentenceModeReplyForReply(response.data.id);
             this.setReplyTweetId(response.data.id);
