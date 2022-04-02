@@ -105,7 +105,7 @@ export default {
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
-    this.meta.url = this.base + id;
+    this.meta.url = this.base + path;
     this.meta.image =
       this.item.ImgixImageUrl +
       this.item.ImgixTextUrl +
