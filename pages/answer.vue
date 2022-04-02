@@ -18,13 +18,7 @@
   </div>
 </template>
 <script>
-import AnswerWaitPost from "~/components/AnswerWaitPost.vue";
-import AnswerWaitReply from "~/components/AnswerWaitReply.vue";
 export default {
-  conponents: {
-    AnswerWaitPost,
-    AnswerWaitReply,
-  },
   data() {
     return {
       showPost: true,

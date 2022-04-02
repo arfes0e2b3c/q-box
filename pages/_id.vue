@@ -26,7 +26,7 @@
             <canvas :id="reply.id"></canvas>
             <p v-html="reply.replyAnswer"></p>
           </div>
-          <SendSentence
+          <SharedSendSentence
             :mode="modeReply"
             :contentId="post.id"
             :show="true"
@@ -34,7 +34,7 @@
           />
         </li>
       </ul>
-      <SendSentence
+      <SharedSendSentence
         class="send-sentence"
         :mode="modeQuestion"
         :show="true"
@@ -52,12 +52,8 @@
 </template>
 <script>
 import Common from "~/plugins/common.js";
-import SendSentence from "~/components/shared/SendSentence.vue";
 import base64url from "base64url";
 export default {
-  components: {
-    SendSentence,
-  },
   data() {
     return {
       payload: { question: "", id: "" },

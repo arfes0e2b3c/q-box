@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <SendSentence :mode="modeQuestion" id="send-sentence" :show="true" />
+    <SharedSendSentence :mode="modeQuestion" id="send-sentence" :show="true" />
     <ul>
       <h2>「 {{ this.title }} 」の検索結果</h2>
       <p v-show="!posts">合致する質問は見つかりませんでした。</p>
@@ -20,7 +20,11 @@
           <canvas :id="reply.id + '1'"></canvas>
           <p v-html="reply.replyAnswer">{{ reply.replyAnswer }}</p>
         </div>
-        <SendSentence :mode="modeReply" :contentId="post.id" :show="true" />
+        <SharedSendSentence
+          :mode="modeReply"
+          :contentId="post.id"
+          :show="true"
+        />
       </li>
     </ul>
     <infinite-loading @infinite="loadNewPost">
@@ -35,11 +39,9 @@
 </template>
 <script>
 import Common from "~/plugins/common.js";
-import SendSentence from "~/components/shared/SendSentence.vue";
 import InfiniteLoading from "vue-infinite-loading";
 export default {
   components: {
-    SendSentence,
     InfiniteLoading,
   },
   data() {

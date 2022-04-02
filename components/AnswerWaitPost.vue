@@ -17,7 +17,7 @@
             開閉
           </button>
         </div>
-        <SendSentence
+        <SharedSendSentence
           class="send-sentence"
           :mode="modeAnswer"
           :content-id="post.id"
@@ -37,11 +37,7 @@
 </template>
 <script>
 import Common from "~/plugins/common.js";
-import SendSentence from "~/components/shared/SendSentence.vue";
 export default {
-  components: {
-    SendSentence,
-  },
   data() {
     return {
       posts: [],
@@ -59,7 +55,6 @@ export default {
       this.$refs[id][0].toggle();
     },
     async getPosts() {
-      console.log("getPosts");
       await this.$axios
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt",
@@ -68,7 +63,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log("response", response);
           this.$set(this, "posts", response.contents);
         })
         .catch((error) => {

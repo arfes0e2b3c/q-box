@@ -20,7 +20,7 @@
             開閉
           </button>
         </div>
-        <SendSentence
+        <SharedSendSentence
           :ref="reply.id"
           :mode="modeReplyForReply"
           :contentId="reply.id"
@@ -41,11 +41,7 @@
 </template>
 <script>
 import Common from "~/plugins/common.js";
-import SendSentence from "~/components/shared/SendSentence.vue";
 export default {
-  components: {
-    SendSentence,
-  },
   data() {
     return {
       MICROCMS_KEY: "",

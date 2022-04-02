@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <SendSentence
+    <SharedSendSentence
       class="send-sentence"
       :mode="modeQuestion"
       :show="true"
@@ -25,7 +25,7 @@
           <canvas :id="reply.id"></canvas>
           <p v-html="reply.replyAnswer"></p>
         </div>
-        <SendSentence
+        <SharedSendSentence
           :mode="modeReply"
           :contentId="post.id"
           :show="true"
@@ -44,12 +44,10 @@
   </div>
 </template>
 <script>
-import SendSentence from "~/components/shared/SendSentence.vue";
 import Common from "~/plugins/common.js";
 import InfiniteLoading from "vue-infinite-loading";
 export default {
   components: {
-    SendSentence,
     InfiniteLoading,
   },
   data() {
