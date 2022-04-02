@@ -174,7 +174,7 @@ export default {
       if (mode === "tweet") {
         data = {
           text:
-            slicedAnswer[0] + "\nhttps://immense-sea-94037.herokuapp.com/" + id,
+            slicedAnswer[0] + "\nhttps://unique-donut-e9d728.netlify.app/" + id,
         };
       } else if (mode === "reply") {
         data = {
@@ -186,7 +186,7 @@ export default {
       } else {
         console.log("not fit!");
       }
-      this.$axios
+      await this.$axios
         .$post("/api/tweets", data, {
           headers: {
             authorization: config,
