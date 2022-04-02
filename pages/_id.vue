@@ -74,7 +74,7 @@ export default {
         url: "",
         image: "",
       },
-      base: "https://immense-sea-94037.herokuapp.com",
+      base: "https://unique-donut-e9d728.netlify.app",
       MICROCMS_KEY: "",
       posts: [],
       modeQuestion: "question",
@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     const MICROCMS_KEY = process.env.MICROCMS_KEY;
-    const id = this.$route.params.id;
+    const id = this.$route.path.id;
     await this.$axios
       .get(
         "https://q-box.microcms.io/api/v1/q_box_posts/" +
@@ -102,7 +102,7 @@ export default {
   },
   head() {
     // 相対パスを取得。例えば'/item/1'とか
-    const id = this.$route.params.id;
+    const id = this.$route.path.id;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
     this.meta.url = this.base + "/" + id;

@@ -3,21 +3,18 @@
     "name": "answer",
     "path": "/answer",
     "component": "/Users/yatayuki/Documents/code/q-box/pages/answer.vue",
-    "chunkName": "pages/answer",
-    "_name": "_56cb4d28"
+    "chunkName": "pages/answer"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/yatayuki/Documents/code/q-box/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_0e9f9194"
+    "chunkName": "pages/index"
   },
   {
     "name": "id",
     "path": "/:id",
     "component": "/Users/yatayuki/Documents/code/q-box/pages/_id.vue",
-    "chunkName": "pages/_id",
-    "_name": "_3e4ce8fc"
+    "chunkName": "pages/_id"
   }
 ]
