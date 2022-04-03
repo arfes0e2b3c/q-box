@@ -191,7 +191,7 @@ export default {
       console.log(config);
       // await this.$axios.$get("/api/")
       await this.$axios
-        .$post("https://api.twitter.com/api/2/tweets", data, {
+        .$post("/api/2/tweets", data, {
           headers: {
             authorization: config,
           },
