@@ -84,7 +84,7 @@ export default {
     "/api/": {
       target: "https://api.twitter.com",
       pathRewrite: {
-        "^/api/": "/2/",
+        "^/api/": "/",
       },
     },
   },
