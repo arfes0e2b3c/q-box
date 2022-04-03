@@ -171,10 +171,12 @@ export default {
       ).Authorization;
 
       let data = {};
+      const date = new Date();
       if (mode === "tweet") {
         data = {
           text:
-            slicedAnswer[0] + "\nhttps://unique-donut-e9d728.netlify.app/" + id,
+            // slicedAnswer[0] + "\nhttps://unique-donut-e9d728.netlify.app/" + id,
+            date,
         };
       } else if (mode === "reply") {
         data = {
@@ -186,8 +188,10 @@ export default {
       } else {
         console.log("not fit!");
       }
+      console.log(config);
+      // await this.$axios.$get("/api/")
       await this.$axios
-        .$post("/api/tweets", data, {
+        .$post("https://api.twitter.com/2/tweets", data, {
           headers: {
             authorization: config,
           },
