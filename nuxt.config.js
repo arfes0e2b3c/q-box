@@ -80,14 +80,14 @@ export default {
     component: "fa",
   },
 
-  proxy: {
-    "/api/": {
-      target: "https://api.twitter.com",
-      pathRewrite: {
-        "^/api/": "/",
-      },
-    },
-  },
+  // proxy: {
+  //   "/api/": {
+  //     target: "https://api.twitter.com",
+  //     pathRewrite: {
+  //       "^/api/": "/",
+  //     },
+  //   },
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
