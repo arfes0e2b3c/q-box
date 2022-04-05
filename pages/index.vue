@@ -139,6 +139,24 @@ header {
       color: white;
     }
   }
+  button {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    text-decoration: none;
+    transition: 0.5s;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(48, 48, 48, 1);
+      color: white;
+    }
+  }
 
   input {
     z-index: 100;
