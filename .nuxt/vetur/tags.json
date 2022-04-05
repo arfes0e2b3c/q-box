@@ -1,10 +1,4 @@
 {
-  "AnswerWaitPost": {
-    "description": "Auto imported from components/AnswerWaitPost.vue"
-  },
-  "AnswerWaitReply": {
-    "description": "Auto imported from components/AnswerWaitReply.vue"
-  },
   "FilteredPost": {
     "description": "Auto imported from components/FilteredPost.vue"
   },
