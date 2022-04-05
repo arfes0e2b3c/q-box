@@ -67,6 +67,43 @@ export default {
       qWord: "",
       showSearchWord: false,
       searchWords: ["TOEFL", "サークル", "般教", "一般教養", "バイト"],
+      meta: {
+        title: "",
+        description: "",
+        type: "",
+        url: "",
+        image: "",
+      },
+    };
+  },
+  head() {
+    this.meta.description = "質問箱です";
+    this.meta.type = "article";
+    this.meta.url = "https://unique-donut-e9d728.netlify.app/";
+    this.meta.image =
+      "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt%3D質問箱です";
+    this.meta.title = "質問や過去の回答はこちらから";
+
+    return {
+      title: this.meta.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.meta.description,
+        },
+        {
+          hid: "og:description",
+          property: "og:description",
+          content: this.meta.description,
+        },
+        { hid: "og:title", property: "og:title", content: this.meta.title },
+        { hid: "og:type", property: "og:type", content: this.meta.type },
+        { hid: "og:url", property: "og:url", content: this.meta.url },
+        { hid: "og:image", property: "og:image", content: this.meta.image },
+        { name: "twitter:title", content: "質問や過去の回答はこちらから" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
     };
   },
   methods: {
