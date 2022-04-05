@@ -6,7 +6,7 @@ export default {
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "q-box",
+    title: "お手伝いサークルの質問箱",
     htmlAttrs: {
       lang: "ja",
     },

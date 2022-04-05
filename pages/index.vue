@@ -9,7 +9,7 @@
           duration: 500,
         }"
       >
-        お手サーの質問箱
+        質問箱
       </h1>
       <input
         id="search-input"

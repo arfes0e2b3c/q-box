@@ -5,7 +5,7 @@
       class="sentence-box"
       :class="{ held: this.held, boxHeightInPosts: getMode === 'reply' }"
     >
-      <h3 v-show="getMode === 'question'">お手伝いサークルに質問する</h3>
+      <h3 v-show="getMode === 'question'">質問する</h3>
       <textarea
         :placeholder="this.textareaWord[mode]"
         v-model="sentence"
@@ -49,7 +49,7 @@ export default {
       getReplySentence: this.replySentence,
       sentence: "",
       textareaWord: {
-        question: "お手伝いサークルへの質問を入力する",
+        question: "質問を入力する",
         answer: "この質問への回答を入力する",
         reply: "この質問への返信を入力する",
         replyForReply: "この返信への回答を入力する",

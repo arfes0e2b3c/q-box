@@ -99,7 +99,7 @@ export default {
 
         ctx.font = "30px azuki";
         ctx.fillStyle = "#fff";
-        ctx.fillText("お手サー", canvas.width / 6, canvas.height / 1.058);
+        ctx.fillText("質問箱", canvas.width / 6, canvas.height / 1.058);
       };
     }
   },
