@@ -24,7 +24,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://unique-donut-e9d728.netlify.app",
+        content: "https://unique-donut-e9d728.netlify.app/",
       },
       {
         hid: "og:title",
