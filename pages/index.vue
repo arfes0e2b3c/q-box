@@ -66,7 +66,7 @@ export default {
       showFilteredPost: false,
       qWord: "",
       showSearchWord: false,
-      searchWords: ["TOEFL", "サークル", "般教", "一般教養１", "バイト"],
+      searchWords: ["TOEFL", "サークル", "般教", "一般教養", "バイト"],
     };
   },
   methods: {

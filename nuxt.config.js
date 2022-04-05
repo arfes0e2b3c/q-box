@@ -24,7 +24,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://immense-sea-94037.herokuapp.com",
+        content: "https://unique-donut-e9d728.netlify.app",
       },
       {
         hid: "og:title",
