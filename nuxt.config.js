@@ -29,7 +29,7 @@ export default {
       {
         hid: "og:title",
         property: "og:title",
-        content: "質問や過去の回答はこちらから！",
+        content: "質問や過去の回答はこちらから",
       },
       {
         hid: "og:description",
