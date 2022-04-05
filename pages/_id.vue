@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <nuxt-link to="/" class="nuxt-link">ホームへ戻る</nuxt-link>
-      <h1>お手サーの質問箱</h1>
+      <h1>質問箱</h1>
       <input
         type="text"
         placeholder="語句で検索"

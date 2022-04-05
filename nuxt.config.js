@@ -6,7 +6,7 @@ export default {
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "お手伝いサークルの質問箱",
+    title: "質問箱",
     htmlAttrs: {
       lang: "ja",
     },
@@ -17,7 +17,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "お手伝いサークルの質問箱です",
+        content: "質問箱です",
       },
       { hid: "og:site_name", property: "og:site_name", content: "質問箱" },
       { hid: "og:type", property: "og:type", content: "website" },
@@ -34,13 +34,13 @@ export default {
       {
         hid: "og:description",
         property: "og:description",
-        content: "お手伝いサークルの質問箱です",
+        content: "質問箱です",
       },
       {
         hid: "og:image",
         property: "og:image",
         content:
-          "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt%3Dお手伝いサークルの質問箱です",
+          "https://image.shutterstock.com/image-vector/sample-stamp-grunge-texture-vector-600w-1389188327.jpg",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],
