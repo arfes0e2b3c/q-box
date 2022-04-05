@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <nuxt-link to="/answer" class="nuxt-link">管理者画面に移動する</nuxt-link>
+      <button @click="toHome">ホーム</button>
       <h1
         v-scroll-to="{
           element: '#app',
@@ -70,6 +70,10 @@ export default {
     };
   },
   methods: {
+    toHome() {
+      this.showNewPost = true;
+      this.showFilteredPost = false;
+    },
     searchPost(word) {
       if (word) {
         this.$refs.FilteredPost.getPost(word);
