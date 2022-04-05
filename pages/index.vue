@@ -77,7 +77,7 @@ export default {
     };
   },
   head() {
-    this.meta.description = "質問箱です";
+    this.meta.description = "質問箱ですわ";
     this.meta.type = "article";
     this.meta.url = "https://unique-donut-e9d728.netlify.app/";
     this.meta.image =
