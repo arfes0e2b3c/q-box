@@ -6,7 +6,7 @@ export default {
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "q-box",
+    title: "Q-BOX",
     htmlAttrs: {
       lang: "ja",
     },
