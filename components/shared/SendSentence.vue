@@ -3,7 +3,7 @@
     <div
       v-show="getShow"
       class="sentence-box"
-      :class="{ held: this.held, boxHeightInPosts: getMode === 'reply' }"
+      :class="{ boxHeightInPosts: getMode === 'reply' }"
     >
       <h3 v-show="getMode === 'question'">質問する</h3>
       <textarea
@@ -31,7 +31,6 @@ export default {
     replyTweetId: "",
     contentOriginId: "",
     replySentence: "",
-    held: false,
     show: "",
     MICROCMS_KEY: "",
     CONSUMER_KEY: "",
@@ -73,7 +72,6 @@ export default {
             "https://q-box.microcms.io/api/v1/q_box_posts",
             {
               question: this.sentence,
-              held: false,
             },
             {
               headers: {
@@ -97,7 +95,6 @@ export default {
             {
               replyFor: this.getContentId,
               replySentence: this.sentence,
-              held: false,
             },
             {
               headers: {
@@ -155,12 +152,6 @@ export default {
       border: 1px solid rgba(0, 0, 200, 1);
       color: white;
     }
-  }
-}
-.held {
-  .button {
-    color: white;
-    border: 1px solid white;
   }
 }
 .boxHeightInPosts {
