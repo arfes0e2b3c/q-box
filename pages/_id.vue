@@ -63,8 +63,13 @@ export default {
         name: "質問はこちらから。",
         ImgixTextUrl:
           "https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt64%3D",
-        ImgixImageUrl:
-          "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/bd6043d587a64bc28cc4bfdc8ce6b94b/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+        ImgixImageUrl: {
+          answered:
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/bd6043d587a64bc28cc4bfdc8ce6b94b/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+          keep: "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/a9e497692e6a46be8936a7e40a6a24f1/keep.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+          waitInformation:
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/a2ed59622f46404389d8e9ff677e2423/wait-information.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+        },
         explanation: "質問箱です",
       },
       meta: {
@@ -91,7 +96,7 @@ export default {
       .get(
         "https://q-box.microcms.io/api/v1/q_box_posts/" +
           id +
-          "?fields=question,id&answer[exists]",
+          "?fields=question,id,state&answer[exists]",
         {
           headers: { "X-MICROCMS-API-KEY": MICROCMS_KEY },
         }
@@ -107,7 +112,7 @@ export default {
     this.meta.type = "article";
     this.meta.url = this.base + path;
     this.meta.image =
-      this.item.ImgixImageUrl +
+      this.item.ImgixImageUrl[state] +
       this.item.ImgixTextUrl +
       base64url(this.payload.question);
     this.meta.title = this.payload.question;
