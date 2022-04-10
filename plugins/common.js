@@ -54,7 +54,7 @@ export default {
   generateImage(document, posts, mode, alphaId) {
     for (const post of posts) {
       var image = new Image();
-      image.src = require("@/assets/img/" + post.state + ".png");
+      image.src = require("@/assets/img/" + post[state] + ".png");
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
         var canvas = document.getElementById(post.id + alphaId);
@@ -96,10 +96,6 @@ export default {
               (lineHeight * (column.length - 1)) / 2
           );
         }
-
-        ctx.font = "30px azuki";
-        ctx.fillStyle = "#fff";
-        ctx.fillText("質問箱", canvas.width / 6, canvas.height / 1.058);
       };
     }
   },
