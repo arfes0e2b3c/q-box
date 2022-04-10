@@ -112,7 +112,7 @@ export default {
     this.meta.type = "article";
     this.meta.url = this.base + path;
     this.meta.image =
-      this.item.ImgixImageUrl[state] +
+      this.item.ImgixImageUrl[this.payload.state] +
       this.item.ImgixTextUrl +
       base64url(this.payload.question);
     this.meta.title = this.payload.question;
