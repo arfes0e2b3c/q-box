@@ -25,36 +25,10 @@ export default {
         });
     }
   },
-  async holdPost(that, id, endPoint, key, boolean) {
-    await that.$axios
-      .$patch(
-        "https://q-box.microcms.io/api/v1/" + endPoint + "/" + id,
-        {
-          held: !boolean,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "X-MICROCMS-API-KEY": key,
-          },
-        }
-      )
-      .catch((error) => {
-        alert("通信に失敗しました。：" + error);
-        console.log(error);
-      })
-      .then(() => {
-        if (endPoint === "q_box_posts") {
-          that.getPosts();
-        } else if (endPoint === "q_box_replies") {
-          that.setReply();
-        }
-      });
-  },
   generateImage(document, posts, mode, alphaId) {
     for (const post of posts) {
-      var image = new Image();
-      image.src = require("@/assets/img/" + post.state + ".png");
+      let image = new Image();
+      image.src = require("~/assets/img/" + post.state + ".png");
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
         var canvas = document.getElementById(post.id + alphaId);
