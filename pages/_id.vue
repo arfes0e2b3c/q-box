@@ -4,11 +4,28 @@
       <nuxt-link to="/" class="nuxt-link">ホームへ戻る</nuxt-link>
       <h1>質問箱</h1>
       <input
+        id="search-input"
         type="text"
+        autocomplete="off"
         placeholder="語句で検索"
         v-model="qWord"
-        @keyup.enter="searchPost"
+        @keyup.enter="searchPost(qWord)"
+        @click="toggleSearchWord(!showSearchWord)"
       />
+      <transition>
+        <div v-show="showSearchWord && !qWord" class="often-search-word-box">
+          <h3>良く検索されるワード</h3>
+          <ul>
+            <li
+              v-for="word in this.searchWords"
+              :key="word"
+              @click="inputSearchWord(word)"
+            >
+              {{ word }}
+            </li>
+          </ul>
+        </div>
+      </transition>
     </header>
     <div id="id-container" v-show="showIdContainer">
       <ul>
@@ -60,6 +77,7 @@ import base64url from "base64url";
 export default {
   data() {
     return {
+      searchWords: ["TOEFL", "サークル", "般教", "一般教養", "バイト"],
       payload: { question: "", id: "" },
       modeQuestion: "question",
       imgixId: "",
@@ -91,6 +109,7 @@ export default {
       qWord: "",
       showIdContainer: true,
       showFilteredPost: false,
+      showSearchWord: false,
     };
   },
   async created() {
@@ -145,9 +164,18 @@ export default {
     };
   },
   methods: {
-    searchPost() {
-      this.$refs.FilteredPost.getPost();
-      this.changeShowMode();
+    searchPost(word) {
+      if (word) {
+        this.$refs.FilteredPost.getPost(word);
+        this.changeShowMode();
+      }
+    },
+    toggleSearchWord(boolean) {
+      this.showSearchWord = boolean;
+    },
+    inputSearchWord(word) {
+      this.searchPost(word);
+      this.toggleSearchWord(false);
     },
     changeShowMode() {
       this.showIdContainer = false;
@@ -275,6 +303,7 @@ export default {
       width: calc(20% - 10px);
       height: 100%;
       border-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.1);
       border: none;
       outline: none;
       font-size: 1.2em;
@@ -285,58 +314,101 @@ export default {
         color: white;
       }
     }
-  }
-  ul {
-    width: 60%;
-    margin: 120px auto 0;
-    overflow-wrap: break-word;
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-      margin: 10px 0;
-      padding: 5%;
-      canvas {
-        width: 100%;
-        border-radius: 10px;
+    .often-search-word-box {
+      transform-origin: center center;
+      position: absolute;
+      z-index: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 200px;
+      padding: 10px;
+      overflow: scroll;
+      box-shadow: 0px 10px 10px 1px rgba(0, 0, 0, 0.2);
+      h3 {
+        margin: 10px;
+        color: white;
       }
-      .primary-post {
-        width: 80%;
-        text-align: center;
-        margin: 5px auto;
-        .created-at {
-          width: 100px;
-          padding: 5px 10px;
-          margin: 10px 10px;
-          border: 2px solid rgba(67, 134, 135, 0.7);
-          background-color: rgb(117, 184, 185);
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        li {
+          list-style: none;
+          width: 11%;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid white;
           color: white;
           border-radius: 5px;
+          margin: 0 calc((12% - 36px) / 16) 10px;
+          cursor: pointer;
+          transition: 0.5s;
+          overflow: hidden;
+          &:hover {
+            background-color: rgb(48, 48, 48);
+            color: white;
+          }
         }
-        .answered {
-          background-color: rgb(0, 74, 169);
-          border: 2px solid rgba(0, 24, 85, 0.7);
+      }
+    }
+  }
+  #id-container {
+    ul {
+      width: 60%;
+      margin: 120px auto 0;
+      overflow-wrap: break-word;
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+        margin: 10px 0;
+        padding: 5%;
+        canvas {
+          width: 100%;
+          border-radius: 10px;
         }
-        .keep,
-        .waitInformation {
-          background-color: rgb(255, 222, 103);
-          border: 2px solid rgba(205, 172, 53, 0.7);
-        }
-        .answer {
+        .primary-post {
           width: 80%;
-          margin: 10px auto;
+          text-align: center;
+          margin: 5px auto;
+          .created-at {
+            width: 100px;
+            padding: 5px 10px;
+            margin: 10px 10px;
+            border: 2px solid rgba(67, 134, 135, 0.7);
+            background-color: rgb(117, 184, 185);
+            color: white;
+            border-radius: 5px;
+          }
+          .answered {
+            background-color: rgb(0, 74, 169);
+            border: 2px solid rgba(0, 24, 85, 0.7);
+          }
+          .keep,
+          .waitInformation {
+            background-color: rgb(255, 222, 103);
+            border: 2px solid rgba(205, 172, 53, 0.7);
+          }
+          .answer {
+            width: 80%;
+            margin: 10px auto;
+          }
         }
-      }
-      .secondary-post {
-        width: 60%;
-        text-align: center;
-        margin: 5px auto;
-      }
-      p {
-        white-space: pre-line;
-        margin: 10px auto;
-        text-align: center;
+        .secondary-post {
+          width: 60%;
+          text-align: center;
+          margin: 5px auto;
+        }
+        p {
+          white-space: pre-line;
+          margin: 10px auto;
+          text-align: center;
+        }
       }
     }
   }
@@ -344,6 +416,30 @@ export default {
     margin: 0 auto 30px;
     width: 60%;
     transition: 0s;
+  }
+  .v {
+    &-enter {
+      opacity: 0;
+      transform: scale(90%);
+      &-to {
+        opacity: 1;
+        transform: scale(100%);
+      }
+      &-active {
+        transition: 0.2s;
+      }
+    }
+    &-leave {
+      opacity: 1;
+      transform: scale(100%);
+      &-to {
+        opacity: 0;
+        transform: scale(90%);
+      }
+      &-active {
+        transition: 0.2s;
+      }
+    }
   }
   @media (max-width: 520px) {
     header {
@@ -359,6 +455,15 @@ export default {
         width: 50%;
         padding-left: 0;
         text-align: center;
+      }
+      .often-search-word-box {
+        padding: 10px 5px 0;
+        ul {
+          li {
+            width: 30%;
+            margin: 0 calc((10% - 16px) / 6) 10px;
+          }
+        }
       }
     }
     ul {
