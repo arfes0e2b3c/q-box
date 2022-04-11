@@ -159,23 +159,6 @@ header {
     z-index: 100;
     cursor: pointer;
   }
-  .nuxt-link {
-    z-index: 100;
-    width: 20%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-    text-decoration: none;
-    text-align: center;
-    transition: 0.5s;
-    &:hover {
-      background-color: rgb(48, 48, 48);
-      color: white;
-    }
-  }
   button {
     width: 20%;
     height: 100%;
@@ -289,14 +272,14 @@ header {
     h1 {
       display: none;
     }
-    .nuxt-link {
-      width: 50%;
-    }
     input {
       border-left: 1px solid rgb(48, 48, 48);
       width: 50%;
       padding-left: 0;
       text-align: center;
+    }
+    button {
+      width: 50%;
     }
     .often-search-word-box {
       padding: 10px 5px 0;

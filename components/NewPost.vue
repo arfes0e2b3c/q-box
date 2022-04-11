@@ -11,7 +11,11 @@
       <p v-show="!posts[0]">質問はありません</p>
       <li v-for="post in posts" :key="post.id">
         <div class="primary-post">
-          <p class="created-at">{{ post.createdAt.substr(0, 10) }}</p>
+          <p
+            class="created-at"
+            :class="post.state"
+            v-html="post.createdAt.substr(0, 10)"
+          ></p>
           <div @click="transition(post.id)" class="card-button">
             <canvas :id="post.id"></canvas>
           </div>
@@ -179,6 +183,15 @@ ul {
         border: 2px solid rgba(67, 134, 135, 0.7);
         background-color: rgb(117, 184, 185);
         color: white;
+      }
+      .answered {
+        background-color: rgb(0, 74, 169);
+        border: 2px solid rgba(0, 24, 85, 0.7);
+      }
+      .keep,
+      .waitInformation {
+        background-color: rgb(255, 222, 103);
+        border: 2px solid rgba(205, 172, 53, 0.7);
       }
     }
     .secondary-post {
