@@ -27,7 +27,11 @@
         </div>
       </transition>
     </header>
-    <div id="id-container" v-show="showIdContainer">
+    <div
+      id="id-container"
+      v-show="showIdContainer"
+      @click="toggleSearchWord(false)"
+    >
       <ul>
         <li v-for="post in posts" :key="post.id">
           <div class="primary-post">
@@ -68,6 +72,7 @@
       ref="FilteredPost"
       class="filtered-post"
       :MICROCMS_KEY="MICROCMS_KEY"
+      @click="toggleSearchWord(false)"
     />
   </div>
 </template>
