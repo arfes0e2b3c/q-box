@@ -192,6 +192,7 @@ ul {
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);
+        color: #333;
       }
     }
     .secondary-post {
