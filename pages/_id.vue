@@ -358,7 +358,7 @@ export default {
   }
   #id-container {
     ul {
-      width: 60%;
+      width: 100%;
       margin: 120px auto 0;
       overflow-wrap: break-word;
       li {
