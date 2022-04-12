@@ -363,7 +363,7 @@ export default {
   }
   #id-container {
     ul {
-      width: 100%;
+      width: 60%;
       margin: 120px auto 0;
       overflow-wrap: break-word;
       li {

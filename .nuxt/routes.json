@@ -3,12 +3,14 @@
     "name": "index",
     "path": "/",
     "component": "/Users/yatayuki/Documents/code/q-box/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_0e9f9194"
   },
   {
     "name": "id",
     "path": "/:id",
     "component": "/Users/yatayuki/Documents/code/q-box/pages/_id.vue",
-    "chunkName": "pages/_id"
+    "chunkName": "pages/_id",
+    "_name": "_3e4ce8fc"
   }
 ]
