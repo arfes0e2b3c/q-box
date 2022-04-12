@@ -466,17 +466,19 @@ export default {
         }
       }
     }
-    ul {
-      width: 100%;
-      margin-top: 90px;
-      li {
+    #id-container {
+      ul {
         width: 100%;
-        padding: 20px 0;
-        .primary-post {
-          width: 90%;
-        }
-        .secondary-post {
-          width: 75%;
+        margin-top: 90px;
+        li {
+          width: 100%;
+          padding: 20px 0;
+          .primary-post {
+            width: 90%;
+          }
+          .secondary-post {
+            width: 75%;
+          }
         }
       }
     }
