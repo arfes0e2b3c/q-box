@@ -40,7 +40,7 @@ export default {
         hid: "og:image",
         property: "og:image",
         content:
-          "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/a2ed59622f46404389d8e9ff677e2423/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt=質問箱です",
+          "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/e8ff8e3ccffd4e89b37680d70a3b6d26/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt=質問箱です",
       },
       { name: "twitter:card", content: "summary_large_image" },
     ],

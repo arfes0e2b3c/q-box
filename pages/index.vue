@@ -88,7 +88,7 @@ export default {
     this.meta.type = "article";
     this.meta.url = "https://unique-donut-e9d728.netlify.app/";
     this.meta.image =
-      "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/24499c585ea7442b80644aa3f8237092/frame.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt%3D質問箱です";
+      "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/e8ff8e3ccffd4e89b37680d70a3b6d26/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt%3D質問箱です";
     this.meta.title = "質問や過去の回答はこちらから";
 
     return {
