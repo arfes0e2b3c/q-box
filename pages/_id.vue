@@ -92,10 +92,8 @@ export default {
           "https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt64%3D",
         ImgixImageUrl: {
           answered:
-            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/bd6043d587a64bc28cc4bfdc8ce6b94b/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
-          keep: "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/a9e497692e6a46be8936a7e40a6a24f1/keep.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
-          waitInformation:
-            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/a2ed59622f46404389d8e9ff677e2423/wait-information.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/e8ff8e3ccffd4e89b37680d70a3b6d26/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+          keep: "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/6efb7cba640148a29d7b712679accffd/keep.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
         },
         explanation: "質問箱です",
       },
