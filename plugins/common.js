@@ -25,10 +25,14 @@ export default {
         });
     }
   },
-  generateImage(document, posts, mode, alphaId) {
+  generateImage(document, posts, mode, alphaId, state) {
     for (const post of posts) {
       let image = new Image();
-      image.src = require("~/assets/img/" + post.state + ".png");
+      if (state) {
+        image.src = require("~/assets/img/" + state + ".png");
+      } else {
+        image.src = require("~/assets/img/" + post.state + ".png");
+      }
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
         var canvas = document.getElementById(post.id + alphaId);

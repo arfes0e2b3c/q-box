@@ -143,7 +143,8 @@ export default {
                 document,
                 response.contents,
                 "replySentence",
-                "1"
+                "1",
+                "answered"
               );
               this.$set(post, "replies", response.contents);
               Common.modifyUrlInPost(post.replies, "replyAnswer");
