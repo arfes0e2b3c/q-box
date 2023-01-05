@@ -1,69 +1,39 @@
-# q-box
+# YouTube 動画詳細検索サイト
 
-## Build Setup
+## 概要
 
-```bash
-# install dependencies
-$ yarn install
+その名の通り YouTube の動画をより詳細に検索することができる Web アプリです。
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+実際のアプリは[こちら](https://unique-donut-e9d728.netlify.app/)です。
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+2022/02 ~ 2022/03 の間に製作しました。
 
-# generate static project
-$ yarn generate
-```
+当時 Git でコードを管理していなかったため一旦完成したものを GitHub に上げた形になります。
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+基本的実装は全て Nuxt.js で行っており、ホスティングサービスはとしては Netlify、細かいコンテンツの管理などは microCMS を使用しております。
 
-## Special Directories
+アドミン側を別サイトとして Heroku でホスティングしていた(TwitterAPI の問題により)のですが heroku の無料枠が無くなったことで、アドミンが機能しておらず現在は Web アプリとしては成立していません。
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+## 開発の経緯
 
-### `assets`
+質問箱の改善により弊学サークルの活動を促進することができると考え開発を開始しました。
+私が在籍している横浜国立大学ではお手伝いサークルという Twitter 上で活動する団体が存在しています。彼らは大学に関する情報発信や、新入生を始めとした情報を得られていない学生向けに質問の回答を行っており、その手段として Twitter 上の質問箱を使用しております。しかし現行の質問箱を使用することによる問題点が何点かあり、また「このような機能を追加すれば更に円滑に質問者の疑問を解決できるのではないか」というアイデアもあったため、お手伝いサークルの運営の方に連絡を取り協議を重ね開発に至りました。
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+### 改善・追加した機能
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+- 検索機能
+  - 課題：
+    1. 検索機能が無く、過去の質問を遡るのが難しい。特に毎日数十件単位で回答を行うアカウントでは拍車がかかり、一覧性に欠けていた。
+    2. 1.の一覧性の欠如によって質問の内容が既存の質問か判別できず、過去の質問と同様のものが複数回質問されており運営の負担が増加していた。
+  - 対策：検索機能を実装し、一覧性を向上させた。また頻出の質問をサジェストすることでより検索性を向上させた。
+- チェーン機能
+  - 課題：
+    1. 文字数を超過した回答を試みた場合に回答ツイートで「続きは質問箱へ」となり twitter で完結することができない。
+    2. 1.によって運営側が回答の文字数を１ツイートに収めるために内容を削るなどの本質的でない問題が発生していた。
+  - 対策：規定文字数を超過した回答に関しては、テキストを分割し回答のツイートにチェーンで繋げ全文を表示する機能を実装。
+- リプライ機能
+  - 課題：
 
-### `components`
+## 使用技術
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+Nuxt.js, microCMS, Netlify
