@@ -1,0 +1,6 @@
+[[redirects]]
+  from = "/answer"
+  to = "https://api.twitter.com"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
