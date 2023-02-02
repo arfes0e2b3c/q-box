@@ -30,8 +30,10 @@ export default {
       let image = new Image();
       if (state) {
         image.src = require("~/assets/img/" + state + ".png");
-      } else {
+      } else if (post.state) {
         image.src = require("~/assets/img/" + post.state + ".png");
+      } else {
+        image.src = require("~/assets/img/answered.png");
       }
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする

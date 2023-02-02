@@ -64,8 +64,26 @@ export default {
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
     "@nuxtjs/proxy",
+    "@nuxtjs/firebase",
     ["vue-scrollto/nuxt", { duration: 300 }],
     "nuxt-fontawesome",
+    [
+      "@nuxtjs/firebase",
+      {
+        config: {
+          apiKey: "AIzaSyAMy3NDOwW-Q10n1NnDvbyHlOnk40AkcmQ",
+          authDomain: "q-box-ynu.firebaseapp.com",
+          projectId: "q-box-ynu",
+          storageBucket: "q-box-ynu.appspot.com",
+          messagingSenderId: "204406918432",
+          appId: "1:204406918432:web:0e42048dd2405410729b45",
+          measurementId: "G-W0BDPNL92B",
+        },
+        services: {
+          auth: true, // Just as example. Can be any other service.
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -78,6 +96,10 @@ export default {
 
   fontawesome: {
     component: "fa",
+  },
+
+  router: {
+    mode: "hash",
   },
 
   proxy: {
