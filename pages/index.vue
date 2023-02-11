@@ -67,7 +67,7 @@ export default {
       qWord: "",
       showSearchWord: false,
       searchWords: [
-        "#保留中の質問",
+        "#情報募集中の質問",
         "TOEFL",
         "サークル",
         "般教",

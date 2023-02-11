@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <ul>
-      <h2>保留中の質問</h2>
+      <h2>情報募集中の質問</h2>
       <p v-show="!posts[0]">質問はありません</p>
       <li v-for="post in posts" :key="post.id">
         <div class="primary-post">
