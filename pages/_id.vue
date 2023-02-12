@@ -80,6 +80,21 @@
 import Common from "~/plugins/common.js";
 import base64url from "base64url";
 export default {
+  async asyncData({ route , $axios}) {
+    const MICROCMS_KEY = process.env.MICROCMS_KEY;
+    const id = route.path.slice(1);
+    console.log(route.path.split('/'))
+    const resp = await $axios
+      .get(
+        "https://q-box.microcms.io/api/v1/q_box_posts/" +
+        id +
+        "?fields=question,id,state&answer[exists]",
+        {
+          headers: {"X-MICROCMS-API-KEY": MICROCMS_KEY},
+        }
+      )
+    return { resp: resp.data}
+  },
   data() {
     return {
       searchWords: ["TOEFL", "サークル", "般教", "一般教養", "バイト"],
@@ -115,23 +130,8 @@ export default {
       showSearchWord: false,
     };
   },
-  async created() {
-    const MICROCMS_KEY = process.env.MICROCMS_KEY;
-    const id = this.$route.path.slice(1);
-    await this.$axios
-      .get(
-        "https://q-box.microcms.io/api/v1/q_box_posts/" +
-          id +
-          "?fields=question,id,state&answer[exists]",
-        {
-          headers: { "X-MICROCMS-API-KEY": MICROCMS_KEY },
-        }
-      )
-      .then((response) => {
-        this.payload = response.data;
-      });
-  },
   head() {
+    this.payload = this.resp;
     // 相対パスを取得。例えば'/item/1'とか
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
