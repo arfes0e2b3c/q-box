@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <nuxt-link to="/">質問箱を見に行く</nuxt-link>
+      <nuxt-link to="/" class="nuxt-link">質問箱を見に行く</nuxt-link>
       <h1
         v-scroll-to="{
           element: '#app',
