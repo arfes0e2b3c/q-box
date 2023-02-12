@@ -300,6 +300,9 @@ header {
       padding-left: 0;
       text-align: center;
     }
+    .nuxt-link {
+      width: 50%;
+    }
     button {
       width: 50%;
     }
