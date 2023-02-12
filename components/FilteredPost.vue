@@ -31,14 +31,16 @@
         />
       </li>
     </ul>
-    <infinite-loading @infinite="loadNewPost">
-      <div slot="spinner" class="spinner">読み込んでいます...</div>
-      <div slot="no-more" class="no-more">条件に合致した質問は以上です。</div>
-      <div slot="no-results" class="no-results">
-        条件に合致した質問は見つかりませんでした。
-      </div>
-      <div slot="error" class="no-results">エラーが発生しました。</div>
-    </infinite-loading>
+    <no-ssr>
+      <infinite-loading @infinite="loadNewPost">
+        <div slot="spinner" class="spinner">読み込んでいます...</div>
+        <div slot="no-more" class="no-more">条件に合致した質問は以上です。</div>
+        <div slot="no-results" class="no-results">
+          条件に合致した質問は見つかりませんでした。
+        </div>
+        <div slot="error" class="no-results">エラーが発生しました。</div>
+      </infinite-loading>
+    </no-ssr>
   </div>
 </template>
 <script>
