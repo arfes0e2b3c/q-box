@@ -2,7 +2,8 @@ require("dotenv").config();
 import axios from "axios";
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  ssr: true,
+  target: "server",
   loading: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {

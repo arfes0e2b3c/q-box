@@ -145,6 +145,7 @@ export default {
       let data = {};
       if (mode === "tweet") {
         data = {
+          // TODO: replace domain
           text:
             slicedAnswer[0] + "\nhttps://unique-donut-e9d728.netlify.app/" + id,
         };
