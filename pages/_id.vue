@@ -80,20 +80,19 @@
 import Common from "~/plugins/common.js";
 import base64url from "base64url";
 export default {
-  async asyncData({ route , $axios}) {
+  async asyncData({ route, $axios }) {
     const MICROCMS_KEY = process.env.MICROCMS_KEY;
     const id = route.path.slice(1);
-    console.log(route.path.split('/'))
-    const resp = await $axios
-      .get(
-        "https://q-box.microcms.io/api/v1/q_box_posts/" +
+    console.log(route.path.split("/"));
+    const resp = await $axios.get(
+      "https://q-box.microcms.io/api/v1/q_box_posts/" +
         id +
         "?fields=question,id,state&answer[exists]",
-        {
-          headers: {"X-MICROCMS-API-KEY": MICROCMS_KEY},
-        }
-      )
-    return { resp: resp.data}
+      {
+        headers: { "X-MICROCMS-API-KEY": MICROCMS_KEY },
+      }
+    );
+    return { resp: resp.data };
   },
   data() {
     return {
@@ -119,7 +118,7 @@ export default {
         url: "",
         image: "",
       },
-      base: "https://unique-donut-e9d728.netlify.app",
+      base: "https://q-box-otetsudai.an.r.appspot.com",
       MICROCMS_KEY: "",
       posts: [],
       modeQuestion: "question",

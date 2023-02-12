@@ -4,7 +4,7 @@
 
 その名の通り 質問箱の機能を改善した Web アプリです。
 
-実際のアプリは[こちら](https://unique-donut-e9d728.netlify.app/)です。
+実際のアプリは[こちら](https://q-box-otetsudai.an.r.appspot.com)です。
 
 2022/02 ~ 2022/03 の間に製作しました。
 当時 Git でコードを管理していなかったため一旦完成したものを GitHub に上げた形になります。

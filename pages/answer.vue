@@ -41,7 +41,7 @@ export default {
       this.showModeNumber++;
     },
     toQBox() {
-      const url = "https://unique-donut-e9d728.netlify.app/";
+      const url = "https://q-box-otetsudai.an.r.appspot.com/";
       window.open(url, "_blank");
     },
   },

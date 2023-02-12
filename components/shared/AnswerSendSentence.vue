@@ -147,7 +147,9 @@ export default {
         data = {
           // TODO: replace domain
           text:
-            slicedAnswer[0] + "\nhttps://unique-donut-e9d728.netlify.app/" + id,
+            slicedAnswer[0] +
+            "\nhttps://q-box-otetsudai.an.r.appspot.com/" +
+            id,
         };
       } else if (mode === "reply") {
         data = {

@@ -25,7 +25,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://unique-donut-e9d728.netlify.app/",
+        content: "https://q-box-otetsudai.an.r.appspot.com/",
       },
       {
         hid: "og:title",
