@@ -295,10 +295,11 @@ header {
       display: none;
     }
     input {
-      border-left: 1px solid rgb(48, 48, 48);
+      border-left: 1px solid rgb(200, 200, 200);
       width: 50%;
       padding-left: 0;
       text-align: center;
+      border-radius: 0;
     }
     .nuxt-link {
       width: 50%;

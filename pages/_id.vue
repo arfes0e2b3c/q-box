@@ -454,10 +454,11 @@ export default {
         width: 50%;
       }
       input {
-        border-left: 1px solid rgb(48, 48, 48);
+        border-left: 1px solid rgb(200, 200, 200);
         width: 50%;
         padding-left: 0;
         text-align: center;
+        border-radius: 0;
       }
       .often-search-word-box {
         padding: 10px 5px 0;

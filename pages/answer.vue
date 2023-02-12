@@ -126,7 +126,7 @@ export default {
         width: 50%;
       }
       button {
-        border-left: 1px solid rgb(48, 48, 48);
+        border-left: 1px solid rgb(200, 200, 200);
         width: 50%;
       }
     }
