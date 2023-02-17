@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nuxt-link to="/" class="nuxt-link">質問箱を見に行く</nuxt-link>
+    <nuxt-link to="/" class="nuxt-link">質問を見に行く</nuxt-link>
     <h1
       v-scroll-to="{
         element: '#app',
@@ -8,7 +8,7 @@
         duration: 500,
       }"
     >
-      質問箱(管理者版)
+      お手伝いサークル(管理者版)
     </h1>
     <button @click="changeShowMode">画面切り替え</button>
   </header>

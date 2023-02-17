@@ -8,7 +8,7 @@
         duration: 500,
       }"
     >
-      質問箱
+      お手伝いサークル
     </h1>
     <input
       id="search-input"
