@@ -93,17 +93,13 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   publicRuntimeConfig: {
-    MICROCMS_KEY: process.env.MICROCMS_Q_BOX_KEY || "",
-    CONSUMER_KEY: process.env.CONSUMER_KEY || "",
-    CONSUMER_KEY_SECRET: process.env.CONSUMER_KEY_SECRET || "",
-    ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY || "",
-    ACCESS_TOKEN_KEY_SECRET: process.env.ACCESS_TOKEN_KEY_SECRET || "",
-  },
-  env: {
-    MICROCMS_KEY: process.env.MICROCMS_Q_BOX_KEY || "",
-    CONSUMER_KEY: process.env.CONSUMER_KEY || "",
-    CONSUMER_KEY_SECRET: process.env.CONSUMER_KEY_SECRET || "",
-    ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY || "",
-    ACCESS_TOKEN_KEY_SECRET: process.env.ACCESS_TOKEN_KEY_SECRET || "",
+    consumerKey: process.env.CONSUMER_KEY || "",
+    accessTokenKey: process.env.ACCESS_TOKEN_KEY || "",
+    baseUrl: process.env.BASE_URL || "http://locahost:3000",
+    // },
+    // privateRuntimeConfig: {
+    microCmsKey: process.env.MICROCMS_Q_BOX_KEY || "",
+    consumerKeySecret: process.env.CONSUMER_KEY_SECRET || "",
+    accessTokenKeySecret: process.env.ACCESS_TOKEN_KEY_SECRET || "",
   },
 };

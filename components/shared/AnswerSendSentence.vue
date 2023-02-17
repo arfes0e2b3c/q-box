@@ -41,11 +41,6 @@ export default {
     replySentence: "",
     show: "",
     keepButton: false,
-    MICROCMS_KEY: "",
-    CONSUMER_KEY: "",
-    CONSUMER_KEY_SECRET: "",
-    ACCESS_TOKEN_KEY: "",
-    ACCESS_TOKEN_KEY_SECRET: "",
   },
   data() {
     return {
@@ -119,8 +114,8 @@ export default {
       }
       const oauth = OAuth({
         consumer: {
-          key: this.CONSUMER_KEY,
-          secret: this.CONSUMER_KEY_SECRET,
+          key: this.$config.consumerKey,
+          secret: this.$config.consumerKeySecret,
         },
         signature_method: "HMAC-SHA1",
         hash_function(base_string, key) {
@@ -131,8 +126,8 @@ export default {
         },
       });
       const token = {
-        key: this.ACCESS_TOKEN_KEY,
-        secret: this.ACCESS_TOKEN_KEY_SECRET,
+        key: this.$config.accessTokenKey,
+        secret: this.$config.accessTokenKeySecret,
       };
       const request = {
         url: "https://api.twitter.com/2/tweets",
@@ -146,10 +141,7 @@ export default {
       if (mode === "tweet") {
         data = {
           // TODO: replace domain
-          text:
-            slicedAnswer[0] +
-            "\nhttps://q-box-otetsudai.an.r.appspot.com/" +
-            id,
+          text: slicedAnswer[0] + "\n" + this.$config.baseUrl + id,
         };
       } else if (mode === "reply") {
         data = {
@@ -195,7 +187,7 @@ export default {
           {
             headers: {
               "Content-Type": "application/json",
-              "X-MICROCMS-API-KEY": this.MICROCMS_KEY,
+              "X-MICROCMS-API-KEY": this.$config.microCmsKey,
             },
           }
         )
@@ -218,7 +210,7 @@ export default {
           {
             headers: {
               "Content-Type": "application/json",
-              "X-MICROCMS-API-KEY": this.MICROCMS_KEY,
+              "X-MICROCMS-API-KEY": this.$config.microCmsKey,
             },
           }
         )
@@ -242,7 +234,7 @@ export default {
           {
             headers: {
               "Content-Type": "application/json",
-              "X-MICROCMS-API-KEY": this.MICROCMS_KEY,
+              "X-MICROCMS-API-KEY": this.$config.microCmsKey,
             },
           }
         )

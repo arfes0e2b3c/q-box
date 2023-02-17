@@ -23,11 +23,6 @@
           :contentId="post.id"
           :show="true"
           :keepButton="false"
-          :MICROCMS_KEY="MICROCMS_KEY"
-          :CONSUMER_KEY="CONSUMER_KEY"
-          :CONSUMER_KEY_SECRET="CONSUMER_KEY_SECRET"
-          :ACCESS_TOKEN_KEY="ACCESS_TOKEN_KEY"
-          :ACCESS_TOKEN_KEY_SECRET="ACCESS_TOKEN_KEY_SECRET"
           @get-posts="getPosts"
         />
       </li>
@@ -53,11 +48,6 @@ export default {
   },
   data() {
     return {
-      MICROCMS_KEY: "",
-      CONSUMER_KEY: "",
-      CONSUMER_KEY_SECRET: "",
-      ACCESS_TOKEN_KEY: "",
-      ACCESS_TOKEN_KEY_SECRET: "",
       posts: [],
       modeQuestion: "question",
       modeAnswerForKeep: "answerForKeep",
@@ -70,7 +60,7 @@ export default {
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt",
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -90,7 +80,7 @@ export default {
                 post.id +
                 "[and]replyAnswer[exists]&orders=createdAt",
               {
-                headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
               }
             )
             .then((response) => {
@@ -119,7 +109,7 @@ export default {
             "&offset=" +
             this.postCount,
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -142,11 +132,6 @@ export default {
     },
   },
   async created() {
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY;
-    this.CONSUMER_KEY = process.env.CONSUMER_KEY;
-    this.CONSUMER_KEY_SECRET = process.env.CONSUMER_KEY_SECRET;
-    this.ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
-    this.ACCESS_TOKEN_KEY_SECRET = process.env.ACCESS_TOKEN_KEY_SECRET;
     this.loadNewPost();
   },
 };

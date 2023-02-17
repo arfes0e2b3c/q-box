@@ -32,11 +32,6 @@ export default {
     contentOriginId: "",
     replySentence: "",
     show: "",
-    MICROCMS_KEY: "",
-    CONSUMER_KEY: "",
-    CONSUMER_KEY_SECRET: "",
-    ACCESS_TOKEN_KEY: "",
-    ACCESS_TOKEN_KEY_SECRET: "",
   },
   data() {
     return {
@@ -76,7 +71,7 @@ export default {
             {
               headers: {
                 "Content-Type": "application/json",
-                "X-MICROCMS-API-KEY": this.MICROCMS_KEY,
+                "X-MICROCMS-API-KEY": this.$config.microCmsKey,
               },
             }
           )
@@ -99,7 +94,7 @@ export default {
             {
               headers: {
                 "Content-Type": "application/json",
-                "X-MICROCMS-API-KEY": this.MICROCMS_KEY,
+                "X-MICROCMS-API-KEY": this.$config.microCmsKey,
               },
             }
           )

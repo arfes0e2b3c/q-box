@@ -41,8 +41,7 @@ export default {
       this.showModeNumber++;
     },
     toQBox() {
-      const url = "https://q-box-otetsudai.an.r.appspot.com/";
-      window.open(url, "_blank");
+      window.open(this.$config.baseUrl, "_blank");
     },
   },
 };

@@ -4,7 +4,6 @@
       class="send-sentence"
       :mode="modeQuestion"
       :show="true"
-      :MICROCMS_KEY="MICROCMS_KEY"
     />
     <ul>
       <h2>最新の質問</h2>
@@ -33,7 +32,6 @@
           :mode="modeReply"
           :contentId="post.id"
           :show="true"
-          :MICROCMS_KEY="MICROCMS_KEY"
         />
       </li>
     </ul>
@@ -58,7 +56,6 @@ export default {
   },
   data() {
     return {
-      MICROCMS_KEY: "",
       posts: [],
       modeQuestion: "question",
       modeReply: "reply",
@@ -78,7 +75,7 @@ export default {
                 post.id +
                 "[and]replyAnswer[exists]&orders=createdAt",
               {
-                headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
               }
             )
             .then((response) => {
@@ -108,7 +105,7 @@ export default {
             "&offset=" +
             this.postCount,
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -129,9 +126,6 @@ export default {
           console.log(error);
         });
     },
-  },
-  async created() {
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY;
   },
 };
 </script>

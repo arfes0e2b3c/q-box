@@ -10,11 +10,11 @@ export default {
       );
     });
   },
-  async deletePost(that, id, endPoint, key) {
+  async deletePost(that, id, endPoint, config) {
     if (window.confirm("削除してよろしいですか？")) {
       await that.$axios
         .$delete("https://q-box.microcms.io/api/v1/" + endPoint + "/" + id, {
-          headers: { "X-MICROCMS-API-KEY": key },
+          headers: { "X-MICROCMS-API-KEY": config.microCmsKey },
         })
         .then(() => {
           if (endPoint === "q_box_posts") {

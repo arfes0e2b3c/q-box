@@ -55,7 +55,6 @@
             :mode="modeReply"
             :contentId="post.id"
             :show="true"
-            :MICROCMS_KEY="MICROCMS_KEY"
           />
         </li>
       </ul>
@@ -63,7 +62,6 @@
         class="send-sentence"
         :mode="modeQuestion"
         :show="true"
-        :MICROCMS_KEY="MICROCMS_KEY"
       />
     </div>
     <FilteredPost
@@ -71,7 +69,6 @@
       :qWord="qWord"
       ref="FilteredPost"
       class="filtered-post"
-      :MICROCMS_KEY="MICROCMS_KEY"
       @click="toggleSearchWord(false)"
     />
   </div>
@@ -81,14 +78,13 @@ import Common from "~/plugins/common.js";
 import base64url from "base64url";
 export default {
   async asyncData({ route, $axios }) {
-    const MICROCMS_KEY = process.env.MICROCMS_KEY;
     const id = route.path.slice(1);
     const resp = await $axios.get(
       "https://q-box.microcms.io/api/v1/q_box_posts/" +
         id +
         "?fields=question,id,state&answer[exists]",
       {
-        headers: { "X-MICROCMS-API-KEY": MICROCMS_KEY },
+        headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
       }
     );
     return { resp: resp.data };
@@ -117,8 +113,6 @@ export default {
         url: "",
         image: "",
       },
-      base: "https://q-box-otetsudai.an.r.appspot.com",
-      MICROCMS_KEY: "",
       posts: [],
       modeQuestion: "question",
       modeReply: "reply",
@@ -134,7 +128,7 @@ export default {
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
-    this.meta.url = this.base + path;
+    this.meta.url = this.$config.baseUrl + path;
     this.meta.image =
       this.item.ImgixImageUrl[this.payload.state] +
       this.item.ImgixTextUrl +
@@ -191,7 +185,7 @@ export default {
                 post.id +
                 "[and]replyAnswer[exists]&orders=createdAt",
               {
-                headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
               }
             )
             .then((response) => {
@@ -245,7 +239,7 @@ export default {
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=id[equals]" +
             this.$route.path.slice(1),
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -261,7 +255,6 @@ export default {
     },
   },
   async mounted() {
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY;
     this.getPosts();
   },
 };

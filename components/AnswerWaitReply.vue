@@ -22,11 +22,6 @@
           :replySentence="reply.replySentence"
           :show="false"
           :keepButton="false"
-          :MICROCMS_KEY="MICROCMS_KEY"
-          :CONSUMER_KEY="CONSUMER_KEY"
-          :CONSUMER_KEY_SECRET="CONSUMER_KEY_SECRET"
-          :ACCESS_TOKEN_KEY="ACCESS_TOKEN_KEY"
-          :ACCESS_TOKEN_KEY_SECRET="ACCESS_TOKEN_KEY_SECRET"
           @set-replies="setReply"
         />
       </div>
@@ -38,11 +33,6 @@ import Common from "~/plugins/common.js";
 export default {
   data() {
     return {
-      MICROCMS_KEY: "",
-      CONSUMER_KEY: "",
-      CONSUMER_KEY_SECRET: "",
-      ACCESS_TOKEN_KEY: "",
-      ACCESS_TOKEN_KEY_SECRET: "",
       replies: [],
       posts: [],
       modeReplyForReply: "replyForReply",
@@ -57,7 +47,7 @@ export default {
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyAnswer[not_exists]&orders=createdAt",
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -87,7 +77,7 @@ export default {
             "https://q-box.microcms.io/api/v1/q_box_posts?filters=id[equals]" +
               id,
             {
-              headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+              headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
             }
           )
           .then((response) => {
@@ -106,15 +96,10 @@ export default {
       this.$set(this, "posts", postList);
     },
     deletePost(id) {
-      Common.deletePost(this, id, "q_box_replies", this.MICROCMS_KEY);
+      Common.deletePost(this, id, "q_box_replies", this.$config);
     },
   },
   mounted() {
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY;
-    this.CONSUMER_KEY = process.env.CONSUMER_KEY;
-    this.CONSUMER_KEY_SECRET = process.env.CONSUMER_KEY_SECRET;
-    this.ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY;
-    this.ACCESS_TOKEN_KEY_SECRET = process.env.ACCESS_TOKEN_KEY_SECRET;
     this.setReply();
   },
 };

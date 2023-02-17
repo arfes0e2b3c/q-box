@@ -52,7 +52,6 @@ export default {
   },
   data() {
     return {
-      MICROCMS_KEY: "",
       qWord: "",
       posts: [],
       modeQuestion: "question",
@@ -81,7 +80,7 @@ export default {
             "&offset=" +
             this.postCount,
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -115,7 +114,7 @@ export default {
             word +
             "&limit=5",
           {
-            headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
         .then((response) => {
@@ -137,7 +136,7 @@ export default {
                 post.id +
                 "[and]replyAnswer[exists]&orders=createdAt",
               {
-                headers: { "X-MICROCMS-API-KEY": this.MICROCMS_KEY },
+                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
               }
             )
             .then((response) => {
@@ -158,9 +157,6 @@ export default {
         }
       }
     },
-  },
-  mounted() {
-    this.MICROCMS_KEY = process.env.MICROCMS_KEY;
   },
 };
 </script>
