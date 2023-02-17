@@ -110,9 +110,11 @@ export default {
       this.setTitle(word);
       await this.$axios
         .$get(
-          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists][and]question[contains]" +
+          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists][and](question[contains]" +
             word +
-            "&limit=5",
+            "[or]answer[contains]" +
+            word +
+            ")&limit=5",
           {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
