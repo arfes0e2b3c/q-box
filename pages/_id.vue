@@ -76,7 +76,7 @@ export default {
             "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/e8ff8e3ccffd4e89b37680d70a3b6d26/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
           keep: "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/6efb7cba640148a29d7b712679accffd/keep.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
         },
-        explanation: "質問箱です",
+        explanation: "お手伝いサークル公式サイト",
       },
       meta: {
         title: "",
