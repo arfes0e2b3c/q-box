@@ -1,36 +1,10 @@
 <template>
   <div id="app">
-    <header>
-      <nuxt-link to="/" class="nuxt-link">ホームへ戻る</nuxt-link>
-      <h1>質問箱</h1>
-      <input
-        id="search-input"
-        type="text"
-        autocomplete="off"
-        placeholder="語句で検索"
-        v-model="qWord"
-        @keyup.enter="searchPost(qWord)"
-        @click="toggleSearchWord(!showSearchWord)"
-      />
-      <transition>
-        <div v-show="showSearchWord && !qWord" class="often-search-word-box">
-          <h3>良く検索されるワード</h3>
-          <ul>
-            <li
-              v-for="word in this.searchWords"
-              :key="word"
-              @click="inputSearchWord(word)"
-            >
-              {{ word }}
-            </li>
-          </ul>
-        </div>
-      </transition>
-    </header>
+    <SharedHeader @searchPost="searchPost" />
     <div
       id="id-container"
       v-show="showIdContainer"
-      @click="toggleSearchWord(false)"
+      @click="toggleSearchWordModal(false)"
     >
       <ul>
         <li v-for="post in posts" :key="post.id">
@@ -66,10 +40,9 @@
     </div>
     <FilteredPost
       v-show="showFilteredPost"
-      :qWord="qWord"
       ref="FilteredPost"
       class="filtered-post"
-      @click="toggleSearchWord(false)"
+      @click="toggleSearchWordModal(false)"
     />
   </div>
 </template>
@@ -77,21 +50,20 @@
 import Common from "~/plugins/common.js";
 import base64url from "base64url";
 export default {
-  async asyncData({ route, $axios }) {
+  async asyncData({ route, $axios, $config }) {
     const id = route.path.slice(1);
     const resp = await $axios.get(
       "https://q-box.microcms.io/api/v1/q_box_posts/" +
         id +
         "?fields=question,id,state&answer[exists]",
       {
-        headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
+        headers: { "X-MICROCMS-API-KEY": $config.microCmsKey },
       }
     );
     return { resp: resp.data };
   },
   data() {
     return {
-      searchWords: ["TOEFL", "サークル", "般教", "一般教養", "バイト"],
       payload: { question: "", id: "" },
       modeQuestion: "question",
       imgixId: "",
@@ -116,10 +88,8 @@ export default {
       posts: [],
       modeQuestion: "question",
       modeReply: "reply",
-      qWord: "",
       showIdContainer: true,
       showFilteredPost: false,
-      showSearchWord: false,
     };
   },
   head() {
@@ -128,7 +98,7 @@ export default {
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
-    this.meta.url = this.$config.baseUrl + path;
+    this.meta.url = this.$config + path;
     this.meta.image =
       this.item.ImgixImageUrl[this.payload.state] +
       this.item.ImgixTextUrl +
@@ -159,18 +129,15 @@ export default {
     };
   },
   methods: {
+    toHome() {
+      this.showNewPost = true;
+      this.showFilteredPost = false;
+    },
     searchPost(word) {
       if (word) {
         this.$refs.FilteredPost.getPost(word);
         this.changeShowMode();
       }
-    },
-    toggleSearchWord(boolean) {
-      this.showSearchWord = boolean;
-    },
-    inputSearchWord(word) {
-      this.searchPost(word);
-      this.toggleSearchWord(false);
     },
     changeShowMode() {
       this.showIdContainer = false;
