@@ -19,6 +19,7 @@
         <fa :icon="faChevronUp" />
       </div>
     </div>
+    <SharedFooter />
   </div>
 </template>
 
