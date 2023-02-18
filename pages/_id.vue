@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <SharedHeader @searchPost="searchPost" />
-    <div
-      id="id-container"
-      v-show="showIdContainer"
-      @click="toggleSearchWordModal(false)"
-    >
+    <div id="id-container" v-show="showIdContainer">
       <ul>
         <li v-for="post in posts" :key="post.id">
           <div class="primary-post">
@@ -42,7 +38,6 @@
       v-show="showFilteredPost"
       ref="FilteredPost"
       class="filtered-post"
-      @click="toggleSearchWordModal(false)"
     />
   </div>
 </template>
