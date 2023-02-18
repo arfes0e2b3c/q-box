@@ -129,23 +129,30 @@ export default {
     height: 30px;
     padding: 20px;
     outline: none;
+    border: none;
+    border-bottom: 2px solid #333;
     border-color: rgba(0, 0, 0, 0.15);
     border-width: 2px;
-    border-radius: 10px;
+    transition: 0.2s;
+    /* border-radius: 10px; */
+    &:focus {
+      border-color: rgba(0, 0, 0, 0.5);
+    }
   }
   button {
-    width: 80px;
-    height: 30px;
+    width: 100px;
+    height: 40px;
     margin-top: 10px;
+    background-color: #333;
+    color: white;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
-    background: none;
-    transition: 0.5s;
+    border-radius: 1px;
+    transition: 0.3s;
     cursor: pointer;
     &:hover {
-      background-color: #77d;
-      border: 1px solid rgba(0, 0, 200, 1);
-      color: white;
+      background-color: white;
+      color: #333;
+      border: 1px solid #333;
     }
   }
 }
