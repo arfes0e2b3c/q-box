@@ -39,6 +39,7 @@
       ref="FilteredPost"
       class="filtered-post"
     />
+    <SharedFooter />
   </div>
 </template>
 <script>
@@ -228,91 +229,6 @@ export default {
 }
 * {
   font-family: azuki;
-  header {
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
-    background-color: white;
-    z-index: 1000;
-
-    .nuxt-link {
-      width: 20%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #333;
-      text-decoration: none;
-      transition: 0.5s;
-      &:hover {
-        background-color: rgba(48, 48, 48, 1);
-        color: white;
-      }
-    }
-
-    input {
-      width: calc(20% - 10px);
-      height: 100%;
-      border-color: rgba(0, 0, 0, 0.1);
-      background-color: rgba(0, 0, 0, 0.1);
-      border: none;
-      outline: none;
-      font-size: 1.2em;
-      padding-left: 10px;
-      transition: 0.5s;
-      &:focus {
-        background-color: rgb(48, 48, 48);
-        color: white;
-      }
-    }
-    .often-search-word-box {
-      transform-origin: center center;
-      position: absolute;
-      z-index: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      top: 100%;
-      left: 0;
-      width: 100%;
-      max-height: 200px;
-      padding: 10px;
-      overflow: scroll;
-      box-shadow: 0px 10px 10px 1px rgba(0, 0, 0, 0.2);
-      h3 {
-        margin: 10px;
-        color: white;
-      }
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        li {
-          list-style: none;
-          width: 11%;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid white;
-          color: white;
-          border-radius: 5px;
-          margin: 0 calc((12% - 36px) / 16) 10px;
-          cursor: pointer;
-          transition: 0.5s;
-          overflow: hidden;
-          &:hover {
-            background-color: rgb(48, 48, 48);
-            color: white;
-          }
-        }
-      }
-    }
-  }
   #id-container {
     ul {
       width: 60%;

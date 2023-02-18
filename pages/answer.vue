@@ -4,6 +4,7 @@
     <AnswerWaitPost v-show="showPost" class="answer-wait-post" />
     <AnswerWaitReply v-show="showReply" class="answer-wait-reply" />
     <AnswerKeepPost v-show="showKeep" class="answer-keep-post" />
+    <SharedFooter />
   </div>
 </template>
 <script>
