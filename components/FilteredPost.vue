@@ -163,100 +163,94 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@font-face {
-  font-family: "azuki";
-  src: url("~@/assets/fonts/azuki.ttf") format("truetype");
+#send-sentence {
+  width: 100%;
+  margin-top: 90px;
 }
-* {
-  font-family: azuki;
-  #send-sentence {
-    width: 100%;
-    margin-top: 90px;
-  }
-  ul {
-    width: 80%;
-    margin: 0 auto;
-    // min-height: 100vh;
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 30px 0;
-      padding: 5% 10%;
-      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-      overflow-wrap: break-word;
-      .primary-post {
+ul {
+  width: 80%;
+  margin: 0 auto;
+  // min-height: 100vh;
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0;
+    padding: 5% 10%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word;
+    .primary-post {
+      width: 80%;
+      text-align: center;
+      margin: 5px auto;
+      .created-at {
+        width: 100px;
+        padding: 5px 10px;
+        margin: 10px;
+        border: 2px solid rgba(67, 134, 135, 0.7);
+        background-color: rgb(117, 184, 185);
+        color: white;
+        border-radius: 5px;
+      }
+      .answered {
+        background-color: rgb(0, 74, 169);
+        border: 2px solid rgba(0, 24, 85, 0.7);
+      }
+      .keep,
+      .waitInformation {
+        background-color: rgb(255, 222, 103);
+        border: 2px solid rgba(205, 172, 53, 0.7);
+      }
+      .answer {
         width: 80%;
+        margin: 10px auto;
+      }
+      .card-button {
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+    canvas {
+      width: 100%;
+      border-radius: 10px;
+      div {
+        width: 90%;
         text-align: center;
         margin: 5px auto;
-        .created-at {
-          width: 100px;
-          padding: 5px 10px;
-          margin: 10px;
-          border: 2px solid rgba(67, 134, 135, 0.7);
-          background-color: rgb(117, 184, 185);
-          color: white;
-          border-radius: 5px;
-        }
-        .answered {
-          background-color: rgb(0, 74, 169);
-          border: 2px solid rgba(0, 24, 85, 0.7);
-        }
-        .keep,
-        .waitInformation {
-          background-color: rgb(255, 222, 103);
-          border: 2px solid rgba(205, 172, 53, 0.7);
-        }
-        .answer {
-          width: 80%;
-          margin: 10px auto;
-        }
-        .card-button {
-          transition: 0.5s;
-          cursor: pointer;
-          &:hover {
-            opacity: 0.7;
-          }
-        }
-      }
-      canvas {
-        width: 100%;
-        border-radius: 10px;
-        div {
-          width: 90%;
-          text-align: center;
-          margin: 5px auto;
-        }
-      }
-      p {
-        margin: 20px 0;
-      }
-      .secondary-post {
-        width: 60%;
-        text-align: center;
       }
     }
-  }
-  .spinner {
-    animation: spinner 1s infinite ease;
-  }
-  @keyframes spinner {
-    0% {
-      opacity: 1;
+    p {
+      margin: 20px 0;
     }
-    50% {
-      opacity: 0;
+    .secondary-post {
+      width: 60%;
+      text-align: center;
     }
-    100% {
-      opacity: 1;
-    }
-  }
-  .no-more,
-  .no-results,
-  .spinner {
-    margin: 30px auto;
   }
 }
+.spinner {
+  animation: spinner 1s infinite ease;
+}
+@keyframes spinner {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.no-more,
+.no-results,
+.spinner {
+  margin: 30px auto;
+}
+
 @media (max-width: 520px) {
   .send-sentence {
     width: 100%;
