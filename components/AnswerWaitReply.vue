@@ -195,6 +195,7 @@ p {
     li {
       padding: 20px 10px;
       margin: 10px 0;
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
       h3 {
         width: 90%;
         margin-bottom: 10px;
@@ -205,6 +206,7 @@ p {
       > div {
         margin: 5px 0;
         padding: 10px;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
         .manage-send-sentence-box {
           button {
             width: 50px;

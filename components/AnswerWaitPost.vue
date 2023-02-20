@@ -141,6 +141,7 @@ ul {
     li {
       padding: 10px;
       margin: 10px 0;
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
       .box {
         h3 {
           width: auto;
