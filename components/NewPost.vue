@@ -143,6 +143,8 @@ ul {
     align-items: center;
     margin-bottom: 30px;
     padding: 5%;
+    padding-top: 2%;
+    padding-bottom: 1%;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
     canvas {
       width: 100%;
@@ -155,7 +157,7 @@ ul {
     .primary-post {
       width: 80%;
       text-align: center;
-      margin: 5px auto;
+      margin: 0 auto;
       .card-button {
         transition: 0.5s;
         cursor: pointer;
@@ -236,9 +238,11 @@ ul {
     }
     li {
       width: 100%;
-      padding: 20px 0;
+      padding: 0px 0;
+      margin-bottom: 15px;
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
       .primary-post {
-        width: 90%;
+        width: 95%;
       }
       .secondary-post {
         width: 75%;
