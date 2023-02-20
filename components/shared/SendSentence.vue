@@ -113,13 +113,14 @@ export default {
 <style scoped lang="scss">
 .sentence-box {
   width: calc(100% - 40px);
-  height: 150px;
+  /* height: 150px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: 0.5s;
   padding-top: 20px;
   overflow: hidden;
+  padding-bottom: 10px;
   h3 {
     margin: 10px auto;
   }
@@ -135,6 +136,7 @@ export default {
     border-width: 2px;
     transition: 0.2s;
     /* border-radius: 10px; */
+    border-radius: 0;
     &:focus {
       border-color: rgba(0, 0, 0, 0.5);
     }
@@ -142,9 +144,10 @@ export default {
   button {
     width: 100px;
     height: 40px;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: #333;
     color: white;
+    font-weight: bold;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 1px;
     transition: 0.3s;
@@ -152,12 +155,11 @@ export default {
     &:hover {
       background-color: white;
       color: #333;
-      border: 1px solid #333;
+      /* border: 1px solid #333; */
+      border: 1px solid transparent;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
     }
   }
-}
-.boxHeightInPosts {
-  height: 114px;
 }
 .v {
   &-enter {
