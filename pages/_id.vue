@@ -2,44 +2,38 @@
   <div id="app">
     <SharedHeader @searchPost="searchPost" />
     <div id="id-container" v-show="showIdContainer">
-      <ul>
-        <li v-for="post in posts" :key="post.id">
-          <div class="primary-post">
-            <p
-              class="created-at"
-              :class="post.state"
-              v-html="post.createdAt.substr(0, 10)"
-            ></p>
-            <canvas :id="post.id"></canvas>
-            <p v-html="post.answer" class="answer"></p>
-          </div>
-          <div
-            v-for="reply in post.replies"
-            :key="reply.id"
-            class="secondary-post"
-          >
-            <canvas :id="reply.id"></canvas>
-            <p v-html="reply.replyAnswer"></p>
-          </div>
-          <SharedSendSentence
-            :mode="modeReply"
-            :contentId="post.id"
-            :show="true"
-          />
-        </li>
-      </ul>
-      <SharedSendSentence
-        class="send-sentence"
-        :mode="modeQuestion"
-        :show="true"
-      />
+      <div class="card-container">
+        <div class="primary-post">
+          <p class="created-at" :class="post.state" v-html="post.createdAt"></p>
+          <canvas :id="post.id"></canvas>
+          <p v-html="post.answer" class="answer"></p>
+        </div>
+        <div
+          v-for="reply in post.replies"
+          :key="reply.id"
+          class="secondary-post"
+        >
+          <canvas :id="reply.id"></canvas>
+          <p v-html="reply.replyAnswer"></p>
+        </div>
+        <SharedSendSentence
+          :mode="modeReply"
+          :contentId="post.id"
+          :show="true"
+        />
+        <!-- <SharedSendSentence
+          class="send-sentence"
+          :mode="modeQuestion"
+          :show="true"
+        /> -->
+      </div>
+      <SharedFooter />
     </div>
     <FilteredPost
       v-show="showFilteredPost"
       ref="FilteredPost"
       class="filtered-post"
     />
-    <SharedFooter />
   </div>
 </template>
 <script>
@@ -81,7 +75,7 @@ export default {
         url: "",
         image: "",
       },
-      posts: [],
+      post: [],
       modeQuestion: "question",
       modeReply: "reply",
       showIdContainer: true,
@@ -140,33 +134,31 @@ export default {
       this.showFilteredPost = true;
     },
     async setReply() {
-      if (this.posts) {
-        for (const post of this.posts) {
-          await this.$axios
-            .$get(
-              "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-                post.id +
-                "[and]replyAnswer[exists]&orders=createdAt",
-              {
-                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-              }
-            )
-            .then((response) => {
-              Common.generateImage(
-                document,
-                response.contents,
-                "replySentence",
-                "",
-                "answered"
-              );
-              this.$set(post, "replies", response.contents);
-              Common.modifyUrlInPost(post.replies, "replyAnswer");
-            })
-            .catch((error) => {
-              alert("通信に失敗しました。：" + error);
-              console.log(error);
-            });
-        }
+      if (this.post) {
+        await this.$axios
+          .$get(
+            "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
+              this.post.id +
+              "[and]replyAnswer[exists]&orders=createdAt",
+            {
+              headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
+            }
+          )
+          .then((response) => {
+            Common.generateImage(
+              document,
+              response.contents,
+              "replySentence",
+              "",
+              "answered"
+            );
+            this.$set(this.post, "replies", response.contents);
+            Common.modifyUrlInPost(this.post.replies, "replyAnswer");
+          })
+          .catch((error) => {
+            alert("通信に失敗しました。：" + error);
+            console.log(error);
+          });
       }
     },
     fillFixedText(ctx, text, imageWidth, imageHeight, canvas) {
@@ -206,10 +198,11 @@ export default {
           }
         )
         .then((response) => {
-          this.posts = response.contents;
-          Common.generateImage(document, this.posts, "question", "");
+          this.post = response.contents.shift();
+          this.post.createdAt = this.post.createdAt.substr(0, 10);
+          Common.generateImage(document, [this.post], "question", "");
           this.setReply();
-          Common.modifyUrlInPost(this.posts, "answer");
+          Common.modifyUrlInPost([this.post], "answer");
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
@@ -217,7 +210,7 @@ export default {
         });
     },
   },
-  async mounted() {
+  async created() {
     this.getPosts();
   },
 };
@@ -230,59 +223,56 @@ export default {
 * {
   font-family: azuki;
   #id-container {
-    ul {
+    .card-container {
       width: 60%;
-      margin: 120px auto 0;
+      margin: 120px auto 50px;
       overflow-wrap: break-word;
-      li {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-        margin: 10px 0;
-        padding: 5%;
-        canvas {
-          width: 100%;
-          border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+      padding: 5%;
+      canvas {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .primary-post {
+        width: 80%;
+        text-align: center;
+        margin: 5px auto;
+        .created-at {
+          width: 100px;
+          padding: 5px 10px;
+          margin: 10px 10px;
+          border: 2px solid rgba(67, 134, 135, 0.7);
+          /* background-color: rgb(117, 184, 185); */
+          color: white;
+          border-radius: 5px;
         }
-        .primary-post {
+        .answered {
+          background-color: rgb(0, 74, 169);
+          border: 2px solid rgba(0, 24, 85, 0.7);
+        }
+        .keep,
+        .waitInformation {
+          background-color: rgb(255, 222, 103);
+          border: 2px solid rgba(205, 172, 53, 0.7);
+          color: #333;
+        }
+        .answer {
           width: 80%;
-          text-align: center;
-          margin: 5px auto;
-          .created-at {
-            width: 100px;
-            padding: 5px 10px;
-            margin: 10px 10px;
-            border: 2px solid rgba(67, 134, 135, 0.7);
-            background-color: rgb(117, 184, 185);
-            color: white;
-            border-radius: 5px;
-          }
-          .answered {
-            background-color: rgb(0, 74, 169);
-            border: 2px solid rgba(0, 24, 85, 0.7);
-          }
-          .keep,
-          .waitInformation {
-            background-color: rgb(255, 222, 103);
-            border: 2px solid rgba(205, 172, 53, 0.7);
-            color: #333;
-          }
-          .answer {
-            width: 80%;
-            margin: 10px auto;
-          }
-        }
-        .secondary-post {
-          width: 60%;
-          text-align: center;
-          margin: 5px auto;
-        }
-        p {
-          white-space: pre-line;
           margin: 10px auto;
-          text-align: center;
         }
+      }
+      .secondary-post {
+        width: 60%;
+        text-align: center;
+        margin: 5px auto;
+      }
+      p {
+        white-space: pre-line;
+        margin: 10px auto;
+        text-align: center;
       }
     }
   }
@@ -316,44 +306,17 @@ export default {
     }
   }
   @media (max-width: 520px) {
-    header {
-      height: 60px;
-      h1 {
-        display: none;
-      }
-      .nuxt-link {
-        width: 50%;
-      }
-      input {
-        border-left: 1px solid rgb(200, 200, 200);
-        width: 50%;
-        padding-left: 0;
-        text-align: center;
-        border-radius: 0;
-      }
-      .often-search-word-box {
-        padding: 10px 5px 0;
-        ul {
-          li {
-            width: 30%;
-            margin: 0 calc((10% - 16px) / 6) 10px;
-          }
-        }
-      }
-    }
     #id-container {
-      ul {
+      .card-container {
         width: 100%;
         margin-top: 90px;
-        li {
-          width: 100%;
-          padding: 20px 0;
-          .primary-post {
-            width: 90%;
-          }
-          .secondary-post {
-            width: 75%;
-          }
+        width: 100%;
+        padding: 20px 0;
+        .primary-post {
+          width: 95%;
+        }
+        .secondary-post {
+          width: 75%;
         }
       }
     }
