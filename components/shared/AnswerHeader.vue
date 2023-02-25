@@ -1,17 +1,5 @@
 <template>
-  <header>
-    <nuxt-link to="/" class="nuxt-link">質問を見に行く</nuxt-link>
-    <h1
-      v-scroll-to="{
-        element: '#app',
-        offset: -200,
-        duration: 500,
-      }"
-    >
-      お手伝いサークル(管理者版)
-    </h1>
-    <button @click="changeShowMode">画面切り替え</button>
-  </header>
+    <div class="shadow-header"></div>
 </template>
 <script>
 export default {
@@ -72,6 +60,10 @@ header {
     }
   }
 }
+.shadow-header {
+  width: 100%;
+  height: 70px;
+}
 @media (max-width: 520px) {
   header {
     height: 60px;
@@ -85,6 +77,10 @@ header {
       border-left: 1px solid rgb(200, 200, 200);
       width: 50%;
     }
+  }
+  .shadow-header {
+    width: 100%;
+    height: 60px;
   }
 }
 </style>

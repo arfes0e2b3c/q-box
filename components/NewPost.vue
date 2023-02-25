@@ -126,7 +126,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .send-sentence {
-  margin: 70px auto 0;
+  margin: 0 auto;
   width: 60%;
   transition: 0s;
 }

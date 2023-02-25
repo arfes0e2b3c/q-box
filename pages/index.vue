@@ -96,11 +96,6 @@ export default {
 }
 </style>
 <style scoped lang="scss">
-.new-post,
-.filtered-post {
-  margin-top: 70px;
-}
-
 .chevron-up {
   display: none;
 }

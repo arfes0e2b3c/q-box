@@ -75,7 +75,7 @@ export default {
   margin: 0 auto;
   > div {
     display: flex;
-    margin: 10px 0;
+    margin: 20px 0;
   }
   h2 {
     font-size: 2.2em;

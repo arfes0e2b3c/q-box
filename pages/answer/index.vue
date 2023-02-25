@@ -54,7 +54,6 @@ export default {
   .answer-wait-reply,
   .answer-wait-post,
   .answer-keep-post {
-    margin-top: 90px;
     min-height: calc(100vh - 241px);
   }
 }
