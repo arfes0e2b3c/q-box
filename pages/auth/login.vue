@@ -1,12 +1,15 @@
 <template>
   <section class="container">
     <div>
-      <form @submit.prevent="submit">
+      <form @submit.prevent="onLogin">
         <label for="usernameTxt">Username:</label>
         <input id="usernameTxt" type="email" v-model="email" />
         <label for="passwordTxt">Password:</label>
         <input id="passwordTxt" type="password" v-model="password" />
         <button type="submit">Sign In</button>
+      </form>
+      <form @submit.prevent="onLogout">
+        <button type="submit">Sign Out</button>
       </form>
     </div>
   </section>
@@ -14,7 +17,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import * as firebase from "firebase/auth";
+import * as auth from "firebase/auth";
 
 export default {
   layout: "default",
@@ -26,39 +29,31 @@ export default {
   },
   middleware: ["handle-login-route"],
   methods: {
-    ...mapActions("modules/user", ["login"]),
-    submit() {
-      // const auth = firebase.getAuth();
-      console.log(firebase);
-      // firebase
-      //   .signInWithEmailAndPassword(auth, this.email, this.password)
-      //   .then((firebaseUser) => {
-      //     return this.login(firebaseUser.uid);
-      //   })
-      //   .then((response) => {
-      //     console.log(response);
-      //   });
-      // .then(() => {
-      //   this.$router.push("/answer");
-      // })
-      // .catch((error) => {
-      //   console.log(error.message);
-      // });
-      //デフォルトではauthUrlはログイン用のURL
-      const authUrl =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
-        this.$config.firebaseApiKey;
-      const signinData = {
-        email: this.email,
-        password: this.password,
-        returnSecureToken: true,
-      };
-      this.$axios
-        .$post(authUrl, signinData)
-        .then((response) => {
-          this.login(response.idToken);
+    ...mapActions("modules/user", ["login", "logout"]),
+    onLogin() {
+      const fAuth = auth.getAuth();
+      console.log(fAuth);
+      auth
+        .signInWithEmailAndPassword(fAuth, this.email, this.password)
+        .then((firebaseUser) => {
+          return this.login(fAuth);
+        })
+        .then(() => {
           this.$router.push("/answer");
-          console.log(111);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+    onLogout() {
+      const fAuth = auth.getAuth();
+      auth
+        .signOut(fAuth)
+        .then(() => {
+          return this.logout();
+        })
+        .then(() => {
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log(error.message);
