@@ -1,17 +1,17 @@
 <template>
   <transition>
     <div
-      v-show="getShow"
+      v-show="show"
       class="sentence-box"
-      :class="{ boxHeightInPosts: getMode === 'reply' }"
+      :class="{ boxHeightInPosts: mode === 'reply' }"
     >
-      <h3 v-show="getMode === 'question'">質問する</h3>
+      <h3 v-show="mode === 'question'">質問する</h3>
       <textarea
         :placeholder="this.textareaWord[mode]"
         v-model="sentence"
         autocomplete="off"
       ></textarea>
-      <p v-show="getMode === 'answer' || getMode === 'replyForReply'">
+      <p v-show="mode === 'answer' || mode === 'replyForReply'">
         {{ this.sentence.length }}
       </p>
       <button @click="sendSentence()" class="button">
@@ -26,21 +26,15 @@ import OAuth from "oauth-1.0a";
 import crypto from "crypto";
 export default {
   props: {
-    mode: "",
-    contentId: "",
-    replyTweetId: "",
-    contentOriginId: "",
-    replySentence: "",
-    show: "",
+    mode: String,
+    contentId: String,
+    replyTweetId: String,
+    contentOriginId: String,
+    replySentence: String,
+    show: Boolean,
   },
   data() {
     return {
-      getShow: this.show,
-      getMode: this.mode,
-      getContentId: this.contentId,
-      getReplyTweetId: this.replyTweetId,
-      getContentOriginId: this.contentOriginId,
-      getReplySentence: this.replySentence,
       sentence: "",
       textareaWord: {
         question: "質問を入力する",
@@ -58,10 +52,10 @@ export default {
   },
   methods: {
     toggle() {
-      this.getShow = !this.getShow;
+      this.show = !this.show;
     },
     async sendSentence() {
-      if (this.sentence && this.getMode === "question") {
+      if (this.sentence && this.mode === "question") {
         await this.$axios
           .$post(
             "https://q-box.microcms.io/api/v1/q_box_posts",
@@ -83,12 +77,13 @@ export default {
             this.sentence = "";
             alert("送信しました。");
           });
-      } else if (this.sentence && this.getMode === "reply") {
+      } else if (this.sentence && this.mode === "reply") {
+        console.log(this.contentId, this.sentence, "d");
         await this.$axios
           .$post(
             "https://q-box.microcms.io/api/v1/q_box_replies/",
             {
-              replyFor: this.getContentId,
+              replyFor: this.contentId,
               replySentence: this.sentence,
             },
             {
@@ -135,7 +130,6 @@ export default {
     border-color: rgba(0, 0, 0, 0.15);
     border-width: 2px;
     transition: 0.2s;
-    /* border-radius: 10px; */
     border-radius: 0;
     &:focus {
       border-color: rgba(0, 0, 0, 0.5);
