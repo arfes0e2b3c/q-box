@@ -79,7 +79,22 @@ export default {
     "@nuxtjs/proxy",
     ["vue-scrollto/nuxt", { duration: 300 }],
     "nuxt-fontawesome",
+    "@nuxtjs/firebase",
   ],
+  firebase: {
+    config: {
+      apiKey: "AIzaSyB_h0FY1AyTmfMOq8HLM_QhnmJIrDXJT18",
+      authDomain: "q-box-otetsudai.firebaseapp.com",
+      projectId: "q-box-otetsudai",
+      storageBucket: "q-box-otetsudai.appspot.com",
+      messagingSenderId: "158675676530",
+      appId: "1:158675676530:web:10a0598754e722fe0d01eb",
+      measurementId: "G-1L5MGYXRPS",
+    },
+    services: {
+      auth: true,
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
