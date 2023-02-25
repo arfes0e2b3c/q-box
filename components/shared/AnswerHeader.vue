@@ -1,11 +1,43 @@
 <template>
+  <div>
+    <header>
+      <button @click="onLogout">ログアウト</button>
+      <h1
+        v-scroll-to="{
+          element: '#app',
+          offset: -200,
+          duration: 500,
+        }"
+      >
+        お手伝いサークル(管理者版)
+      </h1>
+      <button @click="changeShowMode">画面切り替え</button>
+    </header>
     <div class="shadow-header"></div>
+  </div>
 </template>
 <script>
+import { mapActions } from "vuex";
+import * as auth from "firebase/auth";
 export default {
   methods: {
+    ...mapActions("modules/user", ["logout"]),
     changeShowMode() {
       this.$emit("chageShowMode");
+    },
+    onLogout() {
+      const fAuth = auth.getAuth();
+      auth
+        .signOut(fAuth)
+        .then(() => {
+          return this.logout();
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
   },
 };
