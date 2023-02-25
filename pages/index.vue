@@ -26,6 +26,7 @@
 <script>
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 export default {
+  layout: "default",
   data() {
     return {
       faChevronUp,

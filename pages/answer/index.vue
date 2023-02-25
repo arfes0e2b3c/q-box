@@ -8,7 +8,10 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
+  layout: "protected",
+  middleware: "authenticated",
   data() {
     return {
       showModeNumber: 0,

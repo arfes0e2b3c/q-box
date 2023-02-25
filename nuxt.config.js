@@ -108,6 +108,11 @@ export default {
     component: "fa",
   },
 
+  layoutTransition: {
+    name: "layout",
+    mode: "out-in",
+  },
+
   proxy: {
     "/api/": {
       target: "https://api.twitter.com",
