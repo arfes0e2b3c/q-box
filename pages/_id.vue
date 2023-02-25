@@ -55,7 +55,6 @@ export default {
   data() {
     return {
       payload: { question: "", id: "" },
-      modeQuestion: "question",
       imgixId: "",
       item: {
         name: "質問はこちらから。",
