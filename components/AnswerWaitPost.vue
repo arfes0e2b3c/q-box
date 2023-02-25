@@ -15,6 +15,9 @@
             開閉
           </button>
         </div>
+        <div class="time-container">
+          <p>{{ post.createdAt.slice(0, 10) }}</p>
+        </div>
         <SharedAnswerSendSentence
           class="send-sentence"
           :mode="modeAnswer"
@@ -124,6 +127,22 @@ ul {
           background-color: rgb(48, 48, 48);
           border-color: rgb(48, 48, 48);
         }
+      }
+    }
+    .time-container {
+      width: 70%;
+      display: flex;
+      justify-content: end;
+      p {
+        /* width: 70px; */
+        padding: 5px 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 2px solid rgb(50, 50, 50);
+        background-color: rgb(100, 100, 100);
+        color: white;
+        text-align: center;
+        font-size: 14px;
       }
     }
   }
