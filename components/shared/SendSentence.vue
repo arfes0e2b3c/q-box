@@ -78,7 +78,6 @@ export default {
             alert("送信しました。");
           });
       } else if (this.sentence && this.mode === "reply") {
-        console.log(this.contentId, this.sentence, "d");
         await this.$axios
           .$post(
             "https://q-box.microcms.io/api/v1/q_box_replies/",
