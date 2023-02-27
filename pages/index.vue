@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <SharedHeader @searchPost="searchPost" />
+    <SharedHeader @searchPost="searchPost" @toNewPost="toNewPost" />
     <div>
       <NewPost v-show="showNewPost" class="new-post" />
       <FilteredPost
@@ -74,11 +74,15 @@ export default {
   methods: {
     searchPost(word) {
       this.$refs.FilteredPost.getPost(word);
-      this.changeShowMode();
+      this.toFilteredPost();
     },
-    changeShowMode() {
+    toFilteredPost() {
       this.showNewPost = false;
       this.showFilteredPost = true;
+    },
+    toNewPost() {
+      this.showNewPost = true;
+      this.showFilteredPost = false;
     },
   },
 };

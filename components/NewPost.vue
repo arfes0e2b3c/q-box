@@ -174,8 +174,6 @@ ul {
         padding: 5px 10px;
         margin: 10px;
         border-radius: 5px;
-        border: 2px solid rgba(67, 134, 135, 0.7);
-        background-color: rgb(117, 184, 185);
         color: white;
       }
       .answered {
