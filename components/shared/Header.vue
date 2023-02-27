@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <nuxt-link to="/" class="nuxt-link">ホームへ</nuxt-link>
+      <a class="nuxt-link" @click="toNewPost">ホームへ</a>
       <h1
         v-scroll-to="{
           element: '#app',
@@ -68,6 +68,10 @@ export default {
       this.searchPost(word);
       this.toggleSearchWordModal(false);
     },
+    toNewPost() {
+      this.$router.push("/");
+      this.$emit("toNewPost");
+    },
   },
 };
 </script>
@@ -93,6 +97,8 @@ header {
     color: #333;
     text-decoration: none;
     transition: 0.5s;
+    cursor: pointer;
+    user-select: none;
     &:hover {
       background-color: rgba(48, 48, 48, 1);
       color: white;
