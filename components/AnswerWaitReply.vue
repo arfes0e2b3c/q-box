@@ -117,6 +117,7 @@ ul {
   width: 80%;
   margin: 0 auto;
   h2 {
+    margin: 20px 0;
     font-size: 2.2em;
   }
   li {

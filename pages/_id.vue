@@ -21,12 +21,12 @@
           :contentId="post.id"
           :show="true"
         />
-        <!-- <SharedSendSentence
-          class="send-sentence"
-          :mode="modeQuestion"
-          :show="true"
-        /> -->
       </div>
+      <SharedSendSentence
+        class="send-sentence"
+        :mode="modeQuestion"
+        :show="true"
+      />
       <SharedFooter />
     </div>
     <FilteredPost
@@ -55,7 +55,6 @@ export default {
   data() {
     return {
       payload: { question: "", id: "" },
-      modeQuestion: "question",
       imgixId: "",
       item: {
         name: "質問はこちらから。",
@@ -309,9 +308,9 @@ export default {
     #id-container {
       .card-container {
         width: 100%;
-        margin-top: 90px;
         width: 100%;
         padding: 20px 0;
+        margin-top: 0;
         .primary-post {
           width: 95%;
         }

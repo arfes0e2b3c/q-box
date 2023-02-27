@@ -1,11 +1,11 @@
 <template>
-  <ul>
+  <ul id="app">
     <div>
       <h2>未回答の質問(古い順)</h2>
     </div>
     <p v-show="!posts[0]">質問はありません</p>
     <transition-group name="flip-list">
-      <li v-for="post in posts" :key="post.id">
+      <li class="card" v-for="post in posts" :key="post.id">
         <div class="box">
           <div>
             <button @click="deletePost(post.id)">削除</button>
@@ -14,6 +14,9 @@
           <button @click="showSendSentence(post.id)" class="toggle-button">
             開閉
           </button>
+        </div>
+        <div class="time-container">
+          <p>{{ post.createdAt.slice(0, 10) }}</p>
         </div>
         <SharedAnswerSendSentence
           class="send-sentence"
@@ -67,24 +70,17 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-header {
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-ul {
+#app {
   width: 80%;
   margin: 0 auto;
   > div {
     display: flex;
-    margin: 10px 0;
+    margin: 20px 0;
   }
   h2 {
     font-size: 2.2em;
   }
-  li {
+  .card {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -126,19 +122,35 @@ ul {
         }
       }
     }
+    .time-container {
+      width: 70%;
+      display: flex;
+      justify-content: end;
+      p {
+        /* width: 70px; */
+        padding: 5px 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 2px solid rgb(50, 50, 50);
+        background-color: rgb(100, 100, 100);
+        color: white;
+        text-align: center;
+        font-size: 14px;
+      }
+    }
   }
 }
 .flip-list-move {
   transition: transform 0.5s;
 }
 @media (max-width: 520px) {
-  ul {
+  #app {
     width: 100%;
     div h2 {
       font-size: 1.6em;
       margin-left: 10px;
     }
-    li {
+    .card {
       padding: 10px;
       margin: 10px 0;
       box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);

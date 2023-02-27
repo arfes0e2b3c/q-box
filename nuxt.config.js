@@ -1,11 +1,9 @@
-require("dotenv").config();
+// require("dotenv").config();
 import axios from "axios";
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
   target: "server",
   loading: false,
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "お手伝いサークル",
     htmlAttrs: {
@@ -79,7 +77,22 @@ export default {
     "@nuxtjs/proxy",
     ["vue-scrollto/nuxt", { duration: 300 }],
     "nuxt-fontawesome",
+    "@nuxtjs/firebase",
   ],
+  firebase: {
+    config: {
+      apiKey: "AIzaSyB_h0FY1AyTmfMOq8HLM_QhnmJIrDXJT18",
+      authDomain: "q-box-otetsudai.firebaseapp.com",
+      projectId: "q-box-otetsudai",
+      storageBucket: "q-box-otetsudai.appspot.com",
+      messagingSenderId: "158675676530",
+      appId: "1:158675676530:web:10a0598754e722fe0d01eb",
+      measurementId: "G-1L5MGYXRPS",
+    },
+    services: {
+      auth: true,
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -91,6 +104,11 @@ export default {
 
   fontawesome: {
     component: "fa",
+  },
+
+  layoutTransition: {
+    name: "layout",
+    mode: "out-in",
   },
 
   proxy: {
@@ -113,5 +131,12 @@ export default {
     microCmsKey: process.env.MICROCMS_Q_BOX_KEY || "",
     consumerKeySecret: process.env.CONSUMER_KEY_SECRET || "",
     accessTokenKeySecret: process.env.ACCESS_TOKEN_KEY_SECRET || "",
+    firebaseApiKey: process.env.FIREBASE_API_KEY || "",
+    firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN || "",
+    firebaseProjectId: process.env.FIREBASE_PROJECT_ID || "",
+    firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET || "",
+    firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "",
+    firebaseAppId: process.env.FIREBASE_APP_ID || "",
+    firebaseMesurementId: process.env.FIREBASE_MESUREMENT_ID || "",
   },
 };

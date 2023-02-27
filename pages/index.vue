@@ -26,6 +26,7 @@
 <script>
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 export default {
+  layout: "default",
   data() {
     return {
       faChevronUp,
@@ -95,11 +96,6 @@ export default {
 }
 </style>
 <style scoped lang="scss">
-.new-post,
-.filtered-post {
-  margin-top: 70px;
-}
-
 .chevron-up {
   display: none;
 }

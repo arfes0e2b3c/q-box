@@ -8,7 +8,10 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
+  layout: "protected",
+  middleware: "authenticated",
   data() {
     return {
       showModeNumber: 0,
@@ -51,7 +54,7 @@ export default {
   .answer-wait-reply,
   .answer-wait-post,
   .answer-keep-post {
-    margin-top: 90px;
+    min-height: calc(100vh - 241px);
   }
 }
 </style>

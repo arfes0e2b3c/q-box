@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <button @click="onLogout">ログアウト</button>
+      <nuxt-link to="/" class="nuxt-link">質問を見る</nuxt-link>
       <h1
         v-scroll-to="{
           element: '#app',
@@ -9,54 +9,25 @@
           duration: 500,
         }"
       >
-        お手伝いサークル(管理者版)
+        お手伝いサークル
       </h1>
-      <button @click="changeShowMode">画面切り替え</button>
+      <div class="dummy-button"></div>
     </header>
     <div class="shadow-header"></div>
   </div>
 </template>
-<script>
-import { mapActions } from "vuex";
-import * as auth from "firebase/auth";
-export default {
-  methods: {
-    ...mapActions("modules/user", ["logout"]),
-    changeShowMode() {
-      this.$emit("chageShowMode");
-    },
-    onLogout() {
-      const fAuth = auth.getAuth();
-      auth
-        .signOut(fAuth)
-        .then(() => {
-          return this.logout();
-        })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    },
-  },
-};
-</script>
 <style lang="scss" scoped>
 header {
   width: 100%;
   height: 70px;
-  background-color: white;
   position: fixed;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
   z-index: 1000;
-  h1 {
-    cursor: pointer;
-  }
   .nuxt-link {
     width: 20%;
     height: 100%;
@@ -72,7 +43,11 @@ header {
       color: white;
     }
   }
-
+  h1 {
+    z-index: 100;
+    cursor: pointer;
+    user-select: none;
+  }
   button {
     width: 20%;
     height: 100%;
@@ -91,6 +66,13 @@ header {
       color: white;
     }
   }
+
+  .dummy-button {
+    z-index: 100;
+    width: 20%;
+    height: 100%;
+    background-color: none;
+  }
 }
 .shadow-header {
   width: 100%;
@@ -105,13 +87,11 @@ header {
     .nuxt-link {
       width: 50%;
     }
-    button {
-      border-left: 1px solid rgb(200, 200, 200);
+    .dummy-button {
       width: 50%;
     }
   }
   .shadow-header {
-    width: 100%;
     height: 60px;
   }
 }

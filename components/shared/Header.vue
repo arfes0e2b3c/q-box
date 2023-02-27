@@ -1,40 +1,43 @@
 <template>
-  <header>
-    <nuxt-link to="/answer" class="nuxt-link">管理者ページ</nuxt-link>
-    <h1
-      v-scroll-to="{
-        element: '#app',
-        offset: -200,
-        duration: 500,
-      }"
-    >
-      お手伝いサークル
-    </h1>
-    <input
-      id="search-input"
-      type="text"
-      autocomplete="off"
-      placeholder="語句で検索"
-      v-model="qWord"
-      @keyup.enter="searchPost(qWord)"
-      @focus="toggleSearchWordModal(true)"
-      @blur="toggleSearchWordModal(false)"
-    />
-    <transition>
-      <div v-show="showSearchWord && !qWord" class="often-search-word-box">
-        <h3>良く検索されるワード</h3>
-        <ul>
-          <li
-            v-for="word in this.searchWords"
-            :key="word"
-            @click="inputSearchWord(word)"
-          >
-            {{ word }}
-          </li>
-        </ul>
-      </div>
-    </transition>
-  </header>
+  <div>
+    <header>
+      <nuxt-link to="/" class="nuxt-link">ホームへ</nuxt-link>
+      <h1
+        v-scroll-to="{
+          element: '#app',
+          offset: -200,
+          duration: 500,
+        }"
+      >
+        お手伝いサークル
+      </h1>
+      <input
+        id="search-input"
+        type="text"
+        autocomplete="off"
+        placeholder="語句で検索"
+        v-model="qWord"
+        @keyup.enter="searchPost(qWord)"
+        @focus="toggleSearchWordModal(true)"
+        @blur="toggleSearchWordModal(false)"
+      />
+      <transition>
+        <div v-show="showSearchWord && !qWord" class="often-search-word-box">
+          <h3>良く検索されるワード</h3>
+          <ul>
+            <li
+              v-for="word in this.searchWords"
+              :key="word"
+              @click="inputSearchWord(word)"
+            >
+              {{ word }}
+            </li>
+          </ul>
+        </div>
+      </transition>
+    </header>
+    <div class="shadow-header"></div>
+  </div>
 </template>
 <script>
 export default {
@@ -98,6 +101,7 @@ header {
   h1 {
     z-index: 100;
     cursor: pointer;
+    user-select: none;
   }
   button {
     width: 20%;
@@ -175,6 +179,10 @@ header {
     }
   }
 }
+.shadow-header {
+  width: 100%;
+  height: 70px;
+}
 .v {
   &-enter {
     opacity: 0;
@@ -227,6 +235,9 @@ header {
         }
       }
     }
+  }
+  .shadow-header {
+    height: 60px;
   }
 }
 </style>
