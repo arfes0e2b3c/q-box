@@ -165,7 +165,6 @@ export default {
 <style lang="scss" scoped>
 #send-sentence {
   width: 100%;
-  margin-top: 90px;
 }
 ul {
   width: 80%;

@@ -234,7 +234,7 @@ ul {
     width: 100%;
     h2 {
       font-size: 1.6em;
-      margin: 0 10px 10px;
+      margin: 10px;
     }
     li {
       width: 100%;

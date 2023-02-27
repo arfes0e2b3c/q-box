@@ -96,6 +96,7 @@ export default {
         color: #333 !important;
         border: none;
         border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0;
         transition: 0.2s;
         outline: none;
         text-align: center;

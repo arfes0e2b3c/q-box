@@ -118,6 +118,7 @@ export default {
   padding-bottom: 10px;
   h3 {
     margin: 10px auto;
+    font-size: 18px;
   }
   textarea {
     resize: none;
@@ -187,7 +188,7 @@ export default {
     width: 100%;
     padding-top: 10px;
     h3 {
-      font-size: 1em;
+      font-size: 20px;
     }
     textarea {
       width: calc(90% - 40px);
