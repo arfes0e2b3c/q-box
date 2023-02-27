@@ -21,12 +21,12 @@
           :contentId="post.id"
           :show="true"
         />
-        <!-- <SharedSendSentence
-          class="send-sentence"
-          :mode="modeQuestion"
-          :show="true"
-        /> -->
       </div>
+      <SharedSendSentence
+        class="send-sentence"
+        :mode="modeQuestion"
+        :show="true"
+      />
       <SharedFooter />
     </div>
     <FilteredPost
