@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <nuxt-link to="/answer" class="nuxt-link">管理者ページ</nuxt-link>
+      <nuxt-link to="/" class="nuxt-link">ホームへ</nuxt-link>
       <h1
         v-scroll-to="{
           element: '#app',
