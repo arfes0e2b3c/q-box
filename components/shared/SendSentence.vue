@@ -5,7 +5,7 @@
       class="sentence-box"
       :class="{ boxHeightInPosts: mode === 'reply' }"
     >
-      <h3 v-show="mode === 'question'">質問する</h3>
+      <h3 v-show="mode === 'question'">お手伝いサークルに質問する</h3>
       <textarea
         :placeholder="this.textareaWord[mode]"
         v-model="sentence"
