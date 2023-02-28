@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-var cookieparser = require("cookieparser");
+let cookieparser = require("cookieparser");
 
 export function getUserFromCookie(req) {
   if (process.server && process.static) return;
