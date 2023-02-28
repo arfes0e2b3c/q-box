@@ -137,6 +137,8 @@ export default {
         oauth.authorize(request, token)
       ).Authorization;
 
+      slicedAnswer[0] =
+        slicedAnswer.length > 1 ? slicedAnswer[0] + " (続く)" : slicedAnswer[0];
       let data = {};
       if (mode === "tweet") {
         data = {
