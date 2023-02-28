@@ -56,15 +56,12 @@ export default {
         answer: "この質問への回答を入力する",
         reply: "この質問への返信を入力する",
         replyForReply: "この返信への回答を入力する",
-        answerForKeep:
-          "保留中の質問に対する最終回答を入力する(現在の回答は書き換えられます。)",
       },
       buttonWord: {
         question: "質問する",
         answer: "回答する",
         reply: "返信する",
         replyForReply: "回答する",
-        answerForKeep: "回答する",
       },
     };
   },
