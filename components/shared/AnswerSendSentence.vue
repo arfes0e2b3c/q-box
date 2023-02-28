@@ -19,9 +19,9 @@
           {{ this.buttonWord[getMode] }}
         </button>
         <button
-          @click="sendSentence('keep')"
+          @click="sendSentence('requirement')"
           class="button"
-          v-show="keepButton"
+          v-show="requirementButton"
         >
           保留
         </button>
@@ -40,7 +40,7 @@ export default {
     contentOriginId: "",
     replySentence: "",
     show: "",
-    keepButton: false,
+    requirementButton: false,
   },
   data() {
     return {
