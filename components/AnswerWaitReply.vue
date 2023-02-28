@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h2>未回答の返信</h2>
+    <h2>回答待ちの返信</h2>
     <p v-show="!posts[0]">質問はありません</p>
     <li v-for="post in posts" :key="post.id">
       <h3>{{ post.question }}</h3>
