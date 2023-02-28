@@ -41,65 +41,32 @@ export default {
     showSendSentence(id) {
       this.$refs[id][0].toggle();
     },
-    async setReply() {
-      await this.$axios
-        .$get(
-          "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyAnswer[not_exists]&orders=createdAt",
-          {
-            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-          }
-        )
-        .then((response) => {
-          const idList = this.makeIdList(response.contents);
-          this.$set(this, "replies", response.contents);
-          this.getPost(idList);
-        })
-        .catch((error) => {
-          alert("通信に失敗しました。：" + error);
-          console.log(error);
+    async fetchPostsHasReply() {
+      const posts = await this.$axios.$get(
+        "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]",
+        {
+          headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
+        }
+      );
+      this.posts = this.filterReplyNotAnswered(posts.contents);
+    },
+    filterReplyNotAnswered(posts) {
+      for (let post of posts) {
+        post.replies = post.replies.filter((reply) => {
+          return !reply.replyAnswer;
         });
-    },
-    makeIdList(replies) {
-      let idList = [];
-      for (const reply of replies) {
-        idList.push(reply.replyFor);
       }
-      return idList.filter(function (x, i, self) {
-        return self.indexOf(x) === i;
+      posts = posts.filter((post) => {
+        return post.replies.length;
       });
-    },
-    async getPost(idList) {
-      let postList = [];
-      for (const id of idList) {
-        await this.$axios
-          .$get(
-            "https://q-box.microcms.io/api/v1/q_box_posts?filters=id[equals]" +
-              id,
-            {
-              headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-            }
-          )
-          .then((response) => {
-            response.contents[0].replies = this.replies.filter((x) => {
-              if (x.replyFor === response.contents[0].id) {
-                return x;
-              }
-            });
-            postList.push(response.contents[0]);
-          })
-          .catch((error) => {
-            alert("通信に失敗しました。：" + error);
-            console.log(error);
-          });
-      }
-      this.$set(this, "posts", postList);
+      return posts;
     },
     deletePost(id) {
       Common.deletePost(this, id, "q_box_replies", this.$config);
     },
   },
   mounted() {
-    this.setReply();
+    this.fetchPostsHasReply();
   },
 };
 </script>
