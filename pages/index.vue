@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <SharedHeader @searchPost="searchPost" @toNewPost="toNewPost" />
-    <div>
+    <div class="main-wrapper">
       <NewPost v-show="showNewPost" class="new-post" />
       <FilteredPost
         v-show="showFilteredPost"
@@ -100,6 +100,9 @@ export default {
 }
 </style>
 <style scoped lang="scss">
+.main-wrapper {
+  min-height: calc(100vh - 241px);
+}
 .chevron-up {
   display: none;
 }
