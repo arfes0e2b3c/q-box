@@ -24,7 +24,7 @@
           :content-id="post.id"
           :ref="post.id"
           :show="false"
-          :keepButton="true"
+          :requirementButton="true"
           @get-posts="getPosts"
         />
       </li>

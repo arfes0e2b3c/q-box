@@ -21,8 +21,7 @@
           :contentOriginId="post.id"
           :replySentence="reply.replySentence"
           :show="false"
-          :keepButton="false"
-          @set-replies="setReply"
+          :requirementButton="false"
         />
       </div>
     </li>
