@@ -9,7 +9,9 @@
           <p
             class="created-at"
             :class="post.state"
-            v-html="post.createdAt.substr(0, 10)"
+            v-html="
+              post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
+            "
           ></p>
           <div @click="transition(post.id)" class="card-button">
             <canvas :id="post.id + '1'"></canvas>
