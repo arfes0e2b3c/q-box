@@ -114,7 +114,7 @@ export default {
             word +
             "[or]answer[contains]" +
             word +
-            ")&limit=5",
+            ")&limit=10",
           {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }

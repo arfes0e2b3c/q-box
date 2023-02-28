@@ -62,7 +62,7 @@ export default {
       this.$router.push({ path: id });
     },
     async loadNewPost($state) {
-      const loadPostNumber = 10;
+      const loadPostNumber = 20;
       await this.$axios
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists]&limit=" +
