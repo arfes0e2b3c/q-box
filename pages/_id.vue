@@ -226,5 +226,108 @@ export default {
   padding: 0;
 }
 </style>
+<style lang="scss" scoped>
+#id-container {
+  .card-container {
+    width: 60%;
+    margin: 120px auto 50px;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    padding: 5%;
+    canvas {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+    }
+    .primary-post {
+      width: 80%;
+      text-align: center;
+      margin: 5px auto;
+      .created-at {
+        width: 100px;
+        padding: 5px 10px;
+        margin: 10px 10px;
+        color: white;
+        border-radius: 5px;
+      }
+      .answered {
+        background-color: rgb(0, 74, 169);
+        border: 2px solid rgba(0, 24, 85, 0.7);
+      }
+      .requirement,
+      .waitInformation {
+        background-color: rgb(255, 222, 103);
+        border: 2px solid rgba(205, 172, 53, 0.7);
+        color: #333;
+      }
+      .answer {
+        width: 80%;
+        margin: 10px auto;
+      }
+    }
+    .secondary-post {
+      width: 60%;
+      text-align: center;
+      margin: 5px auto;
+    }
+    p {
+      white-space: pre-line;
+      margin: 10px auto;
+      text-align: center;
+    }
+  }
+}
+.send-sentence {
+  margin: 0 auto 30px;
+  width: 60%;
+  transition: 0s;
+}
+.v {
+  &-enter {
+    opacity: 0;
+    transform: scale(90%);
+    &-to {
+      opacity: 1;
+      transform: scale(100%);
+    }
+    &-active {
+      transition: 0.2s;
+    }
+  }
+  &-leave {
+    opacity: 1;
+    transform: scale(100%);
+    &-to {
+      opacity: 0;
+      transform: scale(90%);
+    }
+    &-active {
+      transition: 0.2s;
+    }
+  }
+}
+@media (max-width: 520px) {
+  #id-container {
+    .card-container {
+      width: 100%;
+      width: 100%;
+      padding: 20px 0;
+      margin-top: 0;
+      .primary-post {
+        width: 95%;
+      }
+      .secondary-post {
+        width: 75%;
+      }
+    }
+  }
+}
+.send-sentence {
+  margin: 0 auto 30px;
+  width: 100%;
+  transition: 0s;
 }
 </style>
