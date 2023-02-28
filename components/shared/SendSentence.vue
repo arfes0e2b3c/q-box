@@ -188,11 +188,11 @@ export default {
     }
     textarea {
       width: calc(90% - 40px);
-      padding: 10px;
+      padding: 20px 10px;
     }
   }
   .boxHeightInPosts {
-    height: 94px;
+    height: 130px;
   }
   .v {
     &-enter {

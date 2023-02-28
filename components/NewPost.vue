@@ -144,6 +144,7 @@ ul {
     canvas {
       width: 100%;
       border-radius: 10px;
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     }
     p {
       white-space: pre-line;
@@ -179,7 +180,7 @@ ul {
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);
-        color: #333;
+        color: #666;
       }
     }
     .secondary-post {
