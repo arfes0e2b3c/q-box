@@ -3,7 +3,6 @@
     <SharedAnswerHeader @chageShowMode="changeShowMode" />
     <AnswerWaitPost v-show="showPost" class="answer-wait-post" />
     <AnswerWaitReply v-show="showReply" class="answer-wait-reply" />
-    <AnswerKeepPost v-show="showKeep" class="answer-keep-post" />
     <SharedFooter />
   </div>
 </template>
@@ -19,13 +18,10 @@ export default {
   },
   computed: {
     showPost() {
-      return this.showModeNumber % 3 === 0;
+      return this.showModeNumber % 2 === 0;
     },
     showReply() {
-      return this.showModeNumber % 3 === 1;
-    },
-    showKeep() {
-      return this.showModeNumber % 3 === 2;
+      return this.showModeNumber % 2 === 1;
     },
   },
   methods: {
@@ -52,8 +48,7 @@ export default {
 <style lang="scss" scoped>
 #app {
   .answer-wait-reply,
-  .answer-wait-post,
-  .answer-keep-post {
+  .answer-wait-post {
     min-height: calc(100vh - 241px);
   }
 }

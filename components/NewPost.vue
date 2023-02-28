@@ -13,7 +13,9 @@
           <p
             class="created-at"
             :class="post.state"
-            v-html="post.createdAt.substr(0, 10)"
+            v-html="
+              post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
+            "
           ></p>
           <div @click="transition(post.id)" class="card-button">
             <canvas :id="post.id"></canvas>
@@ -61,38 +63,8 @@ export default {
     transition(id) {
       this.$router.push({ path: id });
     },
-    async setReply() {
-      if (this.posts) {
-        for (const post of this.posts) {
-          await this.$axios
-            .$get(
-              "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-                post.id +
-                "[and]replyAnswer[exists]&orders=createdAt",
-              {
-                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-              }
-            )
-            .then((response) => {
-              Common.generateImage(
-                document,
-                response.contents,
-                "replySentence",
-                "",
-                "answered"
-              );
-              this.$set(post, "replies", response.contents);
-              Common.modifyUrlInPost(post.replies, "replyAnswer");
-            })
-            .catch((error) => {
-              // alert('通信に失敗しました。：' + error)
-              console.log(error);
-            });
-        }
-      }
-    },
     async loadNewPost($state) {
-      const loadPostNumber = 10;
+      const loadPostNumber = 20;
       await this.$axios
         .$get(
           "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists]&limit=" +
@@ -107,7 +79,8 @@ export default {
           if (this.postCount < response.totalCount) {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
-            Common.generateImage(document, response.contents, "question", "");
+            this.posts = this.filterPostAnswered(this.posts);
+            Common.generateImage(document, this.posts, "question", "");
             this.setReply();
             this.postCount += response.contents.length;
             $state.loaded();
@@ -120,6 +93,28 @@ export default {
           alert("通信に失敗しました。：" + error);
           console.log(error);
         });
+    },
+    filterPostAnswered(posts) {
+      for (let post of posts) {
+        post.replies = post.replies.filter((reply) => {
+          return reply.replyAnswer;
+        });
+      }
+      return posts;
+    },
+    setReply() {
+      if (this.posts) {
+        for (const post of this.posts) {
+          Common.generateImage(
+            document,
+            post.replies,
+            "replySentence",
+            "",
+            "answered"
+          );
+          Common.modifyUrlInPost(post.replies, "replyAnswer");
+        }
+      }
     },
   },
 };
@@ -149,6 +144,7 @@ ul {
     canvas {
       width: 100%;
       border-radius: 10px;
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     }
     p {
       white-space: pre-line;
@@ -180,11 +176,11 @@ ul {
         background-color: rgb(0, 74, 169);
         border: 2px solid rgba(0, 24, 85, 0.7);
       }
-      .keep,
+      .requirement,
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);
-        color: #333;
+        color: #666;
       }
     }
     .secondary-post {

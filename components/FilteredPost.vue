@@ -9,7 +9,9 @@
           <p
             class="created-at"
             :class="post.state"
-            v-html="post.createdAt.substr(0, 10)"
+            v-html="
+              post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
+            "
           ></p>
           <div @click="transition(post.id)" class="card-button">
             <canvas :id="post.id + '1'"></canvas>
@@ -114,7 +116,7 @@ export default {
             word +
             "[or]answer[contains]" +
             word +
-            ")&limit=5",
+            ")&limit=10",
           {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
@@ -129,33 +131,17 @@ export default {
     setTitle(word) {
       this.title = word;
     },
-    async setReply() {
+    setReply() {
       if (this.posts) {
         for (const post of this.posts) {
-          await this.$axios
-            .$get(
-              "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-                post.id +
-                "[and]replyAnswer[exists]&orders=createdAt",
-              {
-                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-              }
-            )
-            .then((response) => {
-              Common.generateImage(
-                document,
-                response.contents,
-                "replySentence",
-                "1",
-                "answered"
-              );
-              this.$set(post, "replies", response.contents);
-              Common.modifyUrlInPost(post.replies, "replyAnswer");
-            })
-            .catch((error) => {
-              // alert('通信に失敗しました。：' + error)
-              console.log(error);
-            });
+          Common.generateImage(
+            document,
+            post.replies,
+            "replySentence",
+            "1",
+            "answered"
+          );
+          Common.modifyUrlInPost(post.replies, "replyAnswer");
         }
       }
     },
@@ -195,7 +181,7 @@ ul {
         background-color: rgb(0, 74, 169);
         border: 2px solid rgba(0, 24, 85, 0.7);
       }
-      .keep,
+      .requirement,
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);

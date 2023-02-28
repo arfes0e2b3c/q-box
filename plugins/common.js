@@ -6,7 +6,7 @@ export default {
       );
       post[property] = post[property].replace(
         /((https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi,
-        '<a href="' + url + '" target="_blank">こちら</a>'
+        '<a href="' + url + '" target="_blank">リンク</a>'
       );
     });
   },
@@ -23,6 +23,7 @@ export default {
             that.setReply();
           }
         });
+      alert("削除が完了しました。");
     }
   },
   generateImage(document, posts, mode, alphaId, state) {
@@ -37,19 +38,20 @@ export default {
       }
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
-        var canvas = document.getElementById(post.id + alphaId);
-        var ctx = canvas.getContext("2d");
+        let canvas = document.getElementById(post.id + alphaId);
+
+        let ctx = canvas.getContext("2d");
         //キャンバスのサイズを画像サイズに合わせる
         canvas.width = 600;
         canvas.height = 315;
         //キャンバスに画像を描画（開始位置0,0）
-        var text = post[mode];
+        let text = post[mode];
         let column = [""];
         let line = 0;
         for (const char of text) {
           if (
             char.match(/\n/) ||
-            ctx.measureText(column[line] + char).width * 2 > canvas.width * 0.65
+            ctx.measureText(column[line] + char).width * 2 > canvas.width * 0.8
           ) {
             line++;
             column[line] = "";
@@ -57,8 +59,8 @@ export default {
           column[line] += char;
         }
         let lineHeight = ctx.measureText("あ").width * 1.5 * 2;
-        if (line > 3) {
-          canvas.height = canvas.height + ((line - 3) * lineHeight * 21) / 16;
+        if (line > 7) {
+          canvas.height = canvas.height + ((line - 7) * lineHeight * 21) / 16;
         }
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         //文字のスタイルを指定

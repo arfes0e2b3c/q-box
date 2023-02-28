@@ -1,7 +1,7 @@
 <template>
   <ul id="app">
     <div>
-      <h2>未回答の質問(古い順)</h2>
+      <h2>回答待ちの質問</h2>
     </div>
     <p v-show="!posts[0]">質問はありません</p>
     <transition-group name="flip-list">
@@ -24,7 +24,7 @@
           :content-id="post.id"
           :ref="post.id"
           :show="false"
-          :keepButton="true"
+          :requirementButton="true"
           @get-posts="getPosts"
         />
       </li>
