@@ -75,7 +75,7 @@ export default {
           })
           .then(() => {
             this.sentence = "";
-            alert("送信しました。");
+            alert("質問を送信しました。内容を確認の上返答させて頂きます！");
           });
       } else if (this.sentence && this.mode === "reply") {
         await this.$axios
@@ -95,10 +95,7 @@ export default {
           .catch((error) => {
             alert("通信に失敗しました。：" + error);
             console.log(error);
-          })
-          .then(() => {
-            this.sentence = "";
-          });
+        alert("返信を送信しました。ご協力いただきありがとうございます！");
       }
     },
   },
