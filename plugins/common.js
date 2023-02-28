@@ -6,7 +6,7 @@ export default {
       );
       post[property] = post[property].replace(
         /((https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi,
-        '<a href="' + url + '" target="_blank">こちら</a>'
+        '<a href="' + url + '" target="_blank">リンク</a>'
       );
     });
   },
@@ -23,6 +23,7 @@ export default {
             that.setReply();
           }
         });
+      alert("削除が完了しました。");
     }
   },
   generateImage(document, posts, mode, alphaId, state) {
@@ -50,7 +51,7 @@ export default {
         for (const char of text) {
           if (
             char.match(/\n/) ||
-            ctx.measureText(column[line] + char).width * 2 > canvas.width * 0.65
+            ctx.measureText(column[line] + char).width * 2 > canvas.width * 0.8
           ) {
             line++;
             column[line] = "";
@@ -58,8 +59,8 @@ export default {
           column[line] += char;
         }
         let lineHeight = ctx.measureText("あ").width * 1.5 * 2;
-        if (line > 3) {
-          canvas.height = canvas.height + ((line - 3) * lineHeight * 21) / 16;
+        if (line > 7) {
+          canvas.height = canvas.height + ((line - 7) * lineHeight * 21) / 16;
         }
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         //文字のスタイルを指定
