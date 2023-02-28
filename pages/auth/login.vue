@@ -106,6 +106,9 @@ export default {
           border-color: rgba(0, 0, 0, 0.7);
         }
       }
+      #passwordTxt {
+        font-family: "Courier New", Courier, monospace;
+      }
       .submit-button {
         position: relative;
         width: 200px;
