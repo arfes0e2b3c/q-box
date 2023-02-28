@@ -71,31 +71,36 @@ export default {
     },
     async sendSentence(state) {
       if (this.sentence) {
-        if (this.getMode === "answer" || this.getMode === "answerForKeep") {
-          this.postTweet(
+        if (this.getMode === "answer") {
+          await this.postTweet(
             this.sentence,
             this.getContentId,
             "tweet",
             "answer",
             state
           );
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+          });
         } else if (this.getMode === "replyForReply") {
-          this.postTweet(
-            "【フォロワーの方からの情報】\n\n" +
-              this.getReplySentence +
-              "\n\n" +
-              "【お手サーから】\n" +
-              this.sentence,
+          await this.postTweet(
+            "【提供していただいた情報】\n\n" + this.getReplySentence,
             this.getReplyTweetId,
             "reply",
-            "replyForReply"
+            "replyForReply",
+            state
           );
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+          });
           this.$emit("setReply");
         }
       }
     },
     async postTweet(answer, id, mode, sendSentenceMode, state) {
-      const TWEET_LIMIT_CHARS_INCLUDE_URL = 110;
+      const TWEET_LIMIT_CHARS_INCLUDE_URL = 115;
       const TWEET_LIMIT_CHARS = 140;
       let slicedAnswer = [...answer];
       if (!Array.isArray(answer)) {
@@ -156,35 +161,51 @@ export default {
       } else {
         console.log("not fit!");
       }
-      await this.$axios
-        .$post("/api/2/tweets", data, {
-          headers: {
-            authorization: config,
-          },
-        })
-        .then((response) => {
-          if (slicedAnswer.length > 1) {
-            this.postTweet(slicedAnswer.slice(1), response.data.id, "reply");
-          }
-          if (sendSentenceMode === "answer") {
-            this.sendSentenceModeAnswer(response.data.id, state);
-          } else if (sendSentenceMode === "replyForReply") {
-            this.sendSentenceModeReplyForReply(response.data.id);
-            this.setReplyTweetId(response.data.id);
-          }
-        })
-        .catch((error) => {
-          alert("通信に失敗しました。：" + error);
-          console.log(error);
-        });
+      try {
+        if (sendSentenceMode === "answer") {
+          this.registerAnswerForMicrocms(state);
+        }
+        const tweetRes = await this.$axios
+          .$post("/api/2/tweets", data, {
+            headers: {
+              authorization: config,
+            },
+          })
+          .catch((error) => {
+            alert("通信に失敗しました。：" + error);
+            console.log(error);
+          });
+
+        if (slicedAnswer.length > 1) {
+          await this.postTweet(
+            slicedAnswer.slice(1),
+            tweetRes.data.id,
+            "reply"
+          );
+        }
+        if (sendSentenceMode === "answer") {
+          let res = await this.setReplyTweetId(
+            this.getContentId,
+            tweetRes.data.id
+          );
+        } else if (sendSentenceMode === "replyForReply") {
+          await this.sendSentenceModeReplyForReply(tweetRes.data.id);
+          console.log(this.getContentOriginId, tweetRes.data.id);
+          await this.setReplyTweetId(this.getContentOriginId, tweetRes.data.id);
+        }
+      } catch (e) {
+        console.log("エラーが発生しました" + e);
+        alert("ツイート時にエラーが発生しました。");
+        return;
+      }
+      alert("正常にツイートが完了しました。");
     },
-    async sendSentenceModeAnswer(id, state) {
+    async registerAnswerForMicrocms(state) {
       await this.$axios
         .$patch(
           "https://q-box.microcms.io/api/v1/q_box_posts/" + this.getContentId,
           {
             answer: this.sentence,
-            replyTweetId: id,
             state: state,
           },
           {
@@ -197,10 +218,6 @@ export default {
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
           console.log(error);
-        })
-        .then(() => {
-          this.$emit("get-posts");
-          this.sentence = "";
         });
     },
     async sendSentenceModeReplyForReply() {
@@ -217,22 +234,17 @@ export default {
             },
           }
         )
-        .then(() => {
-          this.$emit("set-replies");
-          this.sentence = "";
-        })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
           console.log(error);
         });
     },
-    async setReplyTweetId(id) {
-      await this.$axios
+    async setReplyTweetId(postId, tweetId) {
+      const res = await this.$axios
         .$patch(
-          "https://q-box.microcms.io/api/v1/q_box_posts/" +
-            this.getContentOriginId,
+          "https://q-box.microcms.io/api/v1/q_box_posts/" + postId,
           {
-            replyTweetId: id,
+            replyTweetId: tweetId,
           },
           {
             headers: {

@@ -31,6 +31,7 @@ export default {
     replyTweetId: String,
     contentOriginId: String,
     replySentence: String,
+    replyIds: Array,
     show: Boolean,
   },
   data() {
@@ -39,7 +40,7 @@ export default {
       textareaWord: {
         question: "質問を入力する",
         answer: "この質問への回答を入力する",
-        reply: "この質問への返信を入力する",
+        reply: "ご意見や情報など頂けますと幸いです！",
         replyForReply: "この返信への回答を入力する",
       },
       buttonWord: {
@@ -78,7 +79,7 @@ export default {
             alert("質問を送信しました。内容を確認の上返答させて頂きます！");
           });
       } else if (this.sentence && this.mode === "reply") {
-        await this.$axios
+        const replyRes = await this.$axios
           .$post(
             "https://q-box.microcms.io/api/v1/q_box_replies/",
             {
@@ -95,7 +96,34 @@ export default {
           .catch((error) => {
             alert("通信に失敗しました。：" + error);
             console.log(error);
+          });
+        const latestReply = await this.$axios.$get(
+          "https://q-box.microcms.io/api/v1/q_box_replies/" + replyRes.id,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-MICROCMS-API-KEY": this.$config.microCmsKey,
+            },
+          }
+        );
+        const replyIdObjects = latestReply.replyFor.replies;
+        const replyIds = replyIdObjects.map((object) => {
+          return object.id;
+        });
+        await this.$axios.$patch(
+          "https://q-box.microcms.io/api/v1/q_box_posts/" + this.contentId,
+          {
+            replies: [...replyIds, replyRes.id],
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-MICROCMS-API-KEY": this.$config.microCmsKey,
+            },
+          }
+        );
         alert("返信を送信しました。ご協力いただきありがとうございます！");
+        this.$router.go({ path: this.$router.currentRoute.path, force: true });
       }
     },
   },
