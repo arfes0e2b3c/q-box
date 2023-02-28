@@ -180,7 +180,7 @@ ul {
         background-color: rgb(0, 74, 169);
         border: 2px solid rgba(0, 24, 85, 0.7);
       }
-      .keep,
+      .requirement,
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);

@@ -62,8 +62,9 @@ export default {
           "https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt64%3D",
         ImgixImageUrl: {
           answered:
-            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/e8ff8e3ccffd4e89b37680d70a3b6d26/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
-          keep: "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/6efb7cba640148a29d7b712679accffd/keep.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/c9428b14ddd44f5485c2fc8ce7c2c61d/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+          requirement:
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/5bca64b79bc44af79c61c797d7b86984/requirement.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
         },
         explanation: "お手伝いサークル公式サイト",
       },
