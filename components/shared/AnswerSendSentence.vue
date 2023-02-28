@@ -23,7 +23,7 @@
           class="button"
           v-show="requirementButton"
         >
-          保留
+          情報募集中として回答
         </button>
       </div>
     </div>
