@@ -141,7 +141,11 @@ export default {
       if (mode === "tweet") {
         data = {
           // TODO: replace domain
-          text: slicedAnswer[0] + "\n" + this.$config.baseUrl + id,
+          text:
+            slicedAnswer[0] +
+            "\n#お手伝いサークル\n" +
+            this.$config.baseUrl +
+            id,
         };
       } else if (mode === "reply") {
         data = {
