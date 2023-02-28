@@ -19,6 +19,7 @@
         <SharedSendSentence
           :mode="modeReply"
           :contentId="post.id"
+          :replyIds="replyIds"
           :show="true"
         />
       </div>
@@ -39,6 +40,7 @@
 <script>
 import Common from "~/plugins/common.js";
 import base64url from "base64url";
+import Vue from "vue";
 export default {
   async asyncData({ route, $axios, $config }) {
     const id = route.path.slice(1);
@@ -80,6 +82,7 @@ export default {
       modeReply: "reply",
       showIdContainer: true,
       showFilteredPost: false,
+      originReplies: {},
     };
   },
   head() {
@@ -135,30 +138,14 @@ export default {
     },
     async setReply() {
       if (this.post) {
-        await this.$axios
-          .$get(
-            "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-              this.post.id +
-              "[and]replyAnswer[exists]&orders=createdAt",
-            {
-              headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-            }
-          )
-          .then((response) => {
-            Common.generateImage(
-              document,
-              response.contents,
-              "replySentence",
-              "",
-              "answered"
-            );
-            this.$set(this.post, "replies", response.contents);
-            Common.modifyUrlInPost(this.post.replies, "replyAnswer");
-          })
-          .catch((error) => {
-            alert("通信に失敗しました。：" + error);
-            console.log(error);
-          });
+        Common.generateImage(
+          document,
+          this.post.replies,
+          "replySentence",
+          "",
+          "answered"
+        );
+        Common.modifyUrlInPost(this.post.replies, "replyAnswer");
       }
     },
     fillFixedText(ctx, text, imageWidth, imageHeight, canvas) {
@@ -178,7 +165,7 @@ export default {
       if (line > 7) {
         canvas.height = (imageHeight + (line - 7) * lineHeight) / imageHeight;
       }
-      for (var i = 0; i < column.length; i++) {
+      for (let i = 0; i < column.length; i++) {
         ctx.fillText(
           "a",
           imageWidth / 2,
@@ -198,8 +185,10 @@ export default {
           }
         )
         .then((response) => {
-          this.post = response.contents.shift();
-          this.post.createdAt = this.post.createdAt.substr(0, 10);
+          let post = response.contents.shift();
+          this.originReplies = Object.values(Vue.util.extend({}, post.replies));
+          post.createdAt = post.createdAt.substr(0, 10);
+          this.post = this.filterPostAnswered([post])[0];
           Common.generateImage(document, [this.post], "question", "");
           this.setReply();
           Common.modifyUrlInPost([this.post], "answer");
@@ -208,6 +197,25 @@ export default {
           alert("通信に失敗しました。：" + error);
           console.log(error);
         });
+    },
+    filterPostAnswered(posts) {
+      for (let post of posts) {
+        post.replies = post.replies.filter((reply) => {
+          return reply.replyAnswer;
+        });
+      }
+      return posts;
+    },
+  },
+  computed: {
+    replyIds() {
+      if (this.originReplies.length) {
+        return this.originReplies.map((reply) => {
+          return reply.id;
+        });
+      } else {
+        return [];
+      }
     },
   },
   async created() {

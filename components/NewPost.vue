@@ -61,36 +61,6 @@ export default {
     transition(id) {
       this.$router.push({ path: id });
     },
-    async setReply() {
-      if (this.posts) {
-        for (const post of this.posts) {
-          await this.$axios
-            .$get(
-              "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-                post.id +
-                "[and]replyAnswer[exists]&orders=createdAt",
-              {
-                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-              }
-            )
-            .then((response) => {
-              Common.generateImage(
-                document,
-                response.contents,
-                "replySentence",
-                "",
-                "answered"
-              );
-              this.$set(post, "replies", response.contents);
-              Common.modifyUrlInPost(post.replies, "replyAnswer");
-            })
-            .catch((error) => {
-              // alert('通信に失敗しました。：' + error)
-              console.log(error);
-            });
-        }
-      }
-    },
     async loadNewPost($state) {
       const loadPostNumber = 10;
       await this.$axios
@@ -107,7 +77,8 @@ export default {
           if (this.postCount < response.totalCount) {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
-            Common.generateImage(document, response.contents, "question", "");
+            this.posts = this.filterPostAnswered(this.posts);
+            Common.generateImage(document, this.posts, "question", "");
             this.setReply();
             this.postCount += response.contents.length;
             $state.loaded();
@@ -120,6 +91,28 @@ export default {
           alert("通信に失敗しました。：" + error);
           console.log(error);
         });
+    },
+    filterPostAnswered(posts) {
+      for (let post of posts) {
+        post.replies = post.replies.filter((reply) => {
+          return reply.replyAnswer;
+        });
+      }
+      return posts;
+    },
+    setReply() {
+      if (this.posts) {
+        for (const post of this.posts) {
+          Common.generateImage(
+            document,
+            post.replies,
+            "replySentence",
+            "",
+            "answered"
+          );
+          Common.modifyUrlInPost(post.replies, "replyAnswer");
+        }
+      }
     },
   },
 };

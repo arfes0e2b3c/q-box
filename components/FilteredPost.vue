@@ -129,33 +129,17 @@ export default {
     setTitle(word) {
       this.title = word;
     },
-    async setReply() {
+    setReply() {
       if (this.posts) {
         for (const post of this.posts) {
-          await this.$axios
-            .$get(
-              "https://q-box.microcms.io/api/v1/q_box_replies?filters=replyFor[equals]" +
-                post.id +
-                "[and]replyAnswer[exists]&orders=createdAt",
-              {
-                headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-              }
-            )
-            .then((response) => {
-              Common.generateImage(
-                document,
-                response.contents,
-                "replySentence",
-                "1",
-                "answered"
-              );
-              this.$set(post, "replies", response.contents);
-              Common.modifyUrlInPost(post.replies, "replyAnswer");
-            })
-            .catch((error) => {
-              // alert('通信に失敗しました。：' + error)
-              console.log(error);
-            });
+          Common.generateImage(
+            document,
+            post.replies,
+            "replySentence",
+            "1",
+            "answered"
+          );
+          Common.modifyUrlInPost(post.replies, "replyAnswer");
         }
       }
     },
