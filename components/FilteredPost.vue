@@ -89,7 +89,8 @@ export default {
           if (this.postCount < response.totalCount) {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
-            Common.generateImage(document, response.contents, "question", "1");
+            this.posts = Common.formatCreatedAt(this.posts);
+            Common.generateImage(document, response.contents, "question");
             this.setReply();
             this.postCount += response.contents.length;
             $state.loaded();

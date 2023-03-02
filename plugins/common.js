@@ -81,4 +81,22 @@ export default {
       };
     }
   },
+  formatCreatedAt(posts) {
+    posts.map((post) => {
+      const pad2 = (n) => {
+        return n < 10 ? "0" + n : n;
+      };
+      const date = new Date(post.createdAt);
+      post.createdAt =
+        pad2(date.getMonth() + 1) +
+        "/" +
+        pad2(date.getDate()) +
+        " " +
+        pad2(date.getHours()) +
+        ":" +
+        pad2(date.getMinutes());
+      return post;
+    });
+    return posts;
+  },
 };

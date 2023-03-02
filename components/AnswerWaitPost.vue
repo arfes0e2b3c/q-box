@@ -6,6 +6,9 @@
     <p v-show="!posts[0]">質問はありません</p>
     <transition-group name="flip-list">
       <li class="card" v-for="post in posts" :key="post.id">
+        <div class="time-container">
+          <p>{{ post.createdAt }}</p>
+        </div>
         <div class="box">
           <div>
             <button @click="deletePost(post.id)">削除</button>
@@ -14,9 +17,6 @@
           <button @click="showSendSentence(post.id)" class="toggle-button">
             開閉
           </button>
-        </div>
-        <div class="time-container">
-          <p>{{ post.createdAt.slice(0, 10) }}</p>
         </div>
         <SharedAnswerSendSentence
           class="send-sentence"
@@ -53,7 +53,8 @@ export default {
           }
         )
         .then((response) => {
-          this.$set(this, "posts", response.contents);
+          const posts = Common.formatCreatedAt(response.contents);
+          this.$set(this, "posts", posts);
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
@@ -123,13 +124,13 @@ export default {
       }
     }
     .time-container {
-      width: 70%;
+      width: 100%;
       display: flex;
-      justify-content: end;
+      justify-content: center;
       p {
         /* width: 70px; */
         padding: 5px 10px;
-        margin-top: 10px;
+        margin-bottom: 10px;
         border-radius: 5px;
         border: 2px solid rgb(50, 50, 50);
         background-color: rgb(100, 100, 100);
@@ -171,6 +172,11 @@ export default {
         .toggle-button {
           width: 50px;
           height: 70px;
+        }
+      }
+      .time-container {
+        p {
+          margin-bottom: 5px;
         }
       }
     }
