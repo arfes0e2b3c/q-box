@@ -10,13 +10,7 @@
       <p v-show="!posts[0]">質問はありません</p>
       <li v-for="post in posts" :key="post.id">
         <div class="primary-post">
-          <p
-            class="created-at"
-            :class="post.state"
-            v-html="
-              post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
-            "
-          ></p>
+          <p class="created-at" :class="post.state" v-html="post.createdAt"></p>
           <div @click="transition(post.id)" class="card-button">
             <canvas :id="post.id"></canvas>
           </div>
@@ -28,7 +22,7 @@
           class="secondary-post"
         >
           <canvas :id="reply.id"></canvas>
-          <p v-html="reply.replyAnswer"></p>
+          <!-- <p v-html="reply.replyAnswer"></p> -->
         </div>
       </li>
     </ul>
@@ -80,7 +74,8 @@ export default {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
             this.posts = this.filterPostAnswered(this.posts);
-            Common.generateImage(document, this.posts, "question", "");
+            this.posts = Common.formatCreatedAt(this.posts);
+            Common.generateImage(document, this.posts, "question");
             this.setReply();
             this.postCount += response.contents.length;
             $state.loaded();
@@ -109,7 +104,6 @@ export default {
             document,
             post.replies,
             "replySentence",
-            "",
             "answered"
           );
           Common.modifyUrlInPost(post.replies, "replyAnswer");

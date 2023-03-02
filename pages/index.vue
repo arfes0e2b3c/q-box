@@ -3,11 +3,6 @@
     <SharedHeader @searchPost="searchPost" @toNewPost="toNewPost" />
     <div class="main-wrapper">
       <NewPost v-show="showNewPost" class="new-post" />
-      <FilteredPost
-        v-show="showFilteredPost"
-        ref="FilteredPost"
-        class="filtered-post"
-      />
       <div
         class="chevron-up"
         v-scroll-to="{

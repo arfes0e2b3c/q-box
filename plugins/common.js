@@ -26,7 +26,7 @@ export default {
       alert("削除が完了しました。");
     }
   },
-  generateImage(document, posts, mode, alphaId, state) {
+  generateImage(document, posts, mode, state) {
     for (const post of posts) {
       let image = new Image();
       if (state) {
@@ -38,8 +38,7 @@ export default {
       }
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
-        let canvas = document.getElementById(post.id + alphaId);
-
+        let canvas = document.getElementById(post.id);
         let ctx = canvas.getContext("2d");
         //キャンバスのサイズを画像サイズに合わせる
         canvas.width = 600;
@@ -80,5 +79,23 @@ export default {
         }
       };
     }
+  },
+  formatCreatedAt(posts) {
+    posts.map((post) => {
+      const pad2 = (n) => {
+        return n < 10 ? "0" + n : n;
+      };
+      const date = new Date(post.createdAt);
+      post.createdAt =
+        pad2(date.getMonth() + 1) +
+        "/" +
+        pad2(date.getDate()) +
+        " " +
+        pad2(date.getHours()) +
+        ":" +
+        pad2(date.getMinutes());
+      return post;
+    });
+    return posts;
   },
 };

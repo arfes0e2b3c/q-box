@@ -16,13 +16,13 @@
         type="text"
         autocomplete="off"
         placeholder="語句で検索"
-        v-model="qWord"
-        @keyup.enter="searchPost(qWord)"
+        v-model="keyword"
+        @keyup.enter="searchPost(keyword)"
         @focus="toggleSearchWordModal(true)"
         @blur="toggleSearchWordModal(false)"
       />
       <transition>
-        <div v-show="showSearchWord && !qWord" class="often-search-word-box">
+        <div v-show="showSearchWord && !keyword" class="often-search-word-box">
           <h3>良く検索されるワード</h3>
           <ul>
             <li
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       showSearchWord: false,
-      qWord: "",
+      keyword: "",
       searchWords: [
         "#情報募集中の質問",
         "TOEFL",
@@ -56,9 +56,17 @@ export default {
     };
   },
   methods: {
-    searchPost(word) {
-      if (word) {
-        this.$emit("searchPost", word);
+    searchPost(keyword) {
+      if (keyword) {
+        this.$router.push({
+          path: "search",
+          query: {
+            keyword: keyword,
+          },
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1);
       }
     },
     toggleSearchWordModal(boolean) {
@@ -70,7 +78,6 @@ export default {
     },
     toNewPost() {
       this.$router.push("/");
-      this.$emit("toNewPost");
     },
   },
 };
