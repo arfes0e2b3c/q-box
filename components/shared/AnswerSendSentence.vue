@@ -21,7 +21,7 @@
         <button
           @click="sendSentence('requirement')"
           class="button"
-          v-show="requirementButton"
+          v-if="requirementButton"
         >
           情報募集中として回答
         </button>
@@ -190,7 +190,6 @@ export default {
           );
         } else if (sendSentenceMode === "replyForReply") {
           await this.sendSentenceModeReplyForReply(tweetRes.data.id);
-          console.log(this.getContentOriginId, tweetRes.data.id);
           await this.setReplyTweetId(this.getContentOriginId, tweetRes.data.id);
         }
       } catch (e) {
