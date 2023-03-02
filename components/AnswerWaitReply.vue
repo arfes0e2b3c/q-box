@@ -6,6 +6,9 @@
       <h3>{{ post.question }}</h3>
       <p>{{ post.answer }}</p>
       <div v-for="reply in post.replies" :key="reply.id">
+        <div class="time-container">
+          <p>{{ post.createdAt }}</p>
+        </div>
         <div class="manage-send-sentence-box">
           <button @click="deletePost(reply.id)">削除</button>
           <h4>{{ reply.replySentence }}</h4>
@@ -42,13 +45,14 @@ export default {
       this.$refs[id][0].toggle();
     },
     async fetchPostsHasReply() {
-      const posts = await this.$axios.$get(
+      let posts = await this.$axios.$get(
         "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]",
         {
           headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
         }
       );
-      this.posts = this.filterReplyNotAnswered(posts.contents);
+      this.posts = Common.formatCreatedAt(posts.contents);
+      this.posts = this.filterReplyNotAnswered(this.posts);
     },
     filterReplyNotAnswered(posts) {
       for (let post of posts) {
@@ -114,6 +118,23 @@ ul {
       box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
       padding: 20px;
       margin: 10px 0;
+      .time-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        p {
+          width: auto;
+          padding: 5px 10px;
+          margin: 0;
+          /* margin-bottom: 10px; */
+          border-radius: 5px;
+          border: 2px solid rgb(50, 50, 50);
+          background-color: rgb(100, 100, 100);
+          color: white;
+          text-align: center;
+          font-size: 14px;
+        }
+      }
       .manage-send-sentence-box {
         width: 100%;
         display: flex;

@@ -16,7 +16,7 @@
           </button>
         </div>
         <div class="time-container">
-          <p>{{ post.createdAt.slice(0, 10) }}</p>
+          <p>{{ post.createdAt }}</p>
         </div>
         <SharedAnswerSendSentence
           class="send-sentence"
@@ -53,7 +53,8 @@ export default {
           }
         )
         .then((response) => {
-          this.$set(this, "posts", response.contents);
+          const posts = Common.formatCreatedAt(response.contents);
+          this.$set(this, "posts", posts);
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
