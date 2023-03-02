@@ -142,7 +142,6 @@ export default {
           document,
           this.post.replies,
           "replySentence",
-          "",
           "answered"
         );
         Common.modifyUrlInPost(this.post.replies, "replyAnswer");
@@ -190,7 +189,7 @@ export default {
           post.createdAt =
             post.createdAt.substr(5, 2) + "/" + post.createdAt.substr(8, 2);
           this.post = this.filterPostAnswered([post])[0];
-          Common.generateImage(document, [this.post], "question", "");
+          Common.generateImage(document, [this.post], "question");
           this.setReply();
           Common.modifyUrlInPost([this.post], "answer");
         })

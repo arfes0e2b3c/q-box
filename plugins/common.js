@@ -26,7 +26,7 @@ export default {
       alert("削除が完了しました。");
     }
   },
-  generateImage(document, posts, mode, alphaId, state) {
+  generateImage(document, posts, mode, state) {
     for (const post of posts) {
       let image = new Image();
       if (state) {
@@ -38,8 +38,7 @@ export default {
       }
       image.onload = function () {
         //画像ロードが完了してからキャンバスの準備をする
-        let canvas = document.getElementById(post.id + alphaId);
-
+        let canvas = document.getElementById(post.id);
         let ctx = canvas.getContext("2d");
         //キャンバスのサイズを画像サイズに合わせる
         canvas.width = 600;

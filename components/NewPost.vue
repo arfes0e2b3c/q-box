@@ -104,7 +104,6 @@ export default {
             document,
             post.replies,
             "replySentence",
-            "",
             "answered"
           );
           Common.modifyUrlInPost(post.replies, "replyAnswer");
