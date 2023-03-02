@@ -22,7 +22,7 @@
           class="secondary-post"
         >
           <canvas :id="reply.id"></canvas>
-          <p v-html="reply.replyAnswer"></p>
+          <!-- <p v-html="reply.replyAnswer"></p> -->
         </div>
       </li>
     </ul>
