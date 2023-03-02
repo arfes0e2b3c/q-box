@@ -66,7 +66,7 @@ export default {
           answered:
             "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/c9428b14ddd44f5485c2fc8ce7c2c61d/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
           requirement:
-            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/5bca64b79bc44af79c61c797d7b86984/requirement.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
+            "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/f3e07d2865ab43a8a173e70d23d20638/requirement.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=",
         },
         explanation: "お手伝いサークル公式サイト",
       },
