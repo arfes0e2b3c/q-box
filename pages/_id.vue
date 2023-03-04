@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SharedHeader @searchPost="searchPost" />
-    <div id="id-container" v-show="showIdContainer">
+    <SharedHeader />
+    <div id="id-container">
       <div class="card-container">
         <div class="primary-post">
           <p class="created-at" :class="post.state" v-html="post.createdAt"></p>
@@ -30,11 +30,6 @@
       />
       <SharedFooter />
     </div>
-    <FilteredPost
-      v-show="showFilteredPost"
-      ref="FilteredPost"
-      class="filtered-post"
-    />
   </div>
 </template>
 <script>
@@ -80,14 +75,11 @@ export default {
       post: [],
       modeQuestion: "question",
       modeReply: "reply",
-      showIdContainer: true,
-      showFilteredPost: false,
       originReplies: {},
     };
   },
   head() {
     this.payload = this.resp;
-    // 相対パスを取得。例えば'/item/1'とか
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
@@ -98,7 +90,6 @@ export default {
       base64url(this.payload.question);
     this.meta.title = this.payload.question;
 
-    // ここから先でmetaタグを書いていく
     return {
       title: this.meta.title,
       meta: [
@@ -122,58 +113,6 @@ export default {
     };
   },
   methods: {
-    toHome() {
-      this.showNewPost = true;
-      this.showFilteredPost = false;
-    },
-    searchPost(word) {
-      if (word) {
-        this.$refs.FilteredPost.getPost(word);
-        this.changeShowMode();
-      }
-    },
-    changeShowMode() {
-      this.showIdContainer = false;
-      this.showFilteredPost = true;
-    },
-    async setReply() {
-      if (this.post) {
-        Common.generateImage(
-          document,
-          this.post.replies,
-          "replySentence",
-          "answered"
-        );
-        Common.modifyUrlInPost(this.post.replies, "replyAnswer");
-      }
-    },
-    fillFixedText(ctx, text, imageWidth, imageHeight, canvas) {
-      let column = [""];
-      let line = 0;
-      for (const char of text) {
-        if (
-          char.match(/\n/) ||
-          ctx.measureText(column[line] + char).width > imageWidth * 0.75
-        ) {
-          line++;
-          column[line] = "";
-        }
-        column[line] += char;
-      }
-      let lineHeight = ctx.measureText("あ").width * 1.8;
-      if (line > 7) {
-        canvas.height = (imageHeight + (line - 7) * lineHeight) / imageHeight;
-      }
-      for (let i = 0; i < column.length; i++) {
-        ctx.fillText(
-          "a",
-          imageWidth / 2,
-          imageHeight / 2 +
-            lineHeight * i -
-            (lineHeight * (column.length - 1)) / 2
-        );
-      }
-    },
     async getPosts() {
       await this.$axios
         .$get(
@@ -186,12 +125,12 @@ export default {
         .then((response) => {
           let post = response.contents.shift();
           this.originReplies = Object.values(Vue.util.extend({}, post.replies));
-          post.createdAt =
-            post.createdAt.substr(5, 2) + "/" + post.createdAt.substr(8, 2);
-          this.post = this.filterPostAnswered([post])[0];
-          Common.generateImage(document, [this.post], "question");
-          this.setReply();
-          Common.modifyUrlInPost([this.post], "answer");
+          [post] = Common.formatCreatedAt([post]);
+          post = this.filterPostAnswered([post])[0];
+          Common.generateImage(document, [post], "question");
+          this.setReply(post);
+          Common.modifyUrlInPost([post], "answer");
+          this.post = post;
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
@@ -205,6 +144,17 @@ export default {
         });
       }
       return posts;
+    },
+    async setReply(post) {
+      if (post) {
+        Common.generateImage(
+          document,
+          post.replies,
+          "replySentence",
+          "answered"
+        );
+        Common.modifyUrlInPost(post.replies, "replyAnswer");
+      }
     },
   },
   computed: {

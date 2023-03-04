@@ -7,7 +7,7 @@
       <p>{{ post.answer }}</p>
       <div v-for="reply in post.replies" :key="reply.id">
         <div class="time-container">
-          <p>{{ post.createdAt }}</p>
+          <p>{{ reply.createdAt }}</p>
         </div>
         <div class="manage-send-sentence-box">
           <button @click="deletePost(reply.id)">削除</button>
@@ -51,22 +51,41 @@ export default {
           headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
         }
       );
-      this.posts = Common.formatCreatedAt(posts.contents);
-      this.posts = this.filterReplyNotAnswered(this.posts);
+      posts = posts.contents.map((post) => {
+        post.replies = Common.formatCreatedAt(post.replies);
+        return post;
+      });
+      posts = this.filterReplyNotAnswered(posts);
+      posts = this.filterReplyIsDeleted(posts);
+      this.posts = posts;
     },
     filterReplyNotAnswered(posts) {
-      for (let post of posts) {
+      posts.map((post) => {
         post.replies = post.replies.filter((reply) => {
           return !reply.replyAnswer;
         });
-      }
-      posts = posts.filter((post) => {
-        return post.replies.length;
+        return post;
       });
+      posts = this.filterHasNotAnswer(posts);
       return posts;
     },
+    filterReplyIsDeleted(posts) {
+      posts.map((post) => {
+        post.replies = post.replies.filter((reply) => {
+          return !reply.isDeleted;
+        });
+        return post;
+      });
+      posts = this.filterHasNotAnswer(posts);
+      return posts;
+    },
+    filterHasNotAnswer(posts) {
+      return posts.filter((post) => {
+        return post.replies.length;
+      });
+    },
     deletePost(id) {
-      Common.deletePost(this, id, "q_box_replies", this.$config);
+      Common.deleteReply(this, id, this.$config);
     },
   },
   mounted() {

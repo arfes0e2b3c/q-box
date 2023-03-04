@@ -66,7 +66,7 @@ export default {
         });
         setTimeout(() => {
           location.reload();
-        }, 1);
+        }, 100);
       }
     },
     toggleSearchWordModal(boolean) {
