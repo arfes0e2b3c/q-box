@@ -7,7 +7,7 @@
       <p>{{ post.answer }}</p>
       <div v-for="reply in post.replies" :key="reply.id">
         <div class="time-container">
-          <p>{{ post.createdAt }}</p>
+          <p>{{ reply.createdAt }}</p>
         </div>
         <div class="manage-send-sentence-box">
           <button @click="deletePost(reply.id)">削除</button>
