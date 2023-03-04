@@ -80,7 +80,6 @@ export default {
   },
   head() {
     this.payload = this.resp;
-    // 相対パスを取得。例えば'/item/1'とか
     const path = this.$route.path;
     this.meta.description = this.item.explanation;
     this.meta.type = "article";
@@ -91,7 +90,6 @@ export default {
       base64url(this.payload.question);
     this.meta.title = this.payload.question;
 
-    // ここから先でmetaタグを書いていく
     return {
       title: this.meta.title,
       meta: [
