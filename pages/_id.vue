@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SharedHeader @searchPost="searchPost" />
-    <div id="id-container" v-show="showIdContainer">
+    <SharedHeader />
+    <div id="id-container">
       <div class="card-container">
         <div class="primary-post">
           <p class="created-at" :class="post.state" v-html="post.createdAt"></p>
@@ -30,11 +30,6 @@
       />
       <SharedFooter />
     </div>
-    <FilteredPost
-      v-show="showFilteredPost"
-      ref="FilteredPost"
-      class="filtered-post"
-    />
   </div>
 </template>
 <script>
@@ -80,8 +75,6 @@ export default {
       post: [],
       modeQuestion: "question",
       modeReply: "reply",
-      showIdContainer: true,
-      showFilteredPost: false,
       originReplies: {},
     };
   },
@@ -122,31 +115,6 @@ export default {
     };
   },
   methods: {
-    toHome() {
-      this.showNewPost = true;
-      this.showFilteredPost = false;
-    },
-    searchPost(word) {
-      if (word) {
-        this.$refs.FilteredPost.getPost(word);
-        this.changeShowMode();
-      }
-    },
-    changeShowMode() {
-      this.showIdContainer = false;
-      this.showFilteredPost = true;
-    },
-    async setReply() {
-      if (this.post) {
-        Common.generateImage(
-          document,
-          this.post.replies,
-          "replySentence",
-          "answered"
-        );
-        Common.modifyUrlInPost(this.post.replies, "replyAnswer");
-      }
-    },
     fillFixedText(ctx, text, imageWidth, imageHeight, canvas) {
       let column = [""];
       let line = 0;
@@ -205,6 +173,17 @@ export default {
         });
       }
       return posts;
+    },
+    async setReply(post) {
+      if (post) {
+        Common.generateImage(
+          document,
+          post.replies,
+          "replySentence",
+          "answered"
+        );
+        Common.modifyUrlInPost(post.replies, "replyAnswer");
+      }
     },
   },
   computed: {
