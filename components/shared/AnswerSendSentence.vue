@@ -351,7 +351,7 @@ export default {
       font-size: 1em;
     }
     textarea {
-      width: calc(90% - 40px);
+      width: calc(100% - 24px);
       padding: 10px;
     }
   }
