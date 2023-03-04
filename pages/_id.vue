@@ -155,11 +155,11 @@ export default {
           let post = response.contents.shift();
           this.originReplies = Object.values(Vue.util.extend({}, post.replies));
           [post] = Common.formatCreatedAt([post]);
-            post.createdAt.substr(5, 2) + "/" + post.createdAt.substr(8, 2);
-          this.post = this.filterPostAnswered([post])[0];
-          Common.generateImage(document, [this.post], "question");
-          this.setReply();
-          Common.modifyUrlInPost([this.post], "answer");
+          post = this.filterPostAnswered([post])[0];
+          Common.generateImage(document, [post], "question");
+          this.setReply(post);
+          Common.modifyUrlInPost([post], "answer");
+          this.post = post;
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
