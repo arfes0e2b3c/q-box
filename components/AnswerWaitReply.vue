@@ -79,12 +79,13 @@ export default {
       posts = this.filterHasNotAnswer(posts);
       return posts;
     },
+    filterHasNotAnswer(posts) {
+      return posts.filter((post) => {
         return post.replies.length;
       });
-      return posts;
     },
     deletePost(id) {
-      Common.deletePost(this, id, "q_box_replies", this.$config);
+      Common.deleteReply(this, id, this.$config);
     },
   },
   mounted() {
