@@ -15,15 +15,15 @@
         {{ this.sentence.length }}
       </p>
       <div class="button-container">
-        <button @click="sendSentence('answered')" class="button">
-          {{ this.buttonWord[getMode] }}
-        </button>
         <button
           @click="sendSentence('requirement')"
-          class="button"
+          class="button requirement"
           v-if="requirementButton"
         >
           情報募集中として回答
+        </button>
+        <button @click="sendSentence('answered')" class="button answered">
+          {{ this.buttonWord[getMode] }}
         </button>
       </div>
     </div>
@@ -59,7 +59,7 @@ export default {
       },
       buttonWord: {
         question: "質問する",
-        answer: "回答する",
+        answer: "回答",
         reply: "返信する",
         replyForReply: "回答する",
       },
@@ -287,18 +287,28 @@ export default {
     display: flex;
     button {
       margin: 0 5px;
-      width: 80px;
-      height: 30px;
+      width: 180px;
+      height: 40px;
       margin-top: 10px;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      border-radius: 5px;
-      background: none;
+      border: none;
+      color: white;
       transition: 0.5s;
       cursor: pointer;
       &:hover {
-        background-color: #77d;
-        border: 1px solid rgba(0, 0, 200, 1);
-        color: white;
+        /* color: white; */
+      }
+    }
+    .answered {
+      background-color: rgba(0, 74, 166, 1);
+      &:hover {
+        background-color: rgba(0, 74, 166, 0.8);
+      }
+    }
+    .requirement {
+      color: #333;
+      background-color: rgba(255, 222, 103, 1);
+      &:hover {
+        background-color: rgba(255, 222, 103, 0.8);
       }
     }
   }
