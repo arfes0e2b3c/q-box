@@ -13,15 +13,29 @@ export default {
   async deletePost(that, id, endPoint, config) {
     if (window.confirm("削除してよろしいですか？")) {
       await that.$axios
-        .$delete("https://q-box.microcms.io/api/v1/" + endPoint + "/" + id, {
+        .$delete("https://q-box.microcms.io/api/v1/q_box_posts/" + id, {
           headers: { "X-MICROCMS-API-KEY": config.microCmsKey },
         })
         .then(() => {
-          if (endPoint === "q_box_posts") {
-            that.getPosts();
-          } else if (endPoint === "q_box_replies") {
-            that.setReply();
+          that.getPosts();
+        });
+      alert("削除が完了しました。");
+    }
+  },
+  async deleteReply(that, id, config) {
+    if (window.confirm("非公開にしてよろしいですか？")) {
+      await that.$axios
+        .$patch(
+          "https://q-box.microcms.io/api/v1/q_box_replies/" + id,
+          {
+            isDeleted: true,
+          },
+          {
+            headers: { "X-MICROCMS-API-KEY": config.microCmsKey },
           }
+        )
+        .then(() => {
+          that.fetchPostsHasReply();
         });
       alert("削除が完了しました。");
     }
