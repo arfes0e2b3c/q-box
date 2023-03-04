@@ -113,33 +113,6 @@ export default {
     };
   },
   methods: {
-    fillFixedText(ctx, text, imageWidth, imageHeight, canvas) {
-      let column = [""];
-      let line = 0;
-      for (const char of text) {
-        if (
-          char.match(/\n/) ||
-          ctx.measureText(column[line] + char).width > imageWidth * 0.75
-        ) {
-          line++;
-          column[line] = "";
-        }
-        column[line] += char;
-      }
-      let lineHeight = ctx.measureText("あ").width * 1.8;
-      if (line > 7) {
-        canvas.height = (imageHeight + (line - 7) * lineHeight) / imageHeight;
-      }
-      for (let i = 0; i < column.length; i++) {
-        ctx.fillText(
-          "a",
-          imageWidth / 2,
-          imageHeight / 2 +
-            lineHeight * i -
-            (lineHeight * (column.length - 1)) / 2
-        );
-      }
-    },
     async getPosts() {
       await this.$axios
         .$get(
