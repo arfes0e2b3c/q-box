@@ -51,16 +51,27 @@ export default {
           headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
         }
       );
-      this.posts = Common.formatCreatedAt(posts.contents);
-      this.posts = this.filterReplyNotAnswered(this.posts);
+      posts = posts.contents.map((post) => {
+        post.replies = Common.formatCreatedAt(post.replies);
+        return post;
+      });
+      posts = this.filterReplyIsDeleted(posts);
     },
     filterReplyNotAnswered(posts) {
       for (let post of posts) {
         post.replies = post.replies.filter((reply) => {
           return !reply.replyAnswer;
         });
-      }
-      posts = posts.filter((post) => {
+    filterReplyIsDeleted(posts) {
+      posts.map((post) => {
+        post.replies = post.replies.filter((reply) => {
+          return !reply.isDeleted;
+        });
+        return post;
+      });
+      posts = this.filterHasNotAnswer(posts);
+      return posts;
+    },
         return post.replies.length;
       });
       return posts;
