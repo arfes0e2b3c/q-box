@@ -98,4 +98,11 @@ export default {
     });
     return posts;
   },
-};
+  filterPostAnswered(posts) {
+    for (let post of posts) {
+      post.replies = post.replies.filter((reply) => {
+        return reply.replyAnswer;
+      });
+    }
+    return posts;
+  },
