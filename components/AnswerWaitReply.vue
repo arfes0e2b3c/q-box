@@ -55,13 +55,20 @@ export default {
         post.replies = Common.formatCreatedAt(post.replies);
         return post;
       });
+      posts = this.filterReplyNotAnswered(posts);
       posts = this.filterReplyIsDeleted(posts);
+      this.posts = posts;
     },
     filterReplyNotAnswered(posts) {
-      for (let post of posts) {
+      posts.map((post) => {
         post.replies = post.replies.filter((reply) => {
           return !reply.replyAnswer;
         });
+        return post;
+      });
+      posts = this.filterHasNotAnswer(posts);
+      return posts;
+    },
     filterReplyIsDeleted(posts) {
       posts.map((post) => {
         post.replies = post.replies.filter((reply) => {
