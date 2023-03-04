@@ -154,7 +154,7 @@ export default {
         .then((response) => {
           let post = response.contents.shift();
           this.originReplies = Object.values(Vue.util.extend({}, post.replies));
-          post.createdAt =
+          [post] = Common.formatCreatedAt([post]);
             post.createdAt.substr(5, 2) + "/" + post.createdAt.substr(8, 2);
           this.post = this.filterPostAnswered([post])[0];
           Common.generateImage(document, [this.post], "question");
