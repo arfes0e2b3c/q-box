@@ -219,7 +219,7 @@ ul {
     .primary-post {
       width: 80%;
       text-align: center;
-      margin: 5px auto;
+      margin: 0 auto;
       .created-at {
         width: 100px;
         padding: 5px 10px;
@@ -315,7 +315,10 @@ ul {
     }
     li {
       width: 100%;
-      padding: 20px 0;
+      padding: 0;
+      margin-top: 10px;
+      margin-bottom: 0;
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
       .primary-post {
         width: 90%;
       }

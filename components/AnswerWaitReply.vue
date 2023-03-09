@@ -10,7 +10,7 @@
           <p>{{ reply.createdAt }}</p>
         </div>
         <div class="manage-send-sentence-box">
-          <button @click="deletePost(reply.id)">削除</button>
+          <button @click="deleteReply(reply.id)">削除</button>
           <h4>{{ reply.replySentence }}</h4>
           <button @click="showSendSentence(reply.id)" class="toggle-button">
             開閉
@@ -84,7 +84,7 @@ export default {
         return post.replies.length;
       });
     },
-    deletePost(id) {
+    deleteReply(id) {
       Common.deleteReply(this, id, this.$config);
     },
   },

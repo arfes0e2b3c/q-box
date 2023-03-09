@@ -48,7 +48,7 @@ export default {
     async getPosts() {
       await this.$axios
         .$get(
-          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt",
+          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt&limit=20",
           {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
@@ -64,7 +64,7 @@ export default {
         });
     },
     deletePost(id) {
-      Common.deletePost(this, id, "q_box_posts", this.$config);
+      Common.deletePost(this, id, this.$config);
     },
   },
   async mounted() {
