@@ -107,7 +107,7 @@ export default {
         { hid: "og:type", property: "og:type", content: this.meta.type },
         { hid: "og:url", property: "og:url", content: this.meta.url },
         { hid: "og:image", property: "og:image", content: this.meta.image },
-        { name: "twitter:title", content: "質問や過去の回答はこちらから" },
+        { name: "twitter:title", content: "質問や情報提供はこちらから" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
     };
