@@ -46,12 +46,12 @@ export default {
       showSearchWord: false,
       keyword: "",
       searchWords: [
-        "#情報募集中の質問",
         "TOEFL",
         "サークル",
         "般教",
         "一般教養",
         "バイト",
+        "成績発表",
       ],
     };
   },

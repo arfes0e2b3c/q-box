@@ -10,7 +10,7 @@ export default {
       );
     });
   },
-  async deletePost(that, id, endPoint, config) {
+  async deletePost(that, id, config) {
     if (window.confirm("削除してよろしいですか？")) {
       await that.$axios
         .$delete("https://q-box.microcms.io/api/v1/q_box_posts/" + id, {
@@ -120,3 +120,4 @@ export default {
     }
     return posts;
   },
+};

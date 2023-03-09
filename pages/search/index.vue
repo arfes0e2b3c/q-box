@@ -15,9 +15,7 @@
             <p
               class="created-at"
               :class="post.state"
-              v-html="
-                post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
-              "
+              v-html="post.createdAt"
             ></p>
             <div @click="transition(post.id)" class="card-button">
               <canvas :id="post.id"></canvas>
@@ -32,11 +30,11 @@
             <canvas :id="reply.id"></canvas>
             <!-- <p v-html="reply.replyAnswer">{{ reply.replyAnswer }}</p> -->
           </div>
-          <SharedSendSentence
+          <!-- <SharedSendSentence
             :mode="modeReply"
             :contentId="post.id"
             :show="true"
-          />
+          /> -->
         </li>
       </ul>
       <no-ssr>
@@ -90,36 +88,6 @@ export default {
       title: "",
     };
   },
-  // head() {
-  //   this.meta.description = "お手伝いサークル";
-  //   this.meta.type = "article";
-  //   this.meta.url = this.$config.baseUrl;
-  //   this.meta.image =
-  //     "https://images.microcms-assets.io/assets/ca0c41f03efd472a910782fea07dff31/c9428b14ddd44f5485c2fc8ce7c2c61d/answered.png?w=1200&h=630&blend-mode=normal&blend-align=middle,center&blend=https%3A%2F%2Fassets.imgix.net%2F~text%3Fw%3D1000%26txt-color%3D333%26txt-align%3Dcenter%26txt-size%3D36%26txtfont%3DHiragino%20Sans%20W6%26txt=お手伝いサークル公式サイト";
-  //   this.meta.title = "お手伝いサークル";
-
-  //   return {
-  //     title: this.meta.title,
-  //     meta: [
-  //       {
-  //         hid: "description",
-  //         name: "description",
-  //         content: this.meta.description,
-  //       },
-  //       {
-  //         hid: "og:description",
-  //         property: "og:description",
-  //         content: this.meta.description,
-  //       },
-  //       { hid: "og:title", property: "og:title", content: this.meta.title },
-  //       { hid: "og:type", property: "og:type", content: this.meta.type },
-  //       { hid: "og:url", property: "og:url", content: this.meta.url },
-  //       { hid: "og:image", property: "og:image", content: this.meta.image },
-  //       { name: "twitter:title", content: "質問や過去の回答はこちらから" },
-  //       { name: "twitter:card", content: "summary_large_image" },
-  //     ],
-  //   };
-  // },
   methods: {
     transition(id) {
       this.$router.push({ path: id });
@@ -143,6 +111,8 @@ export default {
           if (this.postCount < response.totalCount) {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
+            this.posts = this.filterPostAnswered(this.posts);
+            this.posts = Common.formatCreatedAt(this.posts);
             Common.generateImage(document, response.contents, "question");
             this.setReply();
             this.postCount += response.contents.length;
@@ -178,6 +148,7 @@ export default {
         .then((response) => {
           this.posts = response.contents;
           this.posts = this.filterPostAnswered(this.posts);
+          this.posts = Common.formatCreatedAt(this.posts);
           Common.generateImage(document, response.contents, "question");
           this.setReply();
           Common.modifyUrlInPost(this.posts, "answer");
@@ -242,7 +213,7 @@ ul {
     flex-direction: column;
     align-items: center;
     margin: 30px 0;
-    padding: 5% 10%;
+    padding: 2% 5% 1%;
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
     overflow-wrap: break-word;
     .primary-post {
@@ -282,6 +253,7 @@ ul {
     canvas {
       width: 100%;
       border-radius: 10px;
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
       div {
         width: 90%;
         text-align: center;
@@ -289,7 +261,7 @@ ul {
       }
     }
     p {
-      margin: 20px 0;
+      margin: 10px 0;
     }
     .secondary-post {
       width: 60%;

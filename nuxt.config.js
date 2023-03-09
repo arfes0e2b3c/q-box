@@ -30,7 +30,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://q-box-otetsudai.an.r.appspot.com/",
+        content: "https://otetsudai-circle.com/",
       },
       {
         hid: "og:title",
@@ -138,5 +138,9 @@ export default {
     firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "",
     firebaseAppId: process.env.FIREBASE_APP_ID || "",
     firebaseMesurementId: process.env.FIREBASE_MESUREMENT_ID || "",
+    devAccessToken: process.env.DEV_ACCESS_TOKEN || "",
+    devAccessTokenSecret: process.env.DEV_ACCESS_TOKEN_SECRET || "",
+    prodAccessToken: process.env.PROD_ACCESS_TOKEN || "",
+    prodAccessTokenSecret: process.env.PROD_ACCESS_TOKEN_SECRET || "",
   },
 };

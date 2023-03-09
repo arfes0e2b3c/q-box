@@ -128,8 +128,8 @@ export default {
         },
       });
       const token = {
-        key: this.$config.accessTokenKey,
-        secret: this.$config.accessTokenKeySecret,
+        key: this.$config.prodAccessToken,
+        secret: this.$config.prodAccessTokenSecret,
       };
       const request = {
         url: "https://api.twitter.com/2/tweets",
