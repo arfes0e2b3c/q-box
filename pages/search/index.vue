@@ -15,9 +15,7 @@
             <p
               class="created-at"
               :class="post.state"
-              v-html="
-                post.createdAt.substr(5, 2) + '/' + post.createdAt.substr(8, 2)
-              "
+              v-html="post.createdAt"
             ></p>
             <div @click="transition(post.id)" class="card-button">
               <canvas :id="post.id"></canvas>
@@ -143,6 +141,7 @@ export default {
           if (this.postCount < response.totalCount) {
             Common.modifyUrlInPost(response.contents, "answer");
             this.posts = this.posts.concat(response.contents);
+            this.posts = Common.formatCreatedAt(this.posts);
             Common.generateImage(document, response.contents, "question");
             this.setReply();
             this.postCount += response.contents.length;
@@ -178,6 +177,7 @@ export default {
         .then((response) => {
           this.posts = response.contents;
           this.posts = this.filterPostAnswered(this.posts);
+          this.posts = Common.formatCreatedAt(this.posts);
           Common.generateImage(document, response.contents, "question");
           this.setReply();
           Common.modifyUrlInPost(this.posts, "answer");
