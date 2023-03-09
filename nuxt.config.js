@@ -30,7 +30,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://q-box-otetsudai.an.r.appspot.com/",
+        content: "https://otetsudai-circle.com/",
       },
       {
         hid: "og:title",
