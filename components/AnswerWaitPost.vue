@@ -1,7 +1,7 @@
 <template>
   <ul id="app">
     <div>
-      <h2>回答待ちの質問</h2>
+      <h2>回答待ちの質問：未回答{{ totalCount }}件</h2>
     </div>
     <p v-show="!posts[0]">質問はありません</p>
     <transition-group name="flip-list">
@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       posts: [],
+      totalCount: 0,
       modeAnswer: "answer",
     };
   },
@@ -55,6 +56,7 @@ export default {
         .then((response) => {
           const posts = Common.formatCreatedAt(response.contents);
           this.$set(this, "posts", posts);
+          this.$set(this, "totalCount", response.totalCount);
         })
         .catch((error) => {
           alert("通信に失敗しました。：" + error);
