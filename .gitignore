@@ -86,3 +86,6 @@ sw.*
 dist/
 
 .nuxt
+
+twitter_api_get_access_token
+fetch_old_questions
