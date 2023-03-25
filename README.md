@@ -41,4 +41,4 @@
 
 ## 使用技術
 
-Nuxt.js, microCMS, Google App Engine
+Nuxt.js, microCMS, Google App Engine, Firebase Authentication
