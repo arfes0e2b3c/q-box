@@ -11,7 +11,12 @@
       >
         お手伝いサークル(管理者版)
       </h1>
-      <button @click="changeShowMode">画面切り替え</button>
+      <button
+        @click="changeShowMode"
+        :class="{ 'has-alert': isReplied && !isReplyPage }"
+      >
+        画面切り替え
+      </button>
     </header>
     <div class="shadow-header"></div>
   </div>
@@ -38,6 +43,14 @@ export default {
         .catch((error) => {
           console.log(error.message);
         });
+    },
+  },
+  computed: {
+    isReplied() {
+      return this.$store.state.isReplied;
+    },
+    isReplyPage() {
+      return this.$store.state.isReplyPage;
     },
   },
 };
@@ -74,6 +87,7 @@ header {
   }
 
   button {
+    position: relative;
     width: 20%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -90,6 +104,14 @@ header {
       background-color: rgba(48, 48, 48, 1);
       color: white;
     }
+  }
+  .has-alert::after {
+    content: url("~/assets/img/alert.svg");
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    width: 30px;
   }
 }
 .shadow-header {
@@ -108,6 +130,10 @@ header {
     button {
       border-left: 1px solid rgb(200, 200, 200);
       width: 50%;
+    }
+    .has-alert::after {
+      left: 85%;
+      width: 20px;
     }
   }
   .shadow-header {
