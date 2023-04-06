@@ -45,5 +45,8 @@
   },
   "browser": {
     "fs": false
+  },
+  "volta": {
+    "node": "16.20.0"
   }
 }
