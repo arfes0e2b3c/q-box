@@ -32,6 +32,7 @@
 </template>
 <script>
 import Common from "~/plugins/common.js";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -90,6 +91,7 @@ export default {
   },
   mounted() {
     this.fetchPostsHasReply();
+    this.$store.commit("setIsReplied", this.posts.length ? true : false);
   },
 };
 </script>
@@ -145,7 +147,7 @@ ul {
           width: auto;
           padding: 5px 10px;
           margin: 0;
-          /* margin-bottom: 10px; */
+          margin-bottom: 10px;
           border-radius: 5px;
           border: 2px solid rgb(50, 50, 50);
           background-color: rgb(100, 100, 100);

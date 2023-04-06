@@ -16,6 +16,13 @@
               class="created-at"
               :class="post.state"
               v-html="post.createdAt"
+              v-if="post.state !== 'old'"
+            ></p>
+            <p
+              class="created-at"
+              :class="post.state"
+              v-html="'過去の質問'"
+              　v-if="post.state === 'old'"
             ></p>
             <div @click="transition(post.id)" class="card-button">
               <canvas :id="post.id"></canvas>
@@ -205,7 +212,7 @@ export default {
   display: none;
 }
 ul {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   // min-height: 100vh;
   li {
@@ -237,6 +244,10 @@ ul {
       .waitInformation {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);
+      }
+      .old {
+        background-color: rgb(255, 141, 198);
+        border: 2px solid rgba(205, 91, 148, 0.7);
       }
       .answer {
         width: 80%;

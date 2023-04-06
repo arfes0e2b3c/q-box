@@ -51,6 +51,7 @@ export default {
       modeQuestion: "question",
       modeReply: "reply",
       postCount: 0,
+      totalCount: 0,
     };
   },
   methods: {
@@ -59,9 +60,9 @@ export default {
     },
     async loadNewPost($state) {
       const loadPostNumber = 20;
-      await this.$axios
+      const response = await this.$axios
         .$get(
-          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists]&limit=" +
+          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists][and]replyTweetId[exists]&limit=" +
             loadPostNumber +
             "&offset=" +
             this.postCount,
@@ -69,25 +70,29 @@ export default {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
         )
-        .then((response) => {
-          if (this.postCount < response.totalCount) {
-            Common.modifyUrlInPost(response.contents, "answer");
-            this.posts = this.posts.concat(response.contents);
-            this.posts = this.filterPostAnswered(this.posts);
-            this.posts = Common.formatCreatedAt(this.posts);
-            Common.generateImage(document, this.posts, "question");
-            this.setReply();
-            this.postCount += response.contents.length;
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
-        })
         .catch((error) => {
           $state.error();
           alert("通信に失敗しました。：" + error);
           console.log(error);
         });
+      if (this.postCount < response.totalCount) {
+        this.totalCount = response.totalCount;
+        this.postCount += response.contents.length;
+
+        let posts = response.contents;
+
+        Common.modifyUrlInPost(posts, "answer");
+        posts = this.posts.concat(posts);
+        posts = this.filterPostAnswered(posts);
+        Common.generateImage(document, posts, "question");
+        this.posts = Common.formatCreatedAt(posts);
+
+        this.setReply();
+
+        $state.loaded();
+      } else {
+        $state.complete();
+      }
     },
     filterPostAnswered(posts) {
       for (let post of posts) {

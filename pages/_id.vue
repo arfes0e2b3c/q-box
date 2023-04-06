@@ -4,7 +4,18 @@
     <div id="id-container">
       <div class="card-container">
         <div class="primary-post">
-          <p class="created-at" :class="post.state" v-html="post.createdAt"></p>
+          <p
+            class="created-at"
+            :class="post.state"
+            v-html="post.createdAt"
+            v-if="post.state != 'old'"
+          ></p>
+          <p
+            class="created-at"
+            :class="post.state"
+            v-html="'過去の質問'"
+            　v-if="post.state == 'old'"
+          ></p>
           <canvas :id="post.id"></canvas>
           <p v-html="post.answer" class="answer"></p>
         </div>
@@ -21,6 +32,7 @@
           :contentId="post.id"
           :replyIds="replyIds"
           :show="true"
+          v-if="post.state !== 'old'"
         />
       </div>
       <SharedSendSentence
@@ -220,6 +232,10 @@ export default {
         background-color: rgb(255, 222, 103);
         border: 2px solid rgba(205, 172, 53, 0.7);
         color: #333;
+      }
+      .old {
+        background-color: rgb(255, 141, 198);
+        border: 2px solid rgba(205, 91, 148, 0.7);
       }
       .answer {
         width: 80%;

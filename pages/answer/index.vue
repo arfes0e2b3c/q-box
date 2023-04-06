@@ -27,6 +27,7 @@ export default {
   methods: {
     changeShowMode() {
       this.showModeNumber++;
+      this.$store.commit("setIsReplyPage", this.showModeNumber % 2 === 1);
     },
     toQBox() {
       window.open(this.$config.baseUrl, "_blank");
