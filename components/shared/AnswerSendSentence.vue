@@ -20,7 +20,7 @@
         }}</textarea
       >
       <p v-show="getMode === 'answer'">
-        {{ this.sentence.length }}
+        {{ this.sentenceLen }}
       </p>
       <div class="button-container">
         <button
@@ -72,6 +72,17 @@ export default {
         replyForReply: "情報を投稿する",
       },
     };
+  },
+  computed: {
+    sentenceLen() {
+      let count = 0;
+      for (const char of this.sentence) {
+        char.match(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/)
+          ? count++
+          : (count += 1 / 2);
+      }
+      return Math.floor(count);
+    },
   },
   methods: {
     toggle() {
