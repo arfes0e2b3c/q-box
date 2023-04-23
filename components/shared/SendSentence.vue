@@ -17,7 +17,7 @@
       <p v-show="mode === 'answer' || mode === 'replyForReply'">
         {{ this.sentence.length }}
       </p>
-      <button @click="sendSentence()" class="button">
+      <button @click="sendSentence()" class="button" :disabled="isSending">
         {{ this.buttonWord[mode] }}
       </button>
     </div>
@@ -52,6 +52,7 @@ export default {
         reply: "返信する",
         replyForReply: "回答する",
       },
+      isSending: false,
     };
   },
   methods: {
@@ -59,6 +60,7 @@ export default {
       this.show = !this.show;
     },
     async sendSentence() {
+      this.isSending = true;
       if (this.sentence && this.mode === "question") {
         await this.$axios
           .$post(
@@ -128,6 +130,7 @@ export default {
         alert("返信を送信しました。ご協力いただきありがとうございます！");
         this.$router.go({ path: this.$router.currentRoute.path, force: true });
       }
+      this.isSending = false;
     },
   },
 };
