@@ -47,7 +47,7 @@ export default {
     },
     async fetchPostsHasReply() {
       let posts = await this.$axios.$get(
-        "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]",
+        "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]&limit=100",
         {
           headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
         }
@@ -59,6 +59,10 @@ export default {
       posts = this.filterReplyNotAnswered(posts);
       posts = this.filterReplyIsDeleted(posts);
       this.posts = posts;
+
+      this.$store.commit("setIsReplied", posts.length ? true : false);
+
+      return posts;
     },
     filterReplyNotAnswered(posts) {
       posts.map((post) => {
@@ -89,9 +93,8 @@ export default {
       Common.deleteReply(this, id, this.$config);
     },
   },
-  mounted() {
+  async mounted() {
     this.fetchPostsHasReply();
-    this.$store.commit("setIsReplied", this.posts.length ? true : false);
   },
 };
 </script>

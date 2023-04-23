@@ -3,15 +3,23 @@
     <div
       v-show="getShow"
       class="sentence-box"
-      :class="{ boxHeightInPosts: getMode === 'reply' }"
+      :class="{
+        boxHeightInPosts: getMode === 'reply',
+        replyForReply: getMode === 'replyForReply',
+      }"
     >
       <h3 v-show="getMode === 'question'">質問する</h3>
       <textarea
         :placeholder="this.textareaWord[mode]"
         v-model="sentence"
         autocomplete="off"
-      ></textarea>
-      <p v-show="getMode === 'answer' || getMode === 'replyForReply'">
+        v-if="getMode !== 'replyForReply'"
+        value=""
+        >{{
+          getMode === "replyForReply" ? "ありがとうございます" : ""
+        }}</textarea
+      >
+      <p v-show="getMode === 'answer'">
         {{ this.sentence.length }}
       </p>
       <div class="button-container">
@@ -61,7 +69,7 @@ export default {
         question: "質問する",
         answer: "回答",
         reply: "返信する",
-        replyForReply: "回答する",
+        replyForReply: "情報を投稿する",
       },
     };
   },
@@ -70,33 +78,31 @@ export default {
       this.getShow = !this.getShow;
     },
     async sendSentence(state) {
-      if (this.sentence) {
-        if (this.getMode === "answer") {
-          await this.postTweet(
-            this.sentence,
-            this.getContentId,
-            "tweet",
-            "answer",
-            state
-          );
-          this.$router.go({
-            path: this.$router.currentRoute.path,
-            force: true,
-          });
-        } else if (this.getMode === "replyForReply") {
-          await this.postTweet(
-            "【提供していただいた情報】\n\n" + this.getReplySentence,
-            this.getReplyTweetId,
-            "reply",
-            "replyForReply",
-            state
-          );
-          this.$router.go({
-            path: this.$router.currentRoute.path,
-            force: true,
-          });
-          this.$emit("setReply");
-        }
+      if (this.getMode === "answer" && this.sentence) {
+        await this.postTweet(
+          this.sentence,
+          this.getContentId,
+          "tweet",
+          "answer",
+          state
+        );
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true,
+        });
+      } else if (this.getMode === "replyForReply") {
+        await this.postTweet(
+          "【提供していただいた情報】\n\n" + this.getReplySentence,
+          this.getReplyTweetId,
+          "reply",
+          "replyForReply",
+          state
+        );
+        this.$router.go({
+          path: this.$router.currentRoute.path,
+          force: true,
+        });
+        this.$emit("setReply");
       }
     },
     async postTweet(answer, id, mode, sendSentenceMode, state) {
@@ -224,7 +230,7 @@ export default {
         .$patch(
           "https://q-box.microcms.io/api/v1/q_box_replies/" + this.getContentId,
           {
-            replyAnswer: this.sentence,
+            replyAnswer: "this.sentence",
           },
           {
             headers: {
@@ -313,6 +319,9 @@ export default {
     }
   }
 }
+.sentence-box.replyForReply {
+  height: 54px;
+}
 .boxHeightInPosts {
   height: 114px;
 }
@@ -324,6 +333,33 @@ export default {
     &-to {
       opacity: 1;
       height: 120px;
+      padding-top: 20px;
+    }
+    &-active {
+      transition: 0.5s;
+    }
+  }
+  &-leave {
+    opacity: 1;
+    padding-top: 20px;
+    &-to {
+      opacity: 0;
+      height: 0;
+      padding-top: 0;
+    }
+    &-active {
+      transition: 0.5s;
+    }
+  }
+}
+.v:has(.replyForReply) {
+  &-enter {
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    &-to {
+      opacity: 1;
+      height: 540px;
       padding-top: 20px;
     }
     &-active {

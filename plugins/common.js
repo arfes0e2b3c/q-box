@@ -51,13 +51,10 @@ export default {
         image.src = require("~/assets/img/answered.png");
       }
       image.onload = function () {
-        //画像ロードが完了してからキャンバスの準備をする
         let canvas = document.getElementById(post.id);
         let ctx = canvas.getContext("2d");
-        //キャンバスのサイズを画像サイズに合わせる
         canvas.width = 600;
         canvas.height = 315;
-        //キャンバスに画像を描画（開始位置0,0）
         let text = post[mode];
         let column = [""];
         let line = 0;

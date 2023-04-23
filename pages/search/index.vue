@@ -35,13 +35,7 @@
             class="secondary-post"
           >
             <canvas :id="reply.id"></canvas>
-            <!-- <p v-html="reply.replyAnswer">{{ reply.replyAnswer }}</p> -->
           </div>
-          <!-- <SharedSendSentence
-            :mode="modeReply"
-            :contentId="post.id"
-            :show="true"
-          /> -->
         </li>
       </ul>
       <no-ssr>
@@ -90,7 +84,7 @@ export default {
       canvas: null,
       ctx: null,
       image: null,
-      postCount: 5,
+      postCount: 0,
       state: null,
       title: "",
     };
@@ -135,32 +129,6 @@ export default {
           console.log(error);
         });
     },
-    async getPost(word) {
-      this.keyword = word;
-      if (this.state) {
-        this.state.reset();
-      }
-      this.setTitle(word);
-      await this.$axios
-        .$get(
-          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[exists][and](question[contains]" +
-            word +
-            "[or]answer[contains]" +
-            word +
-            ")&limit=10",
-          {
-            headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
-          }
-        )
-        .then((response) => {
-          this.posts = response.contents;
-          this.posts = this.filterPostAnswered(this.posts);
-          this.posts = Common.formatCreatedAt(this.posts);
-          Common.generateImage(document, response.contents, "question");
-          this.setReply();
-          Common.modifyUrlInPost(this.posts, "answer");
-        });
-    },
     filterPostAnswered(posts) {
       for (let post of posts) {
         post.replies = post.replies.filter((reply) => {
@@ -188,7 +156,7 @@ export default {
   },
   mounted() {
     this.keyword = this.$route.query.keyword;
-    this.getPost(this.keyword);
+    this.setTitle(this.keyword);
   },
 };
 </script>
@@ -276,6 +244,7 @@ ul {
     }
     .secondary-post {
       width: 60%;
+      margin: 5px auto;
       text-align: center;
     }
   }

@@ -48,7 +48,7 @@ export default {
     async getPosts() {
       await this.$axios
         .$get(
-          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt&limit=20",
+          "https://q-box.microcms.io/api/v1/q_box_posts?filters=answer[not_exists]&orders=createdAt&limit=100",
           {
             headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
           }
