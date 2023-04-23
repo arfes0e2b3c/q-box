@@ -43,7 +43,7 @@ export default {
       textareaWord: {
         question: "質問を入力する",
         answer: "この質問への回答を入力する",
-        reply: "ご意見や情報など頂けますと幸いです！",
+        reply: "この質問に関する情報提供を頂けますと幸いです！",
         replyForReply: "この返信への回答を入力する",
       },
       buttonWord: {
