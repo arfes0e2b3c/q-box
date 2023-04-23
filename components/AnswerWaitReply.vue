@@ -59,6 +59,10 @@ export default {
       posts = this.filterReplyNotAnswered(posts);
       posts = this.filterReplyIsDeleted(posts);
       this.posts = posts;
+
+      this.$store.commit("setIsReplied", posts.length ? true : false);
+
+      return posts;
     },
     filterReplyNotAnswered(posts) {
       posts.map((post) => {
@@ -89,9 +93,8 @@ export default {
       Common.deleteReply(this, id, this.$config);
     },
   },
-  mounted() {
+  async mounted() {
     this.fetchPostsHasReply();
-    this.$store.commit("setIsReplied", this.posts.length ? true : false);
   },
 };
 </script>
