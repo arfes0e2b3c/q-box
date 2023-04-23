@@ -47,7 +47,7 @@ export default {
     },
     async fetchPostsHasReply() {
       let posts = await this.$axios.$get(
-        "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]",
+        "https://q-box.microcms.io/api/v1/q_box_posts?filters=replies[exists]&limit=100",
         {
           headers: { "X-MICROCMS-API-KEY": this.$config.microCmsKey },
         }
