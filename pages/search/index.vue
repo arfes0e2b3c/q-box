@@ -35,13 +35,7 @@
             class="secondary-post"
           >
             <canvas :id="reply.id"></canvas>
-            <!-- <p v-html="reply.replyAnswer">{{ reply.replyAnswer }}</p> -->
           </div>
-          <!-- <SharedSendSentence
-            :mode="modeReply"
-            :contentId="post.id"
-            :show="true"
-          /> -->
         </li>
       </ul>
       <no-ssr>
