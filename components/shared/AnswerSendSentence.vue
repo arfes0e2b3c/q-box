@@ -14,13 +14,36 @@
         v-model="sentence"
         autocomplete="off"
         v-if="getMode !== 'replyForReply'"
-        value=""
+        :class="{
+          alertFirst: sentenceLen > $TWEET_LIMIT_CHARS_INCLUDE_URL,
+          alertSecond:
+            sentenceLen > $TWEET_LIMIT_CHARS_INCLUDE_URL + $TWEET_LIMIT_CHARS,
+        }"
         >{{
           getMode === "replyForReply" ? "ありがとうございます" : ""
         }}</textarea
       >
       <p v-show="getMode === 'answer'">
         {{ this.sentenceLen }}
+        <span
+          class="red"
+          v-if="
+            sentenceLen > $TWEET_LIMIT_CHARS_INCLUDE_URL &&
+            sentenceLen < $TWEET_LIMIT_CHARS_INCLUDE_URL + $TWEET_LIMIT_CHARS
+          "
+          >：{{
+            this.$TWEET_LIMIT_CHARS_INCLUDE_URL + 1
+          }}文字目からは分割されます。</span
+        >
+        <span
+          class="blue"
+          v-if="
+            sentenceLen > $TWEET_LIMIT_CHARS_INCLUDE_URL + $TWEET_LIMIT_CHARS
+          "
+          >：{{
+            this.$TWEET_LIMIT_CHARS_INCLUDE_URL + this.$TWEET_LIMIT_CHARS
+          }}文字目からは更に分割されます。</span
+        >
       </p>
       <div class="button-container">
         <button
@@ -299,6 +322,18 @@ export default {
     border-color: rgba(0, 0, 0, 0.15);
     border-width: 2px;
     border-radius: 10px;
+  }
+  .alertFirst {
+    color: red;
+  }
+  .alertSecond {
+    color: blue;
+  }
+  .red {
+    color: red;
+  }
+  .blue {
+    color: blue;
   }
   .button-container {
     display: flex;
