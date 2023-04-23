@@ -39,8 +39,19 @@
         class="send-sentence"
         :mode="modeQuestion"
         :show="true"
+        id="question-send-sentence"
       />
       <SharedFooter />
+    </div>
+    <div
+      class="question-button"
+      v-scroll-to="{
+        element: '#question-send-sentence',
+        offset: 0,
+        duration: 500,
+      }"
+    >
+      <img src="~/assets/img/question.svg" alt="" />
     </div>
   </div>
 </template>
@@ -259,6 +270,9 @@ export default {
   width: 60%;
   transition: 0s;
 }
+.question-button {
+  display: none;
+}
 .v {
   &-enter {
     opacity: 0;
@@ -296,6 +310,25 @@ export default {
       .secondary-post {
         width: 75%;
       }
+    }
+  }
+  .question-button {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 2.2em;
+    img {
+      width: 40px;
+      margin: 15px;
     }
   }
 }
