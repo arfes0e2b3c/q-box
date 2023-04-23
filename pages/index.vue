@@ -112,7 +112,7 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 2.2em;

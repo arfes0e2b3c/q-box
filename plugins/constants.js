@@ -1,0 +1,7 @@
+const TWEET_LIMIT_CHARS_INCLUDE_URL = 115;
+const TWEET_LIMIT_CHARS = 140;
+
+export default (context, inject) => {
+  inject("TWEET_LIMIT_CHARS_INCLUDE_URL", TWEET_LIMIT_CHARS_INCLUDE_URL);
+  inject("TWEET_LIMIT_CHARS", TWEET_LIMIT_CHARS);
+};

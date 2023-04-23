@@ -11,10 +11,13 @@
         v-model="sentence"
         autocomplete="off"
       ></textarea>
+      <p v-if="mode === 'question'" class="question-message">
+        正確な回答のため、学部と学年の併記をお願いします！
+      </p>
       <p v-show="mode === 'answer' || mode === 'replyForReply'">
         {{ this.sentence.length }}
       </p>
-      <button @click="sendSentence()" class="button">
+      <button @click="sendSentence()" class="button" :disabled="isSending">
         {{ this.buttonWord[mode] }}
       </button>
     </div>
@@ -40,7 +43,7 @@ export default {
       textareaWord: {
         question: "質問を入力する",
         answer: "この質問への回答を入力する",
-        reply: "ご意見や情報など頂けますと幸いです！",
+        reply: "この質問に関する情報提供を頂けますと幸いです！",
         replyForReply: "この返信への回答を入力する",
       },
       buttonWord: {
@@ -49,6 +52,7 @@ export default {
         reply: "返信する",
         replyForReply: "回答する",
       },
+      isSending: false,
     };
   },
   methods: {
@@ -56,6 +60,7 @@ export default {
       this.show = !this.show;
     },
     async sendSentence() {
+      this.isSending = true;
       if (this.sentence && this.mode === "question") {
         await this.$axios
           .$post(
@@ -125,6 +130,7 @@ export default {
         alert("返信を送信しました。ご協力いただきありがとうございます！");
         this.$router.go({ path: this.$router.currentRoute.path, force: true });
       }
+      this.isSending = false;
     },
   },
 };
@@ -159,6 +165,10 @@ export default {
     &:focus {
       border-color: rgba(0, 0, 0, 0.5);
     }
+  }
+  .question-message {
+    margin-top: 10px;
+    font-weight: bold;
   }
   button {
     width: 100px;
@@ -217,6 +227,9 @@ export default {
     textarea {
       width: calc(90% - 40px);
       padding: 20px 10px;
+    }
+    .question-message {
+      font-size: 14px;
     }
   }
   .boxHeightInPosts {
