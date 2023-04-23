@@ -11,6 +11,9 @@
         v-model="sentence"
         autocomplete="off"
       ></textarea>
+      <p v-if="mode === 'question'" class="question-message">
+        正確な回答のため、学部と学年の併記をお願いします！
+      </p>
       <p v-show="mode === 'answer' || mode === 'replyForReply'">
         {{ this.sentence.length }}
       </p>
@@ -160,6 +163,10 @@ export default {
       border-color: rgba(0, 0, 0, 0.5);
     }
   }
+  .question-message {
+    margin-top: 10px;
+    font-weight: bold;
+  }
   button {
     width: 100px;
     height: 40px;
@@ -217,6 +224,9 @@ export default {
     textarea {
       width: calc(90% - 40px);
       padding: 20px 10px;
+    }
+    .question-message {
+      font-size: 14px;
     }
   }
   .boxHeightInPosts {
